@@ -28,7 +28,7 @@ import pandas as pd
 from app.common.logger import get_logger
 from app.core.config import Settings, get_settings
 from app.datasets.cache import ResultCache
-from app.datasets.csv_reader import CsvDecodeError, CsvParseError, read_csv
+from app.datasets.csv_reader import CsvDecodeError, CsvParseError, CsvReadResult, read_csv
 from app.datasets.models import DatasetRecord
 from app.datasets.store import DatasetStore, sha256_of
 from app.models.master_intelligence_result import MasterIntelligenceResult
@@ -90,7 +90,11 @@ class DatasetService:
     # -- validation ---------------------------------------------------------
 
     def parse_csv(self, payload: bytes, filename: str) -> pd.DataFrame:
-        """Validate and parse uploaded bytes into a DataFrame.
+        """Validate and parse uploaded bytes into a DataFrame."""
+        return self.read_source_csv(payload, filename).dataframe
+
+    def read_source_csv(self, payload: bytes, filename: str) -> CsvReadResult:
+        """Validate and parse uploaded bytes, keeping how they were decoded.
 
         Raises ``InvalidDatasetError`` with a client-safe message on any problem.
         """
@@ -112,16 +116,16 @@ class DatasetService:
         # writes cp1252, "CSV UTF-8" adds a BOM, and a European locale separates
         # with semicolons -- all of which a plain read_csv rejects outright.
         try:
-            df = read_csv(payload).dataframe
+            parsed = read_csv(payload)
         except (CsvDecodeError, CsvParseError) as exc:
             raise InvalidDatasetError(str(exc)) from exc
 
-        if df.empty or len(df.columns) == 0:
+        if parsed.dataframe.empty or len(parsed.dataframe.columns) == 0:
             raise InvalidDatasetError(
                 "The CSV file must contain at least one column with valid data rows."
             )
 
-        return df
+        return parsed
 
     # -- registration -------------------------------------------------------
 
@@ -134,7 +138,8 @@ class DatasetService:
         registered, the existing dataset is returned instead of paying for a
         duplicate pipeline run and a second copy on disk.
         """
-        df = self.parse_csv(payload, filename)
+        parsed = self.read_source_csv(payload, filename)
+        df = parsed.dataframe
 
         if reuse_identical:
             existing = self._store.find_by_content_hash(sha256_of(payload))
@@ -161,6 +166,8 @@ class DatasetService:
             quality_grade=quality.grade.value if quality else "N/A",
             quality_score=float(quality.overall_score) if quality else 0.0,
             quality_issues_count=int(quality.total_issues_count) if quality else 0,
+            source_encoding=parsed.encoding,
+            source_delimiter=parsed.delimiter,
         )
 
         self._cache.put(record.dataset_id, execution)

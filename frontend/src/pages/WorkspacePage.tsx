@@ -22,8 +22,14 @@ import { ExportCenterView } from '../features/export/components/ExportCenterView
 
 export const WorkspacePage: React.FC = () => {
   const navigate = useNavigate();
-  const { currentDatasetName, intelligenceResult, datasetId, status, restoreFromDatasetId } =
-    useAnalysisStore();
+  const {
+    currentDatasetName,
+    intelligenceResult,
+    datasetRecord,
+    datasetId,
+    status,
+    restoreFromDatasetId,
+  } = useAnalysisStore();
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
   // A page refresh clears the in-memory analysis but the dataset id is persisted,
@@ -98,7 +104,16 @@ export const WorkspacePage: React.FC = () => {
     <PageContainer>
       <PageHeader
         title={`${dataset_profile.detected_domain.toUpperCase()} Workspace`}
-        description={`Executive intelligence for ${currentDatasetName} (${dataset_profile.total_rows} rows, ${dataset_profile.total_columns} columns). Quality Grade: ${quality_report?.grade || 'A'}.`}
+        description={
+          `Executive intelligence for ${currentDatasetName} ` +
+          `(${dataset_profile.total_rows} rows, ${dataset_profile.total_columns} columns). ` +
+          `Quality Grade: ${quality_report?.grade || 'A'}.` +
+          // Only mentioned when the file was not plain UTF-8 with commas. If
+          // characters look wrong, this is the first thing to check.
+          (datasetRecord && !datasetRecord.read_with_defaults
+            ? ` Read as ${datasetRecord.source_format}.`
+            : '')
+        }
         action={
           <Button variant="secondary" onClick={() => navigate('/')} leftIcon={<FileText className="w-4 h-4" />}>
             Upload Another Dataset

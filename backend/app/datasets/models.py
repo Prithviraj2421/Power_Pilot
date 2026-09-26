@@ -30,6 +30,23 @@ class DatasetRecord:
     quality_issues_count: int
     created_at: str
     last_accessed_at: str
+    # How the upload was actually read. Worth surfacing: if a file came through as
+    # cp1252 and some characters look wrong, this is the first thing to check.
+    source_encoding: str = "utf-8"
+    source_delimiter: str = ","
+
+    @property
+    def source_format(self) -> str:
+        """Human-readable description of how the upload was decoded and split."""
+        delimiter_name = {",": "comma", ";": "semicolon", "\t": "tab", "|": "pipe"}.get(
+            self.source_delimiter, repr(self.source_delimiter)
+        )
+        return f"{self.source_encoding}, {delimiter_name}-separated"
+
+    @property
+    def read_with_defaults(self) -> bool:
+        """True when the file was plain UTF-8 with commas, i.e. nothing to mention."""
+        return self.source_encoding == "utf-8" and self.source_delimiter == ","
 
     def to_dict(self) -> dict[str, Any]:
         """JSON-serializable view for API responses.
@@ -53,4 +70,8 @@ class DatasetRecord:
             "quality_issues_count": self.quality_issues_count,
             "created_at": self.created_at,
             "last_accessed_at": self.last_accessed_at,
+            "source_encoding": self.source_encoding,
+            "source_delimiter": self.source_delimiter,
+            "source_format": self.source_format,
+            "read_with_defaults": self.read_with_defaults,
         }

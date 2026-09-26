@@ -298,3 +298,60 @@ def test_cache_stats_are_reported(
     stats = dataset_service.cache_stats()
     assert stats["hits"] >= 1
     assert stats["entries"] == 1
+
+
+# ---------------------------------------------------------------------------
+# Source format is recorded on the dataset
+# ---------------------------------------------------------------------------
+
+
+def test_utf8_comma_upload_is_recorded_as_defaults(
+    dataset_service: DatasetService, retail_csv_bytes: bytes
+) -> None:
+    analysis = dataset_service.register(retail_csv_bytes, "retail.csv")
+
+    assert analysis.record.source_encoding == "utf-8"
+    assert analysis.record.source_delimiter == ","
+    assert analysis.record.read_with_defaults is True
+
+
+def test_semicolon_upload_records_the_delimiter(
+    dataset_service: DatasetService, retail_df: pd.DataFrame
+) -> None:
+    """Semicolon separation is what European Excel produces."""
+    text = retail_df.to_csv(index=False).replace(",", ";")
+    analysis = dataset_service.register(text.encode("utf-8"), "euro_retail.csv")
+
+    assert analysis.record.source_delimiter == ";"
+    assert analysis.record.read_with_defaults is False
+    assert analysis.record.source_format == "utf-8, semicolon-separated"
+    # The point of recording it: the data still parsed into real columns.
+    assert analysis.record.total_columns == len(retail_df.columns)
+
+
+def test_cp1252_upload_records_the_encoding(dataset_service: DatasetService) -> None:
+    """Encoding is only detectable once a byte differs from ASCII.
+
+    A pure-ASCII file encoded as cp1252 is byte-identical to UTF-8, so it is
+    correctly reported as utf-8 -- there is nothing to distinguish. The accented
+    characters here are what make the difference observable, and are also the only
+    case where getting the encoding wrong would corrupt the data.
+    """
+    text = "region;revenue\nMünchen;120\nOrléans;90\n"
+    analysis = dataset_service.register(text.encode("cp1252"), "euro.csv")
+
+    assert analysis.record.source_encoding == "cp1252"
+    assert analysis.record.source_delimiter == ";"
+    assert analysis.record.source_format == "cp1252, semicolon-separated"
+    assert "München" in analysis.cleaned_dataframe["region"].tolist()
+
+
+def test_bom_upload_records_the_bom_encoding(
+    dataset_service: DatasetService, retail_df: pd.DataFrame
+) -> None:
+    payload = retail_df.to_csv(index=False).encode("utf-8-sig")
+    analysis = dataset_service.register(payload, "bom_retail.csv")
+
+    assert analysis.record.source_encoding == "utf-8-sig"
+    assert analysis.record.read_with_defaults is False
+    assert list(analysis.cleaned_dataframe.columns)[0] == retail_df.columns[0]

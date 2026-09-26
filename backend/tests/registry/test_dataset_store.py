@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import sqlite3
 from pathlib import Path
 
 import pytest
@@ -180,3 +181,97 @@ def test_record_to_dict_hides_server_path_and_derives_rows_removed(store: Datase
     assert payload["rows_removed_by_cleaning"] == 1
     assert payload["original_rows"] == 61
     assert payload["total_rows"] == 60
+
+
+# ---------------------------------------------------------------------------
+# Source format recording and schema migration
+# ---------------------------------------------------------------------------
+
+
+def test_source_format_defaults_to_utf8_comma(store: DatasetStore) -> None:
+    record = _insert(store)
+
+    assert record.source_encoding == "utf-8"
+    assert record.source_delimiter == ","
+    assert record.read_with_defaults is True
+    assert record.source_format == "utf-8, comma-separated"
+
+
+def test_source_format_is_persisted_and_read_back(store: DatasetStore) -> None:
+    record = store.insert(
+        filename="euro.csv",
+        payload=PAYLOAD,
+        original_rows=2,
+        total_rows=2,
+        total_columns=2,
+        detected_domain="retail",
+        domain_confidence=0.8,
+        quality_grade="A",
+        quality_score=90.0,
+        quality_issues_count=1,
+        source_encoding="cp1252",
+        source_delimiter=";",
+    )
+
+    fetched = store.get(record.dataset_id)
+    assert fetched is not None
+    assert fetched.source_encoding == "cp1252"
+    assert fetched.source_delimiter == ";"
+    assert fetched.read_with_defaults is False
+    assert fetched.source_format == "cp1252, semicolon-separated"
+    assert fetched.to_dict()["source_format"] == "cp1252, semicolon-separated"
+
+
+def test_existing_database_is_migrated_in_place(tmp_path: Path) -> None:
+    """CREATE TABLE IF NOT EXISTS does nothing to an existing table.
+
+    Without an explicit migration, upgrading against a registry created before
+    these columns existed fails every query with "no such column".
+    """
+    db_path = tmp_path / "legacy.sqlite3"
+    datasets_dir = tmp_path / "datasets"
+    datasets_dir.mkdir()
+
+    # Build the pre-migration schema by hand, then insert a row into it.
+    legacy = sqlite3.connect(db_path)
+    legacy.execute(
+        """
+        CREATE TABLE datasets (
+            dataset_id TEXT PRIMARY KEY, filename TEXT NOT NULL,
+            stored_path TEXT NOT NULL, size_bytes INTEGER NOT NULL,
+            content_sha256 TEXT NOT NULL, original_rows INTEGER NOT NULL,
+            total_rows INTEGER NOT NULL, total_columns INTEGER NOT NULL,
+            detected_domain TEXT NOT NULL, domain_confidence REAL NOT NULL,
+            quality_grade TEXT NOT NULL, quality_score REAL NOT NULL,
+            quality_issues_count INTEGER NOT NULL, created_at TEXT NOT NULL,
+            last_accessed_at TEXT NOT NULL
+        )
+        """
+    )
+    legacy.execute(
+        "INSERT INTO datasets VALUES "
+        "('old-1','legacy.csv','/tmp/old.csv',10,'hash',5,5,2,'retail',0.7,'B',80.0,2,"
+        "'2026-01-01T00:00:00+00:00','2026-01-01T00:00:00+00:00')"
+    )
+    legacy.commit()
+    legacy.close()
+
+    store = DatasetStore(db_path=db_path, datasets_dir=datasets_dir)
+
+    migrated = store.get("old-1")
+    assert migrated is not None, "the pre-existing row must survive the migration"
+    assert migrated.filename == "legacy.csv"
+    assert migrated.source_encoding == "utf-8", "back-filled with the documented default"
+    assert migrated.source_delimiter == ","
+
+
+def test_migration_is_idempotent(tmp_path: Path) -> None:
+    db_path = tmp_path / "registry.sqlite3"
+    datasets_dir = tmp_path / "datasets"
+
+    first = DatasetStore(db_path=db_path, datasets_dir=datasets_dir)
+    record = _insert(first)
+
+    # Re-opening must not fail on already-present columns.
+    second = DatasetStore(db_path=db_path, datasets_dir=datasets_dir)
+    assert second.get(record.dataset_id) is not None

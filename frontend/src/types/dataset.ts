@@ -56,6 +56,12 @@ export interface DatasetRecord {
   quality_issues_count: number;
   created_at: string;
   last_accessed_at: string;
+  /** How the upload was decoded and split, e.g. "cp1252, semicolon-separated". */
+  source_encoding: string;
+  source_delimiter: string;
+  source_format: string;
+  /** True when the file was plain UTF-8 with commas, i.e. nothing worth saying. */
+  read_with_defaults: boolean;
 }
 
 export interface AnalyzeCsvApiResponse {

@@ -41,7 +41,9 @@ CREATE TABLE IF NOT EXISTS datasets (
     quality_score        REAL    NOT NULL,
     quality_issues_count INTEGER NOT NULL,
     created_at           TEXT    NOT NULL,
-    last_accessed_at     TEXT    NOT NULL
+    last_accessed_at     TEXT    NOT NULL,
+    source_encoding      TEXT    NOT NULL DEFAULT 'utf-8',
+    source_delimiter     TEXT    NOT NULL DEFAULT ','
 );
 CREATE INDEX IF NOT EXISTS idx_datasets_sha      ON datasets (content_sha256);
 CREATE INDEX IF NOT EXISTS idx_datasets_accessed ON datasets (last_accessed_at DESC);
@@ -51,7 +53,15 @@ CREATE INDEX IF NOT EXISTS idx_datasets_created  ON datasets (created_at DESC);
 _COLUMNS = (
     "dataset_id, filename, stored_path, size_bytes, content_sha256, "
     "original_rows, total_rows, total_columns, detected_domain, domain_confidence, "
-    "quality_grade, quality_score, quality_issues_count, created_at, last_accessed_at"
+    "quality_grade, quality_score, quality_issues_count, created_at, last_accessed_at, "
+    "source_encoding, source_delimiter"
+)
+
+# Columns added after the first release. CREATE TABLE IF NOT EXISTS does not alter
+# an existing table, so a database created before these existed needs them added.
+_ADDED_COLUMNS: tuple[tuple[str, str], ...] = (
+    ("source_encoding", "TEXT NOT NULL DEFAULT 'utf-8'"),
+    ("source_delimiter", "TEXT NOT NULL DEFAULT ','"),
 )
 
 
@@ -94,7 +104,24 @@ class DatasetStore:
     def _initialize_schema(self) -> None:
         with self._connect() as connection:
             connection.executescript(_SCHEMA)
+            self._apply_column_migrations(connection)
         logger.info(f"Dataset registry ready at {self._db_path}")
+
+    @staticmethod
+    def _apply_column_migrations(connection: sqlite3.Connection) -> None:
+        """Add columns introduced after a database was first created.
+
+        Without this, upgrading against an existing registry fails every query with
+        "no such column" -- CREATE TABLE IF NOT EXISTS silently does nothing when
+        the table already exists.
+        """
+        existing = {
+            row["name"] for row in connection.execute("PRAGMA table_info(datasets)")
+        }
+        for column, definition in _ADDED_COLUMNS:
+            if column not in existing:
+                connection.execute(f"ALTER TABLE datasets ADD COLUMN {column} {definition}")
+                logger.info(f"Migrated dataset registry: added column '{column}'")
 
     @staticmethod
     def _to_record(row: sqlite3.Row) -> DatasetRecord:
@@ -122,6 +149,8 @@ class DatasetStore:
         quality_score: float,
         quality_issues_count: int,
         dataset_id: Optional[str] = None,
+        source_encoding: str = "utf-8",
+        source_delimiter: str = ",",
     ) -> DatasetRecord:
         """Register a dataset, writing its source bytes and metadata row."""
         dataset_id = dataset_id or uuid.uuid4().hex
@@ -144,9 +173,11 @@ class DatasetStore:
             quality_issues_count=quality_issues_count,
             created_at=now,
             last_accessed_at=now,
+            source_encoding=source_encoding,
+            source_delimiter=source_delimiter,
         )
 
-        placeholders = ", ".join(["?"] * 15)
+        placeholders = ", ".join(["?"] * 17)
         with self._connect() as connection:
             connection.execute(
                 f"INSERT INTO datasets ({_COLUMNS}) VALUES ({placeholders})",
@@ -166,6 +197,8 @@ class DatasetStore:
                     record.quality_issues_count,
                     record.created_at,
                     record.last_accessed_at,
+                    record.source_encoding,
+                    record.source_delimiter,
                 ),
             )
 

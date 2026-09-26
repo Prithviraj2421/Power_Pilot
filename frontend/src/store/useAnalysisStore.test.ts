@@ -22,6 +22,10 @@ const record: DatasetRecord = {
   quality_issues_count: 8,
   created_at: '2026-01-01T00:00:00Z',
   last_accessed_at: '2026-01-01T00:00:00Z',
+  source_encoding: 'utf-8',
+  source_delimiter: ',',
+  source_format: 'utf-8, comma-separated',
+  read_with_defaults: true,
 };
 
 const result = {
