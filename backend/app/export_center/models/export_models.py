@@ -2,6 +2,8 @@ from dataclasses import dataclass, field
 from enum import Enum
 from typing import Any, Optional
 
+from app.common.metric_filter import SmartMetricFilter
+
 
 class ExportFormat(str, Enum):
     CLEANED_CSV = "CLEANED_CSV"
@@ -87,23 +89,17 @@ class EmailDistributionPayload:
     branding: BrandingConfig = field(default_factory=BrandingConfig)
 
 
-class SmartMetricFilter:
-    """
-    Utility filtering out technical identifiers (IDs, primary keys, serial numbers)
-    so executive reports prioritize high-impact business metrics.
-    """
-
-    ID_KEYWORDS = {"id", "uuid", "pk", "key", "number", "serial", "code", "index", "row_num"}
-
-    @classmethod
-    def is_identifier_column(cls, col_name: str) -> bool:
-        clean = col_name.lower().strip()
-        if clean in cls.ID_KEYWORDS:
-            return True
-        if any(clean.endswith(f"_{kw}") or clean.startswith(f"{kw}_") for kw in ("id", "uuid", "pk", "key", "num")):
-            return True
-        return False
-
-    @classmethod
-    def filter_business_columns(cls, col_names: list[str]) -> list[str]:
-        return [c for c in col_names if not cls.is_identifier_column(c)]
+# SmartMetricFilter moved to app.common.metric_filter so the intelligence engines
+# can share it without app.intelligence depending on app.export_center. Re-exported
+# here so existing importers keep working.
+__all__ = [
+    "BrandingConfig",
+    "BusinessRuleResult",
+    "CleaningAuditEntry",
+    "EmailDistributionPayload",
+    "ExportFormat",
+    "ExportHistoryEntry",
+    "PageBudgetConfig",
+    "ReportTheme",
+    "SmartMetricFilter",
+]

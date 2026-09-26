@@ -1,18 +1,21 @@
 import React from 'react';
 import { Sparkles } from 'lucide-react';
-import { Chip } from '../../../components/ui/Chip';
 
 export interface CopilotQuickPromptsProps {
   onSelectPrompt: (prompt: string) => void;
   disabled?: boolean;
 }
 
+/**
+ * Prompts chosen to match the intents the backend CopilotEngine actually routes:
+ * decline/why, breakdown by dimension, management actions, and KPI/DAX questions.
+ */
 const QUICK_PROMPTS = [
-  "Why did profit decrease?",
-  "Show sales by region.",
-  "What should management do?",
-  "Which KPIs are failing benchmarks?",
-  "Give me an executive briefing summary.",
+  'Why did profit decrease?',
+  'Show sales by region.',
+  'What should management do?',
+  'Which KPIs are failing benchmarks?',
+  'Give me an executive briefing summary.',
 ];
 
 export const CopilotQuickPrompts: React.FC<CopilotQuickPromptsProps> = ({

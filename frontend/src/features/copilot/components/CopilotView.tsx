@@ -1,262 +1,268 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Sparkles,
-  Send,
-  Bot,
-  User,
-  ShieldCheck,
-  Code,
-  Target,
-  ArrowRight,
-  ChevronDown,
-  ChevronRight,
-  Database,
-} from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { AlertCircle, Bot, Database, Send, Sparkles } from 'lucide-react';
 import { Card } from '../../../components/ui/Card';
 import { Button } from '../../../components/ui/Button';
 import { Badge } from '../../../components/ui/Badge';
+import { EmptyState } from '../../../components/ui/EmptyState';
 import { useAnalysisStore } from '../../../store/useAnalysisStore';
+import { CopilotService } from '../../../services/copilotService';
+import { CopilotChatMessage, ChatMessage } from './CopilotChatMessage';
+import { CopilotQuickPrompts } from './CopilotQuickPrompts';
 
-export interface CopilotMessage {
-  id: string;
-  sender: 'user' | 'assistant';
-  text: string;
-  timestamp: string;
-  reasoningSteps?: string[];
-  evidence?: { title: string; detail: string }[];
-  suggestedActions?: string[];
-}
-
+/**
+ * AI Copilot.
+ *
+ * Every answer comes from the backend CopilotEngine, which reasons only over the
+ * registered dataset's computed analysis. It has no generative freedom, so it
+ * cannot invent a figure that is not in the data.
+ *
+ * This view previously faked its answers with a setTimeout and hardcoded strings
+ * ("Sales volume correlated +0.88 with regional promotions", "95.8% Grade A+")
+ * that were returned regardless of the dataset. Nothing is fabricated here now:
+ * if the backend cannot answer, the failure is shown rather than papered over.
+ */
 export const CopilotView: React.FC = () => {
-  const { intelligenceResult, currentDatasetName } = useAnalysisStore();
-  const [messages, setMessages] = useState<CopilotMessage[]>([
-    {
-      id: 'msg-1',
-      sender: 'assistant',
-      text: `Hello! I am your PowerPilot AI Copilot grounded directly in dataset **${currentDatasetName || 'Dataset'}**. How can I assist with your executive decision making today?`,
-      timestamp: '12:00 PM',
-      reasoningSteps: [
-        'Analyzed dataset profile and 13 columns',
-        'Verified Stage 1 Data Quality Score (95.8% Grade A+)',
-        'Extracted 6 primary DAX measures and 4 management decision drivers',
-      ],
-      evidence: [
-        { title: 'Quality Gate', detail: 'Purged 0 invalid rows; 100% type consistency' },
-        { title: 'Domain Classifier', detail: 'Classified under RETAIL business domain with 98% confidence' },
-      ],
-      suggestedActions: [
-        'Why did net profit margin increase?',
-        'Export executable DAX measures script',
-        'Distribute Executive PDF Report',
-      ],
-    },
-  ]);
+  const { datasetId, currentDatasetName, intelligenceResult } = useAnalysisStore();
 
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [inputQuery, setInputQuery] = useState('');
-  const [expandedReasoning, setExpandedReasoning] = useState<Record<string, boolean>>({ 'msg-1': true });
+  const [isAsking, setIsAsking] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handleSend = (textToSend?: string) => {
-    const q = textToSend || inputQuery;
-    if (!q.trim()) return;
+  const streamEndRef = useRef<HTMLDivElement>(null);
 
-    const userMsg: CopilotMessage = {
-      id: `user-${Date.now()}`,
-      sender: 'user',
-      text: q,
-      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+  /** Opening message, built from this dataset's real analysis values. */
+  const welcomeMessage = useMemo<ChatMessage | null>(() => {
+    if (!intelligenceResult?.dataset_profile) return null;
+
+    const profile = intelligenceResult.dataset_profile;
+    const quality = intelligenceResult.quality_report;
+    const kpiCount = intelligenceResult.kpi_report?.primary_kpis?.length ?? 0;
+    const decisionCount = intelligenceResult.decision_report?.primary_decisions?.length ?? 0;
+
+    const grounding: string[] = [
+      `${profile.total_rows} rows across ${profile.total_columns} columns`,
+      `Classified as ${profile.detected_domain.toUpperCase()}` +
+        (profile.domain_confidence
+          ? ` at ${(profile.domain_confidence * 100).toFixed(0)}% confidence`
+          : ''),
+    ];
+    if (quality) {
+      grounding.push(
+        `Data quality ${quality.grade} (${quality.overall_score.toFixed(1)}%), ` +
+          `${quality.total_issues_count} issue(s) detected`
+      );
+    }
+    if (kpiCount) grounding.push(`${kpiCount} primary KPI measure(s) available`);
+    if (decisionCount) grounding.push(`${decisionCount} strategic decision(s) available`);
+
+    return {
+      id: 'welcome',
+      sender: 'assistant',
+      content:
+        `I'm grounded in ${currentDatasetName ?? 'this dataset'}. ` +
+        'Ask about data quality, KPIs and DAX measures, relationships, or what to do next. ' +
+        'Every answer is derived from this dataset’s analysis.',
+      evidence: grounding,
+      suggested_followups: [
+        'What are my key KPIs?',
+        'How is the data quality?',
+        'What should management do next?',
+      ],
     };
+  }, [intelligenceResult, currentDatasetName]);
 
-    setMessages((prev) => [...prev, userMsg]);
-    if (!textToSend) setInputQuery('');
+  const visibleMessages = useMemo(
+    () => (welcomeMessage ? [welcomeMessage, ...messages] : messages),
+    [welcomeMessage, messages]
+  );
 
-    // Simulate Cursor AI Assistant Grounded Response
-    setTimeout(() => {
-      const botMsg: CopilotMessage = {
-        id: `bot-${Date.now()}`,
-        sender: 'assistant',
-        text: `Based on deterministic evaluation of **${currentDatasetName || 'Dataset'}**, here is the executive analysis for "${q}":`,
-        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        reasoningSteps: [
-          'Scanned data intelligence correlation matrix',
-          'Evaluated target metrics vs historical benchmarks',
-          'Synthesized actionable management mitigation steps',
-        ],
-        evidence: [
-          { title: 'Statistical Trend', detail: 'Sales volume correlated +0.88 with regional promotions' },
-          { title: 'DAX Formula', detail: 'Total_Revenue = SUM(Sales) executed with zero null errors' },
-        ],
-        suggestedActions: [
-          'Review strategic decision matrix',
-          'Generate executive slide deck',
-        ],
-      };
-      setMessages((prev) => [...prev, botMsg]);
-    }, 600);
+  useEffect(() => {
+    streamEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [visibleMessages.length, isAsking]);
+
+  const handleSend = async (promptOverride?: string) => {
+    const question = (promptOverride ?? inputQuery).trim();
+    if (!question || isAsking) return;
+
+    if (!datasetId) {
+      setErrorMessage('No active dataset. Upload and analyze a CSV first.');
+      return;
+    }
+
+    setMessages((prev) => [
+      ...prev,
+      { id: `user-${Date.now()}`, sender: 'user', content: question },
+    ]);
+    if (!promptOverride) setInputQuery('');
+    setErrorMessage(null);
+    setIsAsking(true);
+
+    try {
+      const response = await CopilotService.askCopilot(datasetId, question);
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: `assistant-${Date.now()}`,
+          sender: 'assistant',
+          content: response.answer,
+          intent: response.intent,
+          evidence: response.evidence,
+          recommended_actions: response.recommended_actions,
+          suggested_followups: response.suggested_followups,
+        },
+      ]);
+    } catch (err) {
+      // Surface the failure instead of inventing an answer.
+      setErrorMessage(
+        err instanceof Error ? err.message : 'The Copilot could not answer that question.'
+      );
+    } finally {
+      setIsAsking(false);
+    }
   };
+
+  if (!datasetId || !intelligenceResult) {
+    return (
+      <div className="max-w-2xl mx-auto py-12">
+        <EmptyState
+          title="No Active Dataset"
+          description="The Copilot answers only from an analyzed dataset's intelligence. Upload and analyze a CSV to start asking questions."
+        />
+      </div>
+    );
+  }
+
+  const quality = intelligenceResult.quality_report;
+  const profile = intelligenceResult.dataset_profile;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
-      {/* Left Chat & Reasoning Canvas */}
+      {/* Conversation */}
       <div className="lg:col-span-3 space-y-4">
         <Card glass className="p-6 min-h-[500px] flex flex-col justify-between">
-          {/* Messages Stream */}
-          <div className="space-y-6 overflow-y-auto max-h-[600px] pr-2">
-            <AnimatePresence initial={false}>
-              {messages.map((msg) => (
-                <motion.div
-                  key={msg.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  {msg.sender === 'assistant' && (
-                    <div className="p-2 bg-primary/20 text-primary rounded-xl h-fit border border-primary/30">
-                      <Bot className="w-5 h-5" />
-                    </div>
-                  )}
+          <div className="overflow-y-auto max-h-[560px] pr-2">
+            {visibleMessages.map((message) => (
+              <CopilotChatMessage
+                key={message.id}
+                message={message}
+                onFollowupClick={(prompt) => void handleSend(prompt)}
+              />
+            ))}
 
-                  <div className={`max-w-2xl space-y-3 ${msg.sender === 'user' ? 'bg-primary text-white p-4 rounded-2xl' : ''}`}>
-                    {msg.sender === 'assistant' ? (
-                      <div className="p-5 bg-surface/90 border border-white/10 rounded-2xl space-y-3 shadow-card">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold text-primary flex items-center gap-1.5">
-                            <Sparkles className="w-3.5 h-3.5" />
-                            Grounded AI Assistant
-                          </span>
-                          <span className="text-[10px] text-gray-500 font-mono">{msg.timestamp}</span>
-                        </div>
+            {isAsking && (
+              <div className="flex items-center gap-3 p-4 text-xs text-gray-400">
+                <div className="p-2 bg-primary/20 text-primary rounded-xl border border-primary/30">
+                  <Bot className="w-4 h-4 animate-pulse" />
+                </div>
+                <span>Querying the dataset&apos;s intelligence…</span>
+              </div>
+            )}
 
-                        <p className="text-sm text-gray-200 leading-relaxed">{msg.text}</p>
+            {errorMessage && (
+              <div
+                role="alert"
+                className="flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-xl"
+              >
+                <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+                <div>
+                  <span className="block text-sm font-semibold text-red-300">
+                    Copilot unavailable
+                  </span>
+                  <span className="block text-xs text-red-200/80 mt-0.5">{errorMessage}</span>
+                </div>
+              </div>
+            )}
 
-                        {/* Reasoning Accordion */}
-                        {msg.reasoningSteps && (
-                          <div className="border border-white/5 rounded-xl overflow-hidden bg-background/50">
-                            <button
-                              onClick={() =>
-                                setExpandedReasoning((prev) => ({ ...prev, [msg.id]: !prev[msg.id] }))
-                              }
-                              className="w-full px-3 py-2 flex items-center justify-between text-xs font-semibold text-gray-400 hover:text-white transition-colors"
-                            >
-                              <span className="flex items-center gap-1.5">
-                                <Database className="w-3.5 h-3.5 text-primary" />
-                                Interactive Reasoning Chain ({msg.reasoningSteps.length} steps)
-                              </span>
-                              {expandedReasoning[msg.id] ? (
-                                <ChevronDown className="w-3.5 h-3.5" />
-                              ) : (
-                                <ChevronRight className="w-3.5 h-3.5" />
-                              )}
-                            </button>
-
-                            {expandedReasoning[msg.id] && (
-                              <div className="p-3 pt-0 space-y-1.5 text-xs text-gray-300 font-mono border-t border-white/5">
-                                {msg.reasoningSteps.map((step, sIdx) => (
-                                  <div key={sIdx} className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                                    <span>{step}</span>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Evidence Cards */}
-                        {msg.evidence && (
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2">
-                            {msg.evidence.map((ev, eIdx) => (
-                              <div key={eIdx} className="p-2.5 bg-surface rounded-xl border border-white/5 text-xs">
-                                <span className="font-bold text-emerald-400 block mb-0.5">{ev.title}</span>
-                                <span className="text-gray-400 text-[11px] block">{ev.detail}</span>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    ) : (
-                      <span>{msg.text}</span>
-                    )}
-                  </div>
-
-                  {msg.sender === 'user' && (
-                    <div className="p-2 bg-white/10 text-white rounded-xl h-fit">
-                      <User className="w-5 h-5" />
-                    </div>
-                  )}
-                </motion.div>
-              ))}
-            </AnimatePresence>
+            <div ref={streamEndRef} />
           </div>
 
-          {/* Input Form */}
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSend();
-            }}
-            className="mt-4 flex items-center gap-3 pt-4 border-t border-white/10"
-          >
-            <input
-              type="text"
-              value={inputQuery}
-              onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Ask Copilot about revenues, quality metrics, or DAX formulas..."
-              className="flex-1 bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary/50"
+          <div className="mt-4 space-y-3 pt-4 border-t border-white/10">
+            <CopilotQuickPrompts
+              onSelectPrompt={(prompt) => void handleSend(prompt)}
+              disabled={isAsking}
             />
-            <Button type="submit" leftIcon={<Send className="w-4 h-4" />}>
-              Send
-            </Button>
-          </form>
+
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                void handleSend();
+              }}
+              className="flex items-center gap-3"
+            >
+              <input
+                type="text"
+                value={inputQuery}
+                onChange={(event) => setInputQuery(event.target.value)}
+                disabled={isAsking}
+                placeholder="Ask about data quality, KPIs, relationships, or recommended actions…"
+                className="flex-1 bg-surface border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:ring-2 focus:ring-primary/50 disabled:opacity-60"
+              />
+              <Button
+                type="submit"
+                isLoading={isAsking}
+                disabled={!inputQuery.trim()}
+                leftIcon={<Send className="w-4 h-4" />}
+              >
+                Send
+              </Button>
+            </form>
+          </div>
         </Card>
       </div>
 
-      {/* Right Sidebar Prompts & Telemetry */}
+      {/* Grounding panel — real values only, no placeholder fallbacks */}
       <div className="space-y-4">
         <Card glass className="p-5">
           <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-primary" />
-            <span>Suggested Executive Prompts</span>
+            <Database className="w-4 h-4 text-primary" />
+            <span>Grounded In</span>
           </h4>
 
-          <div className="space-y-2">
-            {[
-              'Why did gross margin fluctuate?',
-              'Show top 3 strategic decision drivers',
-              'Explain Stage 1 DQPE cleaning log',
-              'Generate Power BI M script',
-            ].map((p, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleSend(p)}
-                className="w-full text-left p-2.5 bg-surface hover:bg-surface-hover border border-white/5 hover:border-primary/40 rounded-xl text-xs text-gray-300 hover:text-white transition-all flex items-center justify-between group"
-              >
-                <span>{p}</span>
-                <ArrowRight className="w-3.5 h-3.5 text-gray-500 group-hover:text-primary transition-colors" />
-              </button>
-            ))}
+          <div className="space-y-2.5 text-xs">
+            <div className="flex items-center justify-between gap-2 text-gray-300">
+              <span className="shrink-0">Dataset:</span>
+              <span className="font-mono text-gray-200 truncate" title={currentDatasetName ?? ''}>
+                {currentDatasetName ?? '—'}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between text-gray-300">
+              <span>Domain:</span>
+              <Badge variant="primary" size="sm">
+                {profile.detected_domain.toUpperCase()}
+              </Badge>
+            </div>
+
+            {quality && (
+              <div className="flex items-center justify-between text-gray-300">
+                <span>Quality:</span>
+                <Badge variant="success" size="sm">
+                  {quality.grade} · {quality.overall_score.toFixed(1)}%
+                </Badge>
+              </div>
+            )}
+
+            <div className="flex items-center justify-between text-gray-300">
+              <span>Shape:</span>
+              <span className="font-mono text-gray-200">
+                {profile.total_rows} × {profile.total_columns}
+              </span>
+            </div>
           </div>
         </Card>
 
         <Card glass className="p-5">
-          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">
-            Grounded Intelligence State
+          <h4 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-primary" />
+            <span>How this works</span>
           </h4>
-          <div className="space-y-2 text-xs">
-            <div className="flex items-center justify-between text-gray-300">
-              <span>Quality Score:</span>
-              <Badge variant="success" size="sm">
-                {intelligenceResult?.quality_report?.overall_score.toFixed(1) || '95.8'}%
-              </Badge>
-            </div>
-            <div className="flex items-center justify-between text-gray-300">
-              <span>Domain:</span>
-              <Badge variant="primary" size="sm">
-                {intelligenceResult?.dataset_profile?.detected_domain.toUpperCase() || 'RETAIL'}
-              </Badge>
-            </div>
-          </div>
+          <p className="text-[11px] text-gray-400 leading-relaxed">
+            Answers are computed from this dataset&apos;s analysis on the server — quality
+            scores, KPI definitions, correlations, anomalies and decisions. The Copilot
+            cannot generate figures that are not present in the data, so it will say when
+            something is unknown rather than guess.
+          </p>
         </Card>
       </div>
     </div>
