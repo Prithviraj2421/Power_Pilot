@@ -146,7 +146,15 @@ export const LandingPage: React.FC = () => {
                 className="max-w-xl mx-auto"
               >
                 <label className="block p-10 bg-card/60 backdrop-blur-2xl border-2 border-dashed border-white/15 hover:border-primary/60 rounded-3xl cursor-pointer transition-all duration-300 shadow-glass group relative overflow-hidden">
-                  <input type="file" accept=".csv" onChange={handleFileChange} className="hidden" />
+                  {/* Kept in step with SUPPORTED_EXTENSIONS in app/datasets/readers.py.
+                      The pipeline works on a DataFrame and never cared about the
+                      source format; only this gate did. */}
+                  <input
+                    type="file"
+                    accept=".csv,.tsv,.txt,.xlsx,.xlsm,.json"
+                    onChange={handleFileChange}
+                    className="hidden"
+                  />
 
                   <div className="flex flex-col items-center gap-4 text-center">
                     <div className="p-4 bg-primary/20 text-primary rounded-2xl border border-primary/30 group-hover:scale-110 group-hover:shadow-glow-blue transition-all">
@@ -154,10 +162,10 @@ export const LandingPage: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-base font-bold text-white block mb-1">
-                        Drop your CSV dataset here
+                        Drop your dataset here
                       </span>
                       <span className="text-xs text-gray-400 block">
-                        Supports enterprise datasets up to 100,000+ rows
+                        CSV, Excel (.xlsx), TSV or JSON — up to 50MB
                       </span>
                     </div>
                     <Button variant="primary" leftIcon={<FileSpreadsheet className="w-4 h-4" />}>

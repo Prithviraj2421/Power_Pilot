@@ -1,0 +1,47 @@
+# PowerPilot — full stack.
+#
+#   docker compose up --build       then open http://localhost:8080
+#
+# This file was committed empty (0 bytes) from the start; it now actually runs
+# the application.
+
+services:
+  backend:
+    build:
+      context: ./backend
+    environment:
+      # The frontend is served same-origin through nginx, so the browser never
+      # makes a cross-origin call. These origins cover running the Vite dev
+      # server against a containerised backend.
+      POWERPILOT_CORS_ALLOW_ORIGINS: "http://localhost:8080,http://localhost:3000"
+      POWERPILOT_DATA_DIR: /app/data
+      POWERPILOT_MAX_UPLOAD_MB: "50"
+      # Email stays disabled unless these are supplied. See backend/.env.example.
+      POWERPILOT_SMTP_HOST: "${POWERPILOT_SMTP_HOST:-}"
+      POWERPILOT_SMTP_PORT: "${POWERPILOT_SMTP_PORT:-587}"
+      POWERPILOT_SMTP_USERNAME: "${POWERPILOT_SMTP_USERNAME:-}"
+      POWERPILOT_SMTP_PASSWORD: "${POWERPILOT_SMTP_PASSWORD:-}"
+      POWERPILOT_SMTP_FROM_ADDRESS: "${POWERPILOT_SMTP_FROM_ADDRESS:-}"
+    volumes:
+      # Registered datasets and the SQLite registry survive container rebuilds.
+      - powerpilot-data:/app/data
+    # Not published to the host: nginx is the only way in, which keeps the API
+    # on one origin and avoids a second port to secure.
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      backend:
+        # nginx fails to start if it cannot resolve the upstream, so wait for
+        # the backend to report healthy rather than merely started.
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  powerpilot-data:

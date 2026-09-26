@@ -31,13 +31,22 @@ class DatasetRecord:
     created_at: str
     last_accessed_at: str
     # How the upload was actually read. Worth surfacing: if a file came through as
-    # cp1252 and some characters look wrong, this is the first thing to check.
+    # cp1252 and some characters look wrong, or an Excel import picked the wrong
+    # sheet, this is the first thing to check.
     source_encoding: str = "utf-8"
     source_delimiter: str = ","
+    source_file_format: str = "csv"
+    source_sheet: Optional[str] = None
 
     @property
     def source_format(self) -> str:
-        """Human-readable description of how the upload was decoded and split."""
+        """Human-readable description of how the upload was read."""
+        if self.source_file_format in ("xlsx", "xlsm"):
+            sheet = f", sheet '{self.source_sheet}'" if self.source_sheet else ""
+            return f"{self.source_file_format}{sheet}"
+        if self.source_file_format == "json":
+            return "json"
+
         delimiter_name = {",": "comma", ";": "semicolon", "\t": "tab", "|": "pipe"}.get(
             self.source_delimiter, repr(self.source_delimiter)
         )
@@ -45,8 +54,17 @@ class DatasetRecord:
 
     @property
     def read_with_defaults(self) -> bool:
-        """True when the file was plain UTF-8 with commas, i.e. nothing to mention."""
-        return self.source_encoding == "utf-8" and self.source_delimiter == ","
+        """True when nothing about how the file was read is worth mentioning.
+
+        A plain UTF-8 comma-separated CSV is the unremarkable case. Any other
+        format, encoding, delimiter or sheet choice is something the user may want
+        to know about if the data looks wrong.
+        """
+        return (
+            self.source_file_format == "csv"
+            and self.source_encoding == "utf-8"
+            and self.source_delimiter == ","
+        )
 
     def to_dict(self) -> dict[str, Any]:
         """JSON-serializable view for API responses.
@@ -72,6 +90,8 @@ class DatasetRecord:
             "last_accessed_at": self.last_accessed_at,
             "source_encoding": self.source_encoding,
             "source_delimiter": self.source_delimiter,
+            "source_file_format": self.source_file_format,
+            "source_sheet": self.source_sheet,
             "source_format": self.source_format,
             "read_with_defaults": self.read_with_defaults,
         }

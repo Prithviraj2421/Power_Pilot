@@ -43,7 +43,9 @@ CREATE TABLE IF NOT EXISTS datasets (
     created_at           TEXT    NOT NULL,
     last_accessed_at     TEXT    NOT NULL,
     source_encoding      TEXT    NOT NULL DEFAULT 'utf-8',
-    source_delimiter     TEXT    NOT NULL DEFAULT ','
+    source_delimiter     TEXT    NOT NULL DEFAULT ',',
+    source_file_format   TEXT    NOT NULL DEFAULT 'csv',
+    source_sheet         TEXT
 );
 CREATE INDEX IF NOT EXISTS idx_datasets_sha      ON datasets (content_sha256);
 CREATE INDEX IF NOT EXISTS idx_datasets_accessed ON datasets (last_accessed_at DESC);
@@ -54,7 +56,7 @@ _COLUMNS = (
     "dataset_id, filename, stored_path, size_bytes, content_sha256, "
     "original_rows, total_rows, total_columns, detected_domain, domain_confidence, "
     "quality_grade, quality_score, quality_issues_count, created_at, last_accessed_at, "
-    "source_encoding, source_delimiter"
+    "source_encoding, source_delimiter, source_file_format, source_sheet"
 )
 
 # Columns added after the first release. CREATE TABLE IF NOT EXISTS does not alter
@@ -62,6 +64,8 @@ _COLUMNS = (
 _ADDED_COLUMNS: tuple[tuple[str, str], ...] = (
     ("source_encoding", "TEXT NOT NULL DEFAULT 'utf-8'"),
     ("source_delimiter", "TEXT NOT NULL DEFAULT ','"),
+    ("source_file_format", "TEXT NOT NULL DEFAULT 'csv'"),
+    ("source_sheet", "TEXT"),
 )
 
 
@@ -151,6 +155,8 @@ class DatasetStore:
         dataset_id: Optional[str] = None,
         source_encoding: str = "utf-8",
         source_delimiter: str = ",",
+        source_file_format: str = "csv",
+        source_sheet: Optional[str] = None,
     ) -> DatasetRecord:
         """Register a dataset, writing its source bytes and metadata row."""
         dataset_id = dataset_id or uuid.uuid4().hex
@@ -175,9 +181,11 @@ class DatasetStore:
             last_accessed_at=now,
             source_encoding=source_encoding,
             source_delimiter=source_delimiter,
+            source_file_format=source_file_format,
+            source_sheet=source_sheet,
         )
 
-        placeholders = ", ".join(["?"] * 17)
+        placeholders = ", ".join(["?"] * 19)
         with self._connect() as connection:
             connection.execute(
                 f"INSERT INTO datasets ({_COLUMNS}) VALUES ({placeholders})",
@@ -199,6 +207,8 @@ class DatasetStore:
                     record.last_accessed_at,
                     record.source_encoding,
                     record.source_delimiter,
+                    record.source_file_format,
+                    record.source_sheet,
                 ),
             )
 

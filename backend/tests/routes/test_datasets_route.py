@@ -45,14 +45,15 @@ def test_stored_path_is_never_exposed(client: TestClient, retail_csv_bytes: byte
     assert "stored_path" not in dataset
 
 
-def test_register_rejects_non_csv_with_400(client: TestClient) -> None:
+def test_register_rejects_an_unsupported_format_with_400(client: TestClient) -> None:
     response = client.post(
         "/api/v1/datasets",
-        files={"file": ("document.pdf", b"not a csv", "application/pdf")},
+        files={"file": ("document.pdf", b"not a dataset", "application/pdf")},
     )
 
     assert response.status_code == 400
-    assert "must be a valid .csv file" in response.json()["detail"]
+    # The message should name the fix rather than just refusing.
+    assert "Export the underlying table" in response.json()["detail"]
 
 
 def test_register_rejects_empty_file_with_400(client: TestClient) -> None:

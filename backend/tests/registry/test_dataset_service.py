@@ -21,9 +21,22 @@ from app.datasets.store import DatasetStore
 # ---------------------------------------------------------------------------
 
 
-def test_rejects_non_csv_extension(dataset_service: DatasetService) -> None:
-    with pytest.raises(InvalidDatasetError, match="must be a valid .csv"):
+def test_rejects_an_unsupported_extension_with_actionable_advice(
+    dataset_service: DatasetService,
+) -> None:
+    """A refusal should name the fix, not just say no."""
+    with pytest.raises(InvalidDatasetError, match="Export the underlying table"):
         dataset_service.parse_csv(b"a,b\n1,2\n", "report.pdf")
+
+    with pytest.raises(InvalidDatasetError, match="save it as .xlsx or CSV"):
+        dataset_service.parse_csv(b"a,b\n1,2\n", "legacy.xls")
+
+
+def test_rejects_an_unknown_extension_by_listing_supported_formats(
+    dataset_service: DatasetService,
+) -> None:
+    with pytest.raises(InvalidDatasetError, match="Supported formats"):
+        dataset_service.parse_csv(b"a,b\n1,2\n", "mystery.dat")
 
 
 def test_rejects_empty_payload(dataset_service: DatasetService) -> None:

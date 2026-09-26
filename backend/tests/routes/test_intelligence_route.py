@@ -70,11 +70,11 @@ def test_analyze_csv_registers_a_retrievable_dataset() -> None:
     assert restored.json()["result"]["kpi_report"]["primary_kpis"]
 
 
-def test_analyze_non_csv_rejected() -> None:
+def test_analyze_unsupported_format_rejected() -> None:
     response = client.post(
         "/api/v1/intelligence/analyze-csv",
         files={"file": ("document.pdf", b"fake content", "application/pdf")},
     )
 
     assert response.status_code == 400
-    assert "must be a valid .csv file" in response.json()["detail"]
+    assert "Export the underlying table" in response.json()["detail"]

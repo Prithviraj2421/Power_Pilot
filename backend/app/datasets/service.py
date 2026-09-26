@@ -28,7 +28,13 @@ import pandas as pd
 from app.common.logger import get_logger
 from app.core.config import Settings, get_settings
 from app.datasets.cache import ResultCache
-from app.datasets.csv_reader import CsvDecodeError, CsvParseError, CsvReadResult, read_csv
+from app.datasets.readers import (
+    DatasetReadError,
+    DatasetReadResult,
+    UnsupportedFormatError,
+    is_supported,
+    read_dataset,
+)
 from app.datasets.models import DatasetRecord
 from app.datasets.store import DatasetStore, sha256_of
 from app.models.master_intelligence_result import MasterIntelligenceResult
@@ -93,13 +99,22 @@ class DatasetService:
         """Validate and parse uploaded bytes into a DataFrame."""
         return self.read_source_csv(payload, filename).dataframe
 
-    def read_source_csv(self, payload: bytes, filename: str) -> CsvReadResult:
-        """Validate and parse uploaded bytes, keeping how they were decoded.
+    def read_source_csv(
+        self, payload: bytes, filename: str, sheet: Optional[str] = None
+    ) -> DatasetReadResult:
+        """Validate and parse uploaded bytes, keeping how they were read.
+
+        Accepts every format in ``SUPPORTED_EXTENSIONS`` -- CSV/TSV/TXT, Excel
+        workbooks and JSON -- because everything downstream operates on a DataFrame
+        and never cared about the source format.
 
         Raises ``InvalidDatasetError`` with a client-safe message on any problem.
         """
-        if not filename.lower().endswith(".csv"):
-            raise InvalidDatasetError("File must be a valid .csv file.")
+        if not is_supported(filename):
+            try:
+                read_dataset(b"", filename)
+            except UnsupportedFormatError as exc:
+                raise InvalidDatasetError(str(exc)) from exc
 
         if not payload:
             raise InvalidDatasetError(
@@ -116,13 +131,13 @@ class DatasetService:
         # writes cp1252, "CSV UTF-8" adds a BOM, and a European locale separates
         # with semicolons -- all of which a plain read_csv rejects outright.
         try:
-            parsed = read_csv(payload)
-        except (CsvDecodeError, CsvParseError) as exc:
+            parsed = read_dataset(payload, filename, sheet=sheet)
+        except (UnsupportedFormatError, DatasetReadError) as exc:
             raise InvalidDatasetError(str(exc)) from exc
 
         if parsed.dataframe.empty or len(parsed.dataframe.columns) == 0:
             raise InvalidDatasetError(
-                "The CSV file must contain at least one column with valid data rows."
+                "The file must contain at least one column with valid data rows."
             )
 
         return parsed
@@ -168,6 +183,8 @@ class DatasetService:
             quality_issues_count=int(quality.total_issues_count) if quality else 0,
             source_encoding=parsed.encoding,
             source_delimiter=parsed.delimiter,
+            source_file_format=parsed.file_format,
+            source_sheet=parsed.sheet_name,
         )
 
         self._cache.put(record.dataset_id, execution)
