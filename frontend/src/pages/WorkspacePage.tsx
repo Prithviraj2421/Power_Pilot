@@ -9,7 +9,7 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { useAnalysisStore } from '../store/useAnalysisStore';
 import { WorkspaceLayout } from '../components/layout/WorkspaceLayout';
-import { TabDashboardView } from '../features/dashboard/components/TabDashboardView';
+import { DashboardTabsView } from '../features/dashboard/components/DashboardTabsView';
 import { FilterControlPanel } from '../features/dashboard/components/FilterControlPanel';
 import { InsightsView } from '../features/insights/components/InsightsView';
 import { KpiStudioView } from '../features/kpis/components/KpiStudioView';
@@ -89,7 +89,10 @@ export const WorkspacePage: React.FC = () => {
     { id: 'export', label: 'Export Center', icon: <Download /> },
   ];
 
-  const primaryTab = dashboard_report?.tabs[0];
+  // The Dashboard Engine recommends a multi-tab layout. This used to render
+  // dashboard_report.tabs[0] and silently discard the rest, so every tab the
+  // engine designed beyond the first was computed and never shown.
+  const dashboardTabs = dashboard_report?.tabs ?? [];
 
   return (
     <PageContainer>
@@ -121,9 +124,9 @@ export const WorkspacePage: React.FC = () => {
             <QualityStudioView qualityReport={quality_report} preparationReport={preparation_report} />
           )}
 
-          {activeTab === 'dashboard' && primaryTab && kpi_report && (
-            <TabDashboardView
-              tab={primaryTab}
+          {activeTab === 'dashboard' && kpi_report && (
+            <DashboardTabsView
+              tabs={dashboardTabs}
               primaryKpis={kpi_report.primary_kpis}
               columns={dataset_profile.columns}
             />

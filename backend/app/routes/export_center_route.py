@@ -45,9 +45,20 @@ def _branding(company_name: str, prepared_for: str, prepared_by: str) -> Brandin
 
 
 @router.get("/history")
-def get_export_history(limit: int = Query(50, ge=1, le=200)):
-    """Recent export activity across all datasets."""
-    return {"status": "success", "history": ExportHistoryService.get_history(limit=limit)}
+def get_export_history(
+    limit: int = Query(50, ge=1, le=200),
+    dataset_id: str | None = Query(None, description="Restrict history to one dataset"),
+):
+    """Recent export activity, newest first.
+
+    Persisted to SQLite, so this survives a server restart -- it was an in-process
+    list that reset on every boot while being presented as an audit history.
+    """
+    return {
+        "status": "success",
+        "total": ExportHistoryService.count(dataset_id=dataset_id),
+        "history": ExportHistoryService.get_history(limit=limit, dataset_id=dataset_id),
+    }
 
 
 @router.post("/{dataset_id}/cleaned-data")
@@ -65,7 +76,7 @@ def export_cleaned_data(
     """
     analysis: DatasetAnalysis = service.get_analysis(dataset_id)
     content = EnterpriseExportCenter.export_cleaned_data(
-        analysis.cleaned_dataframe, analysis.result, fmt=format
+        analysis.cleaned_dataframe, analysis.result, fmt=format, dataset_id=dataset_id
     )
 
     is_excel = format.lower() in {"xlsx", "excel"}
@@ -91,7 +102,9 @@ def export_pdf_report(
     """Executive magazine-style PDF report."""
     analysis = service.get_analysis(dataset_id)
     content = EnterpriseExportCenter.export_pdf_report(
-        analysis.result, branding=_branding(company_name, prepared_for, prepared_by)
+        analysis.result,
+        branding=_branding(company_name, prepared_for, prepared_by),
+        dataset_id=dataset_id,
     )
     filename = f"PowerPilot_Executive_Report_{_stem(analysis.record.filename)}.pdf"
     logger.info(f"Exported PDF report for dataset {dataset_id} ({len(content)} bytes)")
@@ -109,7 +122,9 @@ def export_docx_report(
     """Executive Word document report."""
     analysis = service.get_analysis(dataset_id)
     content = EnterpriseExportCenter.export_docx_report(
-        analysis.result, branding=_branding(company_name, prepared_for, prepared_by)
+        analysis.result,
+        branding=_branding(company_name, prepared_for, prepared_by),
+        dataset_id=dataset_id,
     )
     filename = f"PowerPilot_Executive_Report_{_stem(analysis.record.filename)}.docx"
     logger.info(f"Exported DOCX report for dataset {dataset_id} ({len(content)} bytes)")
@@ -127,7 +142,9 @@ def export_html_report(
     """Standalone interactive HTML report."""
     analysis = service.get_analysis(dataset_id)
     content = EnterpriseExportCenter.export_html_report(
-        analysis.result, branding=_branding(company_name, prepared_for, prepared_by)
+        analysis.result,
+        branding=_branding(company_name, prepared_for, prepared_by),
+        dataset_id=dataset_id,
     )
     filename = f"PowerPilot_Interactive_Report_{_stem(analysis.record.filename)}.html"
     logger.info(f"Exported HTML report for dataset {dataset_id} ({len(content)} bytes)")
@@ -141,7 +158,7 @@ def export_master_json(
 ):
     """Full machine-readable analysis as JSON."""
     analysis = service.get_analysis(dataset_id)
-    content = EnterpriseExportCenter.export_json(analysis.result)
+    content = EnterpriseExportCenter.export_json(analysis.result, dataset_id=dataset_id)
     filename = f"PowerPilot_Intelligence_{_stem(analysis.record.filename)}.json"
     logger.info(f"Exported master JSON for dataset {dataset_id} ({len(content)} bytes)")
     return _attachment(content, filename, "application/json")
@@ -187,7 +204,7 @@ def export_data_dictionary(
 ):
     """Technical data dictionary workbook."""
     analysis = service.get_analysis(dataset_id)
-    content = EnterpriseExportCenter.export_data_dictionary(analysis.result)
+    content = EnterpriseExportCenter.export_data_dictionary(analysis.result, dataset_id=dataset_id)
     filename = f"PowerPilot_Data_Dictionary_{_stem(analysis.record.filename)}.xlsx"
     logger.info(f"Exported data dictionary for dataset {dataset_id} ({len(content)} bytes)")
     return _attachment(content, filename, XLSX_MEDIA_TYPE)

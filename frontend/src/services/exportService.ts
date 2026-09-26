@@ -16,6 +16,13 @@ export interface ExportHistoryEntry {
   duration_ms: number;
   timestamp: string;
   status: string;
+  file_path?: string | null;
+}
+
+export interface ExportHistoryResponse {
+  status: string;
+  total: number;
+  history: ExportHistoryEntry[];
 }
 
 /**
@@ -116,12 +123,17 @@ export class ExportService {
     );
   }
 
+  /**
+   * Export activity, newest first. Persisted server-side, so this survives a
+   * backend restart. Pass a datasetId to scope it to one dataset.
+   */
   public static async getExportHistory(
-    limit = 50
-  ): Promise<{ status: string; history: ExportHistoryEntry[] }> {
-    const response = await apiClient.get<{ status: string; history: ExportHistoryEntry[] }>(
+    limit = 50,
+    datasetId?: string
+  ): Promise<ExportHistoryResponse> {
+    const response = await apiClient.get<ExportHistoryResponse>(
       API_ENDPOINTS.EXPORT_CENTER.HISTORY,
-      { params: { limit } }
+      { params: { limit, dataset_id: datasetId } }
     );
     return response.data;
   }

@@ -14,6 +14,8 @@ class DatasetContext:
 
     cleaning_plan: Optional[Dict] = None
 
+    rule_issues: Optional[List] = field(default_factory=list)
+
     cleaned_dataframe: Optional[pd.DataFrame] = None
 
     profile: Optional[Dict] = None
