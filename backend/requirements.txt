@@ -1,7 +1,18 @@
-fastapi
-uvicorn
-python-multipart
-pandas
-openpyxl
-numpy
-python-dotenv
+# PowerPilot backend — runtime dependencies
+# Pinned for reproducible installs. Verified against Python 3.12.6.
+# Install:  python -m pip install -r requirements.txt
+# For tests and tooling, use requirements-dev.txt instead (it includes this file).
+
+# --- Web framework / ASGI ---
+fastapi==0.139.0
+uvicorn==0.50.2
+python-multipart==0.0.32      # required by FastAPI for multipart/form-data uploads
+
+# --- Data processing ---
+pandas==3.0.3
+numpy==2.5.1
+
+# --- Export Center document builders ---
+openpyxl==3.1.5               # app/export_center/builders/excel_builder.py
+reportlab==5.0.0              # app/export_center/builders/pdf_builder.py
+python-docx==1.2.0            # app/export_center/builders/docx_builder.py
