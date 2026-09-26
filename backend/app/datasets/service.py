@@ -28,6 +28,7 @@ import pandas as pd
 from app.common.logger import get_logger
 from app.core.config import Settings, get_settings
 from app.datasets.cache import ResultCache
+from app.datasets.csv_reader import CsvDecodeError, CsvParseError, read_csv
 from app.datasets.models import DatasetRecord
 from app.datasets.store import DatasetStore, sha256_of
 from app.models.master_intelligence_result import MasterIntelligenceResult
@@ -107,21 +108,13 @@ class DatasetService:
                 f"File size exceeds maximum limit of {self._settings.max_upload_mb}MB."
             )
 
+        # Encoding and delimiter are detected rather than assumed. Excel on Windows
+        # writes cp1252, "CSV UTF-8" adds a BOM, and a European locale separates
+        # with semicolons -- all of which a plain read_csv rejects outright.
         try:
-            df = pd.read_csv(io.BytesIO(payload))
-        except pd.errors.EmptyDataError as exc:
-            raise InvalidDatasetError(
-                "Invalid CSV formatting: file contains no parseable columns or headers."
-            ) from exc
-        except pd.errors.ParserError as exc:
-            raise InvalidDatasetError(
-                "Malformed CSV syntax: could not parse row records. "
-                "Please verify delimiter formatting."
-            ) from exc
-        except UnicodeDecodeError as exc:
-            raise InvalidDatasetError(
-                "Could not decode the file as text. Please upload a UTF-8 encoded CSV."
-            ) from exc
+            df = read_csv(payload).dataframe
+        except (CsvDecodeError, CsvParseError) as exc:
+            raise InvalidDatasetError(str(exc)) from exc
 
         if df.empty or len(df.columns) == 0:
             raise InvalidDatasetError(
