@@ -14,7 +14,7 @@ import json
 from functools import lru_cache
 from pathlib import Path
 
-from pydantic import Field, field_validator
+from pydantic import Field, field_validator, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 BACKEND_ROOT = Path(__file__).resolve().parents[2]
@@ -69,6 +69,24 @@ class Settings(BaseSettings):
     # pruned past this. Set to 0 to disable pruning.
     max_stored_datasets: int = 200
 
+    # --- Email delivery -------------------------------------------------------
+    # Plain SMTP rather than a vendor SDK, so the same settings work against
+    # Gmail, Amazon SES's SMTP endpoint, SendGrid's SMTP relay or a self-hosted
+    # server. Email is disabled until smtp_host and smtp_from_address are both
+    # set; the endpoint reports that explicitly instead of pretending to send.
+    smtp_host: str = ""
+    smtp_port: int = 587
+    smtp_username: str = ""
+    smtp_password: str = ""
+    smtp_from_address: str = ""
+    smtp_from_name: str = "PowerPilot"
+    # STARTTLS on the standard submission port. Set smtp_use_ssl for implicit
+    # TLS on port 465 instead; the two are mutually exclusive.
+    smtp_use_tls: bool = True
+    smtp_use_ssl: bool = False
+    smtp_timeout_seconds: int = 30
+    max_email_recipients: int = 20
+
     @field_validator("cors_allow_origins", mode="before")
     @classmethod
     def _split_origins(cls, value: object) -> object:
@@ -95,6 +113,27 @@ class Settings(BaseSettings):
         if value <= 0:
             raise ValueError("max_upload_mb must be greater than 0")
         return value
+
+    @model_validator(mode="after")
+    def _tls_modes_are_exclusive(self) -> "Settings":
+        if self.smtp_use_tls and self.smtp_use_ssl:
+            raise ValueError(
+                "smtp_use_tls (STARTTLS) and smtp_use_ssl (implicit TLS) are mutually "
+                "exclusive. Use smtp_use_ssl for port 465, smtp_use_tls for port 587."
+            )
+        return self
+
+    @property
+    def email_enabled(self) -> bool:
+        """Whether outbound email is configured well enough to attempt a send."""
+        return bool(self.smtp_host.strip() and self.smtp_from_address.strip())
+
+    @property
+    def smtp_sender(self) -> str:
+        """The From header value, with a display name when one is configured."""
+        name = self.smtp_from_name.strip()
+        address = self.smtp_from_address.strip()
+        return f"{name} <{address}>" if name else address
 
     @property
     def max_upload_bytes(self) -> int:

@@ -23,6 +23,8 @@ export const API_ENDPOINTS = {
 
   EXPORT_CENTER: {
     HISTORY: '/api/v1/export-center/history',
+    EMAIL_STATUS: '/api/v1/export-center/email/status',
+    EMAIL: (datasetId: string) => `/api/v1/export-center/${datasetId}/email`,
     CLEANED_DATA: (datasetId: string) => `/api/v1/export-center/${datasetId}/cleaned-data`,
     PDF: (datasetId: string) => `/api/v1/export-center/${datasetId}/pdf`,
     DOCX: (datasetId: string) => `/api/v1/export-center/${datasetId}/docx`,

@@ -149,18 +149,21 @@ def test_every_export_rejects_an_unknown_dataset_id(client: TestClient) -> None:
         assert response.status_code == 404, f"{endpoint} should 404 on an unknown id"
 
 
-def test_email_distribution_reports_not_implemented(
+def test_email_distribution_reports_unconfigured_smtp(
     client: TestClient, registered_dataset_id: str
 ) -> None:
-    """It must not claim success: no SMTP delivery exists yet."""
+    """With no SMTP configured this must fail loudly rather than claim success.
+
+    Delivery against a real mail server is covered in tests/routes/test_email_route.py.
+    """
     response = client.post(
         f"{BASE}/{registered_dataset_id}/email",
         params={"recipients": "exec@example.com"},
     )
 
-    assert response.status_code == 501
+    assert response.status_code == 503
     detail = response.json()["detail"]
-    assert "not implemented" in detail.lower()
+    assert "not configured" in detail.lower()
     assert "no message was sent" in detail.lower()
 
 

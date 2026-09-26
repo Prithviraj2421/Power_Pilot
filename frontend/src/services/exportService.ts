@@ -25,6 +25,32 @@ export interface ExportHistoryResponse {
   history: ExportHistoryEntry[];
 }
 
+export interface EmailStatus {
+  status: string;
+  enabled: boolean;
+  smtp_host: string | null;
+  from_address: string | null;
+  max_recipients: number;
+  detail: string;
+}
+
+export interface EmailDistributionRequest {
+  recipients: string;
+  subject: string;
+  body_message: string;
+  attach?: 'pdf' | 'xlsx' | 'both';
+}
+
+export interface EmailDistributionResult {
+  status: string;
+  message: string;
+  recipients_accepted: string[];
+  recipients_rejected: string[];
+  attachments_included: string[];
+  dataset_id: string;
+  dataset_name: string;
+}
+
 /**
  * Export Center client.
  *
@@ -121,6 +147,37 @@ export class ExportService {
       API_ENDPOINTS.EXPORT_CENTER.DATA_DICTIONARY(datasetId),
       `PowerPilot_Data_Dictionary_${this.stem(datasetName)}.xlsx`
     );
+  }
+
+  /** Whether the server has SMTP configured, so the UI can say so up front. */
+  public static async getEmailStatus(): Promise<EmailStatus> {
+    const response = await apiClient.get<EmailStatus>(API_ENDPOINTS.EXPORT_CENTER.EMAIL_STATUS);
+    return response.data;
+  }
+
+  /**
+   * Deliver the report by email. Resolves only when the mail server accepted at
+   * least one recipient; anything else rejects with the server's message.
+   */
+  public static async sendEmail(
+    datasetId: string,
+    request: EmailDistributionRequest,
+    branding: BrandingParams = {}
+  ): Promise<EmailDistributionResult> {
+    const response = await apiClient.post<EmailDistributionResult>(
+      API_ENDPOINTS.EXPORT_CENTER.EMAIL(datasetId),
+      null,
+      {
+        params: {
+          recipients: request.recipients,
+          subject: request.subject,
+          body_message: request.body_message,
+          attach: request.attach ?? 'pdf',
+          ...branding,
+        },
+      }
+    );
+    return response.data;
   }
 
   /**
