@@ -1,0 +1,106 @@
+"""
+Marketing Domain Classifier Plugin.
+"""
+
+from typing import Set, Any, List
+
+from app.intelligence.domain.base_domain_classifier import BaseDomainClassifier
+from app.models.domain_detection_result import DomainDetectionResult
+from app.common.enums import DatasetDomain, SemanticType
+
+
+class MarketingClassifier(BaseDomainClassifier):
+    """
+    Domain Classifier for detecting Marketing datasets.
+    """
+
+    @property
+    def domain(self) -> DatasetDomain:
+        """The target dataset domain."""
+        return DatasetDomain.MARKETING
+
+    @property
+    def primary_entities(self) -> Set[SemanticType]:
+        """Primary semantic types expected in marketing datasets."""
+        return {
+            SemanticType.CUSTOMER,
+            SemanticType.REVENUE,
+            SemanticType.COST,
+            SemanticType.DATE,
+        }
+
+    @property
+    def secondary_entities(self) -> Set[SemanticType]:
+        """Secondary semantic types common in marketing datasets."""
+        return {
+            SemanticType.REGION,
+            SemanticType.IDENTIFIER,
+        }
+
+    @property
+    def keywords(self) -> Set[str]:
+        """Keywords commonly found in marketing dataset column names."""
+        return {
+            "campaign", "lead", "click", "impression", "conversion",
+            "ad", "ctr", "roi", "traffic", "medium", "source",
+            "funnel", "cpc", "acquisition", "segment"
+        }
+
+    def classify(self, profile: Any) -> DomainDetectionResult:
+        """
+        Analyzes a dataset profile and evaluates if it belongs to the Marketing domain.
+
+        Args:
+            profile: The dataset profile containing column metadata.
+
+        Returns:
+            DomainDetectionResult: The classification outcome with confidence and evidence.
+        """
+        matched_entities_set: Set[SemanticType] = set()
+        matched_keywords: Set[str] = set()
+        
+        if hasattr(profile, "columns") and profile.columns:
+            for col in profile.columns:
+                if hasattr(col, "semantic_type") and col.semantic_type:
+                    matched_entities_set.add(col.semantic_type)
+                
+                if hasattr(col, "name") and col.name:
+                    col_name = str(col.name).lower()
+                    for kw in self.keywords:
+                        if kw in col_name:
+                            matched_keywords.add(kw)
+
+        found_primary = self.primary_entities.intersection(matched_entities_set)
+        found_secondary = self.secondary_entities.intersection(matched_entities_set)
+        
+        missing_entities = self.primary_entities - found_primary
+        matched_entities = found_primary.union(found_secondary)
+        
+        primary_ratio = len(found_primary) / len(self.primary_entities) if self.primary_entities else 0.0
+        secondary_ratio = len(found_secondary) / len(self.secondary_entities) if self.secondary_entities else 0.0
+        keyword_score = min(1.0, len(matched_keywords) / 3.0)
+
+        confidence = (primary_ratio * 0.5) + (secondary_ratio * 0.2) + (keyword_score * 0.3)
+        confidence = round(float(confidence), 4)
+
+        evidence: List[str] = []
+        if found_primary:
+            evidence.append(f"Found {len(found_primary)} out of {len(self.primary_entities)} primary expected entities.")
+        if found_secondary:
+            evidence.append(f"Found {len(found_secondary)} out of {len(self.secondary_entities)} secondary expected entities.")
+        if matched_keywords:
+            evidence.append(f"Matched {len(matched_keywords)} relevant column name keywords (e.g., {', '.join(list(matched_keywords)[:3])}).")
+
+        reasoning = (
+            f"Dataset yields a {confidence:.4f} confidence score for MARKETING domain based on "
+            f"{primary_ratio * 100:.1f}% primary entity overlap and {len(matched_keywords)} keyword matches."
+        )
+
+        return DomainDetectionResult(
+            domain=self.domain,
+            confidence=confidence,
+            matched_entities=tuple(matched_entities),
+            missing_entities=tuple(missing_entities),
+            evidence=tuple(evidence),
+            reasoning=reasoning
+        )
