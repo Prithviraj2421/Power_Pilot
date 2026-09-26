@@ -91,12 +91,30 @@ class DatasetStore:
 
     @contextmanager
     def _connect(self) -> Iterator[sqlite3.Connection]:
+        # Re-created on every connection, not just at construction. If the data
+        # directory disappears while the process is running -- a volume that
+        # failed to mount, a cleanup script, an operator tidying up -- sqlite
+        # raises "unable to open database file" and every subsequent request
+        # fails until a restart. Ensuring it here lets the store heal itself.
+        self._db_path.parent.mkdir(parents=True, exist_ok=True)
+        self._datasets_dir.mkdir(parents=True, exist_ok=True)
+
+        # If the file is gone the schema went with it, so it has to be rebuilt.
+        # Checked rather than run unconditionally, to keep DDL off the hot path.
+        needs_schema = not self._db_path.exists()
+
         connection = sqlite3.connect(self._db_path, timeout=10.0)
         connection.row_factory = sqlite3.Row
         try:
             connection.execute("PRAGMA journal_mode=WAL")
             connection.execute("PRAGMA synchronous=NORMAL")
             connection.execute("PRAGMA foreign_keys=ON")
+            if needs_schema:
+                connection.executescript(_SCHEMA)
+                logger.warning(
+                    f"Dataset registry at {self._db_path} was missing and has been "
+                    "recreated empty; previously registered datasets are gone"
+                )
             yield connection
             connection.commit()
         except Exception:

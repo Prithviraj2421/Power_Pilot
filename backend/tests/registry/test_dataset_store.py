@@ -275,3 +275,24 @@ def test_migration_is_idempotent(tmp_path: Path) -> None:
     # Re-opening must not fail on already-present columns.
     second = DatasetStore(db_path=db_path, datasets_dir=datasets_dir)
     assert second.get(record.dataset_id) is not None
+
+
+def test_store_recovers_if_its_directory_is_deleted_at_runtime(tmp_path: Path) -> None:
+    """A vanished data directory must not brick the process until restart.
+
+    Before this, mkdir ran only in __init__, so deleting the directory made every
+    later query fail with "unable to open database file" -- a 500 on every
+    request, including /health, with no path back short of a restart.
+    """
+    import shutil
+
+    data_dir = tmp_path / "data"
+    store = DatasetStore(db_path=data_dir / "registry.sqlite3", datasets_dir=data_dir / "datasets")
+    _insert(store)
+
+    shutil.rmtree(data_dir)
+
+    # The rows are gone with the file, but the store must keep working.
+    assert store.count() == 0
+    recreated = _insert(store)
+    assert store.get(recreated.dataset_id) is not None
