@@ -1,88 +1,68 @@
-import io
-from fastapi import APIRouter, File, HTTPException, UploadFile, status
-from fastapi.responses import JSONResponse, PlainTextResponse
-import pandas as pd
+from fastapi import APIRouter, Depends
+from fastapi.responses import PlainTextResponse
 
-from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline
+from app.common.logger import get_logger
+from app.core.config import get_settings
+from app.datasets.service import DatasetService, get_dataset_service
 from app.services.powerbi_export_service import PowerBIExportService
 
 router = APIRouter(prefix="/api/v1/export/powerbi", tags=["Power BI Export"])
-pipeline = PowerPilotIntelligencePipeline()
+logger = get_logger("PowerBIRoute")
 
 
 @router.get("/status")
 def powerbi_connector_status():
-    """
-    Status endpoint for Power BI Desktop Web Connector GET requests.
-    """
+    """Status endpoint for Power BI Desktop Web Connector GET requests."""
+    settings = get_settings()
     return {
         "status": "online",
         "service": "PowerPilot Enterprise BI Platform",
-        "version": "1.0.0",
+        "version": settings.app_version,
         "endpoints": {
-            "dax_post": "/api/v1/export/powerbi/dax",
-            "bim_post": "/api/v1/export/powerbi/bim",
-            "m_post": "/api/v1/export/powerbi/m",
+            "dax": "/api/v1/export/powerbi/{dataset_id}/dax",
+            "bim": "/api/v1/export/powerbi/{dataset_id}/bim",
+            "m": "/api/v1/export/powerbi/{dataset_id}/m",
         },
     }
 
 
-@router.post("/dax", response_class=PlainTextResponse)
-def export_dax_script(file: UploadFile = File(...)):
-    """
-    Generate and return a formatted .dax measure script for Power BI.
-    """
-    if not file.filename.endswith(".csv"):
-        raise HTTPException(status_code=400, detail="File must be a valid .csv file.")
-
-    try:
-        contents = file.file.read()
-        df = pd.read_csv(io.BytesIO(contents))
-        result = pipeline.run_pipeline(df, dataset_name=file.filename)
-        
-        dax_script = PowerBIExportService.generate_dax_script(result.kpi_report, dataset_name=file.filename)
-        return PlainTextResponse(content=dax_script, media_type="text/plain")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating DAX script: {str(e)}")
+@router.post("/{dataset_id}/dax", response_class=PlainTextResponse)
+def export_dax_script(
+    dataset_id: str,
+    service: DatasetService = Depends(get_dataset_service),
+):
+    """Generate a formatted .dax measure script for Power BI from a registered dataset."""
+    analysis = service.get_analysis(dataset_id)
+    script = PowerBIExportService.generate_dax_script(
+        analysis.result.kpi_report, dataset_name=analysis.record.filename
+    )
+    logger.info(f"Generated DAX script for dataset {dataset_id}")
+    return PlainTextResponse(content=script, media_type="text/plain")
 
 
-@router.post("/bim")
-def export_tabular_bim(file: UploadFile = File(...)):
-    """
-    Generate and return a Microsoft Analysis Services Tabular Model .bim JSON schema.
-    """
-    if not file.filename.endswith(".csv"):
-        raise HTTPException(status_code=400, detail="File must be a valid .csv file.")
-
-    try:
-        contents = file.file.read()
-        df = pd.read_csv(io.BytesIO(contents))
-        result = pipeline.run_pipeline(df, dataset_name=file.filename)
-        
-        bim_data = PowerBIExportService.generate_tabular_model_bim(
-            dataset_profile=result.dataset_profile,
-            kpi_report=result.kpi_report,
-            relationship_report=result.relationship_report,
-        )
-        return bim_data
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating BIM model: {str(e)}")
+@router.post("/{dataset_id}/bim")
+def export_tabular_bim(
+    dataset_id: str,
+    service: DatasetService = Depends(get_dataset_service),
+):
+    """Generate a Microsoft Analysis Services Tabular Model .bim JSON schema."""
+    analysis = service.get_analysis(dataset_id)
+    bim = PowerBIExportService.generate_tabular_model_bim(
+        dataset_profile=analysis.result.dataset_profile,
+        kpi_report=analysis.result.kpi_report,
+        relationship_report=analysis.result.relationship_report,
+    )
+    logger.info(f"Generated Tabular Model BIM for dataset {dataset_id}")
+    return bim
 
 
-@router.post("/m", response_class=PlainTextResponse)
-def export_power_query_m(file: UploadFile = File(...)):
-    """
-    Generate and return Power Query (M) data transformation code.
-    """
-    if not file.filename.endswith(".csv"):
-        raise HTTPException(status_code=400, detail="File must be a valid .csv file.")
-
-    try:
-        contents = file.file.read()
-        df = pd.read_csv(io.BytesIO(contents))
-        result = pipeline.run_pipeline(df, dataset_name=file.filename)
-        
-        m_code = PowerBIExportService.generate_power_query_m(result.dataset_profile)
-        return PlainTextResponse(content=m_code, media_type="text/plain")
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error generating Power Query M script: {str(e)}")
+@router.post("/{dataset_id}/m", response_class=PlainTextResponse)
+def export_power_query_m(
+    dataset_id: str,
+    service: DatasetService = Depends(get_dataset_service),
+):
+    """Generate Power Query M transformation code for a registered dataset."""
+    analysis = service.get_analysis(dataset_id)
+    script = PowerBIExportService.generate_power_query_m(analysis.result.dataset_profile)
+    logger.info(f"Generated Power Query M script for dataset {dataset_id}")
+    return PlainTextResponse(content=script, media_type="text/plain")

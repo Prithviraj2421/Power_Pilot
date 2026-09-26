@@ -55,6 +55,8 @@ pnpm-debug.log*
 # Runtime data
 # ---------------------------------------------------------------------------
 uploads/
+# Dataset registry: uploaded CSV source files and the SQLite metadata database.
+backend/data/
 *.db
 *.sqlite
 *.sqlite3

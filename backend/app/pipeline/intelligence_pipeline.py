@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 import pandas as pd
 
 from app.common.logger import get_logger, log_execution_time
@@ -18,6 +20,20 @@ from app.models.master_intelligence_result import MasterIntelligenceResult
 logger = get_logger("PowerPilotPipeline")
 
 
+@dataclass(slots=True, frozen=True)
+class PipelineExecution:
+    """One pipeline run: the analysis plus the cleaned frame it was derived from.
+
+    ``MasterIntelligenceResult`` is the serializable analysis that goes to clients.
+    The cleaned DataFrame deliberately lives outside it -- it is not JSON data --
+    but callers exporting a "cleaned dataset" need the real post-Stage-1 frame
+    rather than the raw upload, so it is returned alongside.
+    """
+
+    result: MasterIntelligenceResult
+    cleaned_dataframe: pd.DataFrame
+
+
 class PowerPilotIntelligencePipeline:
     """
     Master Intelligence Pipeline orchestrator running Stage 1 (DQPE) through Stage 12.
@@ -36,13 +52,26 @@ class PowerPilotIntelligencePipeline:
         self.dashboard_engine = DashboardEngine()
         self.decision_engine = DecisionEngine()
 
-    @log_execution_time(logger, "Master Intelligence Pipeline Run")
     def run_pipeline(
         self,
         df: pd.DataFrame,
         dataset_name: str = "Dataset.csv",
         prep_config: PreparationConfig = PreparationConfig(),
     ) -> MasterIntelligenceResult:
+        """Run all 12 stages and return the analysis.
+
+        Use :meth:`execute` instead when you also need the cleaned DataFrame.
+        """
+        return self.execute(df, dataset_name=dataset_name, prep_config=prep_config).result
+
+    @log_execution_time(logger, "Master Intelligence Pipeline Run")
+    def execute(
+        self,
+        df: pd.DataFrame,
+        dataset_name: str = "Dataset.csv",
+        prep_config: PreparationConfig = PreparationConfig(),
+    ) -> PipelineExecution:
+        """Run all 12 stages, returning the analysis and the cleaned DataFrame."""
         logger.info(f"Starting pipeline execution for dataset '{dataset_name}' ({len(df)} rows)")
 
         # Stage 1: Data Quality & Preparation Engine (DQPE)
@@ -99,7 +128,7 @@ class PowerPilotIntelligencePipeline:
 
         logger.info(f"Successfully completed master pipeline execution for '{dataset_name}'")
 
-        return MasterIntelligenceResult(
+        result = MasterIntelligenceResult(
             dataset_profile=dataset_profile,
             detected_entities=detected_entities,
             quality_report=quality_report,
@@ -112,3 +141,5 @@ class PowerPilotIntelligencePipeline:
             dashboard_report=dashboard_report,
             decision_report=decision_report,
         )
+
+        return PipelineExecution(result=result, cleaned_dataframe=cleaned_df)

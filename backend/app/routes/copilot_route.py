@@ -1,37 +1,49 @@
-import io
-from fastapi import APIRouter, File, Form, HTTPException, UploadFile
-import pandas as pd
+from fastapi import APIRouter, Depends
+from pydantic import BaseModel, Field
 
+from app.common.logger import get_logger
+from app.datasets.service import DatasetService, get_dataset_service
 from app.intelligence.copilot_engine import CopilotEngine, CopilotResponse
-from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline
 
 router = APIRouter(prefix="/api/v1/copilot", tags=["AI Copilot"])
-pipeline = PowerPilotIntelligencePipeline()
+logger = get_logger("CopilotRoute")
 copilot_engine = CopilotEngine()
 
 
-@router.post("/ask")
-def ask_copilot(query: str = Form(...), file: UploadFile = File(...)):
-    """
-    Process natural language BI question against uploaded dataset.
-    """
-    if not file.filename.endswith(".csv"):
-        raise HTTPException(status_code=400, detail="File must be a valid .csv file.")
+class CopilotQuery(BaseModel):
+    """A question asked against an already-registered dataset."""
 
-    try:
-        contents = file.file.read()
-        df = pd.read_csv(io.BytesIO(contents))
-        result = pipeline.run_pipeline(df, dataset_name=file.filename)
-        
-        response: CopilotResponse = copilot_engine.ask(query, result)
-        return {
-            "status": "success",
-            "query": query,
-            "answer": response.answer,
-            "intent": response.intent,
-            "evidence": list(response.evidence),
-            "recommended_actions": list(response.recommended_actions),
-            "suggested_followups": list(response.suggested_followups),
-        }
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error executing AI Copilot query: {str(e)}")
+    dataset_id: str = Field(..., min_length=1, description="Id returned by the analyze endpoint")
+    query: str = Field(..., min_length=1, max_length=2000, description="Natural language question")
+
+
+@router.post("/ask")
+def ask_copilot(
+    payload: CopilotQuery,
+    service: DatasetService = Depends(get_dataset_service),
+):
+    """Answer a natural language BI question grounded in a registered dataset.
+
+    The answer is derived entirely from that dataset's computed analysis -- the
+    engine has no generative freedom, so it cannot invent a figure that is not in
+    the data. Asking a follow-up costs a cache lookup, not another pipeline run.
+    """
+    analysis = service.get_analysis(payload.dataset_id)
+
+    logger.info(
+        f"Copilot query for dataset {payload.dataset_id} "
+        f"('{analysis.record.filename}'): {payload.query[:120]}"
+    )
+    response: CopilotResponse = copilot_engine.ask(payload.query, analysis.result)
+
+    return {
+        "status": "success",
+        "dataset_id": payload.dataset_id,
+        "dataset_name": analysis.record.filename,
+        "query": payload.query,
+        "answer": response.answer,
+        "intent": response.intent,
+        "evidence": list(response.evidence),
+        "recommended_actions": list(response.recommended_actions),
+        "suggested_followups": list(response.suggested_followups),
+    }

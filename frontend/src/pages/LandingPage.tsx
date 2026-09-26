@@ -12,6 +12,7 @@ import {
   CheckCircle2,
   TrendingUp,
   FileSpreadsheet,
+  AlertCircle,
 } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { Card } from '../components/ui/Card';
@@ -19,15 +20,16 @@ import { Badge } from '../components/ui/Badge';
 import { useUploadStore } from '../store/useUploadStore';
 import { useAnalysisStore } from '../store/useAnalysisStore';
 import { PipelineUploadExperience } from '../features/upload/components/PipelineUploadExperience';
-import { apiClient } from '../api/apiClient';
+import { AnalysisService } from '../services/analysisService';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const { file, setFile } = useUploadStore();
-  const { setAnalysisResult, setStatus } = useAnalysisStore();
+  const { setAnalysisResult, setStatus, setError } = useAnalysisStore();
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [stageIndex, setStageIndex] = useState(0);
+  const [uploadError, setUploadError] = useState<string | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = e.target.files?.[0];
@@ -37,6 +39,7 @@ export const LandingPage: React.FC = () => {
     setIsProcessing(true);
     setStageIndex(0);
     setStatus('analyzing');
+    setUploadError(null);
 
     // Simulate 12-stage animated pipeline step transitions
     const stageTimer = setInterval(() => {
@@ -50,17 +53,16 @@ export const LandingPage: React.FC = () => {
     }, 450);
 
     try {
-      const formData = new FormData();
-      formData.append('file', selectedFile);
-
-      const response = await apiClient.post('/api/v1/intelligence/analyze-csv', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      // The API returns { status, result, dataset_name, ... }
-      // The actual MasterIntelligenceResult is inside response.data.result
-      const intelligenceResult = response.data.result;
-      setAnalysisResult(selectedFile.name, intelligenceResult);
+      // The backend registers the analysis and returns a dataset_id. Everything
+      // downstream (exports, Power BI assets, copilot) uses that id, so the CSV
+      // is uploaded and analyzed exactly once.
+      const response = await AnalysisService.analyzeCsv(selectedFile);
+      setAnalysisResult(
+        response.dataset?.filename ?? selectedFile.name,
+        response.result,
+        response.dataset_id,
+        response.dataset
+      );
 
       clearInterval(stageTimer);
       setStageIndex(11);
@@ -69,9 +71,12 @@ export const LandingPage: React.FC = () => {
         navigate('/workspace');
       }, 1200);
     } catch (err) {
-      setStatus('error');
-      setIsProcessing(false);
+      const message =
+        err instanceof Error ? err.message : 'Analysis failed. Please check the CSV and try again.';
       clearInterval(stageTimer);
+      setUploadError(message);
+      setError(message);
+      setIsProcessing(false);
     }
   };
 
@@ -160,6 +165,21 @@ export const LandingPage: React.FC = () => {
                     </Button>
                   </div>
                 </label>
+
+                {uploadError && (
+                  <div
+                    role="alert"
+                    className="mt-4 flex items-start gap-3 p-4 bg-red-500/10 border border-red-500/30 rounded-2xl text-left"
+                  >
+                    <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 shrink-0" />
+                    <div>
+                      <span className="block text-sm font-semibold text-red-300">
+                        Analysis failed
+                      </span>
+                      <span className="block text-xs text-red-200/80 mt-0.5">{uploadError}</span>
+                    </div>
+                  </div>
+                )}
               </motion.div>
             </div>
 

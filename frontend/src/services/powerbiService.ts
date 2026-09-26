@@ -1,56 +1,32 @@
 import { apiClient } from '../api/apiClient';
+import { API_ENDPOINTS } from '../api/endpoints';
 
+/**
+ * Power BI asset generation, addressed by registered dataset id.
+ * Generating all three artifacts costs one pipeline run, not three.
+ */
 export class PowerBIService {
-  /**
-   * Post CSV file and receive formatted DAX script.
-   */
-  public static async exportDax(file: File): Promise<string> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post<string>(
-      '/api/v1/export/powerbi/dax',
-      formData,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        responseType: 'text',
-      }
-    );
+  /** Formatted .dax measure script for Power BI Desktop. */
+  public static async exportDax(datasetId: string): Promise<string> {
+    const response = await apiClient.post<string>(API_ENDPOINTS.POWERBI.DAX(datasetId), null, {
+      responseType: 'text',
+    });
     return response.data;
   }
 
-  /**
-   * Post CSV file and receive Tabular Model .bim JSON schema.
-   */
-  public static async exportBim(file: File): Promise<Record<string, unknown>> {
-    const formData = new FormData();
-    formData.append('file', file);
-
+  /** Analysis Services Tabular Model .bim JSON schema. */
+  public static async exportBim(datasetId: string): Promise<Record<string, unknown>> {
     const response = await apiClient.post<Record<string, unknown>>(
-      '/api/v1/export/powerbi/bim',
-      formData,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
+      API_ENDPOINTS.POWERBI.BIM(datasetId)
     );
     return response.data;
   }
 
-  /**
-   * Post CSV file and receive Power Query (M) code.
-   */
-  public static async exportPowerQueryM(file: File): Promise<string> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post<string>(
-      '/api/v1/export/powerbi/m',
-      formData,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        responseType: 'text',
-      }
-    );
+  /** Power Query (M) transformation code. */
+  public static async exportPowerQueryM(datasetId: string): Promise<string> {
+    const response = await apiClient.post<string>(API_ENDPOINTS.POWERBI.M(datasetId), null, {
+      responseType: 'text',
+    });
     return response.data;
   }
 }

@@ -37,6 +37,38 @@ def test_analyze_csv_endpoint() -> None:
     assert data["summary"]["dashboard_tabs_count"] >= 2
     assert data["summary"]["primary_decisions_count"] >= 2
 
+    # The analysis is registered, so the response hands back an id every
+    # downstream endpoint can use instead of re-uploading the file.
+    assert data["dataset_id"]
+    assert data["dataset"]["dataset_id"] == data["dataset_id"]
+    assert data["dataset"]["filename"] == "test_sales.csv"
+
+
+def test_analyze_csv_registers_a_retrievable_dataset() -> None:
+    df = pd.DataFrame(
+        {
+            "order_id": [1, 2, 3, 4],
+            "customer_id": [11, 12, 13, 14],
+            "order_date": ["2024-03-01", "2024-03-02", "2024-03-03", "2024-03-04"],
+            "sales_amount": [120.0, 340.0, 90.0, 275.0],
+            "quantity": [1, 3, 1, 2],
+        }
+    )
+
+    csv_buf = io.BytesIO()
+    df.to_csv(csv_buf, index=False)
+    csv_buf.seek(0)
+
+    dataset_id = client.post(
+        "/api/v1/intelligence/analyze-csv",
+        files={"file": ("registered.csv", csv_buf, "text/csv")},
+    ).json()["dataset_id"]
+
+    # The same analysis is now addressable by id without another upload.
+    restored = client.get(f"/api/v1/datasets/{dataset_id}/result")
+    assert restored.status_code == 200
+    assert restored.json()["result"]["kpi_report"]["primary_kpis"]
+
 
 def test_analyze_non_csv_rejected() -> None:
     response = client.post(

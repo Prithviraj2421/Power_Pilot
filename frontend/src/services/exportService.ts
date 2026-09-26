@@ -1,126 +1,128 @@
 import { apiClient } from '../api/apiClient';
+import { API_ENDPOINTS } from '../api/endpoints';
 
-export interface EmailDistributionRequest {
-  recipients: string;
-  subject: string;
-  body_message: string;
+export interface BrandingParams {
+  [key: string]: string | undefined;
+  company_name?: string;
+  prepared_for?: string;
+  prepared_by?: string;
 }
 
+export interface ExportHistoryEntry {
+  entry_id: string;
+  dataset_name: string;
+  export_format: string;
+  file_size_bytes: number;
+  duration_ms: number;
+  timestamp: string;
+  status: string;
+}
+
+/**
+ * Export Center client.
+ *
+ * Every export addresses a registered dataset by id. The CSV is never re-sent,
+ * so downloading five formats costs one pipeline run rather than five.
+ */
 export class ExportService {
-  /**
-   * Helper to trigger browser file download from Blob response.
-   */
-  public static downloadFile(blob: Blob, filename: string) {
+  /** Trigger a browser download from a Blob response. */
+  public static downloadFile(blob: Blob, filename: string): void {
     const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = filename;
+    document.body.appendChild(anchor);
+    anchor.click();
+    document.body.removeChild(anchor);
     window.URL.revokeObjectURL(url);
-    document.body.removeChild(a);
   }
 
-  public static async exportCleanedData(file: File, format: 'csv' | 'xlsx' = 'csv'): Promise<void> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post(`/api/v1/export-center/cleaned-data?format=${format}`, formData, {
-      responseType: 'blob',
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    const ext = format === 'csv' ? 'csv' : 'xlsx';
-    this.downloadFile(response.data, `Cleaned_${file.name.replace('.csv', '')}.${ext}`);
+  private static async downloadFrom(
+    url: string,
+    filename: string,
+    params?: Record<string, string | undefined>
+  ): Promise<void> {
+    const response = await apiClient.post(url, null, { params, responseType: 'blob' });
+    this.downloadFile(response.data, filename);
   }
 
-  public static async exportPdfReport(file: File, companyName = 'Enterprise Organization', preparedFor = 'Executive Leadership Team'): Promise<void> {
-    const formData = new FormData();
-    formData.append('file', file);
+  /** Strip a trailing .csv so download names do not stack extensions. */
+  private static stem(datasetName: string): string {
+    return datasetName.replace(/\.csv$/i, '');
+  }
 
-    const response = await apiClient.post(
-      `/api/v1/export-center/pdf?company_name=${encodeURIComponent(companyName)}&prepared_for=${encodeURIComponent(preparedFor)}`,
-      formData,
-      {
-        responseType: 'blob',
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
+  public static async exportCleanedData(
+    datasetId: string,
+    datasetName: string,
+    format: 'csv' | 'xlsx' = 'csv'
+  ): Promise<void> {
+    await this.downloadFrom(
+      API_ENDPOINTS.EXPORT_CENTER.CLEANED_DATA(datasetId),
+      `Cleaned_${this.stem(datasetName)}.${format}`,
+      { format }
     );
-
-    this.downloadFile(response.data, `PowerPilot_Executive_Report_${file.name.replace('.csv', '')}.pdf`);
   }
 
-  public static async exportDocxReport(file: File, companyName = 'Enterprise Organization', preparedFor = 'Executive Leadership Team'): Promise<void> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post(
-      `/api/v1/export-center/docx?company_name=${encodeURIComponent(companyName)}&prepared_for=${encodeURIComponent(preparedFor)}`,
-      formData,
-      {
-        responseType: 'blob',
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
+  public static async exportPdfReport(
+    datasetId: string,
+    datasetName: string,
+    branding: BrandingParams = {}
+  ): Promise<void> {
+    await this.downloadFrom(
+      API_ENDPOINTS.EXPORT_CENTER.PDF(datasetId),
+      `PowerPilot_Executive_Report_${this.stem(datasetName)}.pdf`,
+      branding
     );
-
-    this.downloadFile(response.data, `PowerPilot_Executive_Report_${file.name.replace('.csv', '')}.docx`);
   }
 
-  public static async exportHtmlReport(file: File): Promise<void> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post('/api/v1/export-center/html', formData, {
-      responseType: 'blob',
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    this.downloadFile(response.data, `PowerPilot_Interactive_Report_${file.name.replace('.csv', '')}.html`);
+  public static async exportDocxReport(
+    datasetId: string,
+    datasetName: string,
+    branding: BrandingParams = {}
+  ): Promise<void> {
+    await this.downloadFrom(
+      API_ENDPOINTS.EXPORT_CENTER.DOCX(datasetId),
+      `PowerPilot_Executive_Report_${this.stem(datasetName)}.docx`,
+      branding
+    );
   }
 
-  public static async exportJson(file: File): Promise<void> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post('/api/v1/export-center/json', formData, {
-      responseType: 'blob',
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    this.downloadFile(response.data, `PowerPilot_Intelligence_${file.name.replace('.csv', '')}.json`);
+  public static async exportHtmlReport(
+    datasetId: string,
+    datasetName: string,
+    branding: BrandingParams = {}
+  ): Promise<void> {
+    await this.downloadFrom(
+      API_ENDPOINTS.EXPORT_CENTER.HTML(datasetId),
+      `PowerPilot_Interactive_Report_${this.stem(datasetName)}.html`,
+      branding
+    );
   }
 
-  public static async exportDataDictionary(file: File): Promise<void> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await apiClient.post('/api/v1/export-center/data-dictionary', formData, {
-      responseType: 'blob',
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    this.downloadFile(response.data, `PowerPilot_Data_Dictionary_${file.name.replace('.csv', '')}.xlsx`);
+  public static async exportJson(datasetId: string, datasetName: string): Promise<void> {
+    await this.downloadFrom(
+      API_ENDPOINTS.EXPORT_CENTER.JSON(datasetId),
+      `PowerPilot_Intelligence_${this.stem(datasetName)}.json`
+    );
   }
 
-  public static async sendEmailDistribution(file: File, req: EmailDistributionRequest): Promise<any> {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const params = new URLSearchParams({
-      recipients: req.recipients,
-      subject: req.subject,
-      body_message: req.body_message,
-    });
-
-    const response = await apiClient.post(`/api/v1/export-center/email?${params.toString()}`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
-
-    return response.data;
+  public static async exportDataDictionary(
+    datasetId: string,
+    datasetName: string
+  ): Promise<void> {
+    await this.downloadFrom(
+      API_ENDPOINTS.EXPORT_CENTER.DATA_DICTIONARY(datasetId),
+      `PowerPilot_Data_Dictionary_${this.stem(datasetName)}.xlsx`
+    );
   }
 
-  public static async getExportHistory(): Promise<any> {
-    const response = await apiClient.get('/api/v1/export-center/history');
+  public static async getExportHistory(
+    limit = 50
+  ): Promise<{ status: string; history: ExportHistoryEntry[] }> {
+    const response = await apiClient.get<{ status: string; history: ExportHistoryEntry[] }>(
+      API_ENDPOINTS.EXPORT_CENTER.HISTORY,
+      { params: { limit } }
+    );
     return response.data;
   }
 }

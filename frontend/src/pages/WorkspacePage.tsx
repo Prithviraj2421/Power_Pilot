@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LayoutDashboard, FileText, ArrowLeft, Lightbulb, Code, Network, Target, Monitor, Sparkles, ShieldCheck, Download, Upload } from 'lucide-react';
 import { PageContainer } from '../components/layout/PageContainer';
@@ -6,6 +6,7 @@ import { PageHeader } from '../components/ui/PageHeader';
 import { Button } from '../components/ui/Button';
 import { Tabs, TabItem } from '../components/ui/Tabs';
 import { EmptyState } from '../components/ui/EmptyState';
+import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { useAnalysisStore } from '../store/useAnalysisStore';
 import { WorkspaceLayout } from '../components/layout/WorkspaceLayout';
 import { TabDashboardView } from '../features/dashboard/components/TabDashboardView';
@@ -21,8 +22,31 @@ import { ExportCenterView } from '../features/export/components/ExportCenterView
 
 export const WorkspacePage: React.FC = () => {
   const navigate = useNavigate();
-  const { currentDatasetName, intelligenceResult } = useAnalysisStore();
+  const { currentDatasetName, intelligenceResult, datasetId, status, restoreFromDatasetId } =
+    useAnalysisStore();
   const [activeTab, setActiveTab] = useState<string>('dashboard');
+
+  // A page refresh clears the in-memory analysis but the dataset id is persisted,
+  // so the workspace restores itself from the backend instead of demanding a
+  // re-upload. The backend serves it from cache, or recomputes it from the
+  // stored CSV if the cache has gone cold.
+  const needsRestore = !intelligenceResult && !!datasetId && status !== 'restoring';
+  useEffect(() => {
+    if (needsRestore) {
+      void restoreFromDatasetId();
+    }
+  }, [needsRestore, restoreFromDatasetId]);
+
+  if (status === 'restoring') {
+    return (
+      <PageContainer>
+        <div className="max-w-2xl mx-auto py-24 flex flex-col items-center gap-4">
+          <LoadingSpinner />
+          <p className="text-sm text-gray-400">Restoring your workspace…</p>
+        </div>
+      </PageContainer>
+    );
+  }
 
   if (!intelligenceResult || !intelligenceResult.dataset_profile) {
     return (

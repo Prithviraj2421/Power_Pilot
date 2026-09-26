@@ -1,14 +1,21 @@
 """Shared pytest fixtures for the PowerPilot backend test suite.
 
-Two jobs:
+Three jobs:
 
-1.  Expose the ``tests/datasets/*.csv`` sample files as ready-to-use fixtures.
-    Each file carries deliberate imperfections (missing values, a casing
+1.  **Isolation.** The dataset registry writes uploaded CSVs and a SQLite database
+    under ``settings.data_dir``. Tests must never touch the real one, so this
+    module points ``POWERPILOT_DATA_DIR`` at a temporary directory *before* the
+    application is imported. The import order below is load-bearing: importing
+    ``app.main`` builds the settings singleton, so the environment has to be set
+    first.
+
+2.  Expose the ``tests/datasets/*.csv`` sample files as ready-to-use fixtures.
+    Each carries deliberate imperfections (missing values, a casing
     inconsistency, one exact duplicate row, one numeric outlier) so the Data
     Quality & Preparation Engine has genuine work to do rather than scoring a
     perfect dataset every time.
 
-2.  Share the expensive things. A full 12-stage pipeline run takes ~150-200ms;
+3.  Share the expensive things. A full 12-stage pipeline run takes ~200ms;
     session-scoped result fixtures let export, copilot and route tests reuse one
     run instead of paying for it per test.
 """
@@ -16,18 +23,42 @@ Two jobs:
 from __future__ import annotations
 
 import io
+import os
+import shutil
+import tempfile
 from pathlib import Path
-from typing import Callable
+from typing import Callable, Iterator
 
-import pandas as pd
-import pytest
-from fastapi.testclient import TestClient
+# --- Isolation: must precede any import of app.* --------------------------------
+_TEST_DATA_DIR = Path(tempfile.mkdtemp(prefix="powerpilot-tests-"))
+os.environ["POWERPILOT_DATA_DIR"] = str(_TEST_DATA_DIR)
 
-from app.main import app
-from app.models.master_intelligence_result import MasterIntelligenceResult
-from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline
+import pandas as pd  # noqa: E402
+import pytest  # noqa: E402
+from fastapi.testclient import TestClient  # noqa: E402
+
+from app.core.config import get_settings  # noqa: E402
+from app.datasets.cache import ResultCache  # noqa: E402
+from app.datasets.service import DatasetService  # noqa: E402
+from app.datasets.store import DatasetStore  # noqa: E402
+from app.main import app  # noqa: E402
+from app.models.master_intelligence_result import MasterIntelligenceResult  # noqa: E402
+from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline  # noqa: E402
 
 DATASETS_DIR = Path(__file__).parent / "datasets"
+
+
+@pytest.fixture(scope="session", autouse=True)
+def _cleanup_test_data_dir() -> Iterator[None]:
+    """Remove the temporary registry directory once the session finishes."""
+    yield
+    shutil.rmtree(_TEST_DATA_DIR, ignore_errors=True)
+
+
+@pytest.fixture(scope="session")
+def test_data_dir() -> Path:
+    """The temporary directory backing the registry during tests."""
+    return _TEST_DATA_DIR
 
 
 # ---------------------------------------------------------------------------
@@ -49,6 +80,10 @@ def _load(name: str) -> pd.DataFrame:
             "The test suite expects populated fixtures in tests/datasets/."
         )
     return pd.read_csv(path)
+
+
+def _read_bytes(name: str) -> bytes:
+    return (DATASETS_DIR / name).read_bytes()
 
 
 @pytest.fixture
@@ -73,6 +108,12 @@ def hr_df() -> pd.DataFrame:
 def healthcare_df() -> pd.DataFrame:
     """61-row patient admissions dataset. Classifies as DatasetDomain.HEALTHCARE."""
     return _load("healthcare.csv")
+
+
+@pytest.fixture
+def retail_csv_bytes() -> bytes:
+    """Raw bytes of the retail sample, for upload and registry tests."""
+    return _read_bytes("retail.csv")
 
 
 # ---------------------------------------------------------------------------
@@ -108,6 +149,37 @@ def finance_result(
 
 
 # ---------------------------------------------------------------------------
+# Dataset registry fixtures
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture
+def dataset_service(tmp_path: Path) -> DatasetService:
+    """A registry backed by this test's own tmp_path, isolated from every other test."""
+    settings = get_settings()
+    store = DatasetStore(
+        db_path=tmp_path / "registry.sqlite3",
+        datasets_dir=tmp_path / "datasets",
+    )
+    return DatasetService(store=store, settings=settings)
+
+
+@pytest.fixture
+def small_cache_service(tmp_path: Path) -> DatasetService:
+    """A registry whose analysis cache holds a single entry, to exercise eviction."""
+    settings = get_settings()
+    store = DatasetStore(
+        db_path=tmp_path / "registry.sqlite3",
+        datasets_dir=tmp_path / "datasets",
+    )
+    return DatasetService(
+        store=store,
+        cache=ResultCache(max_entries=1, ttl_seconds=3600),
+        settings=settings,
+    )
+
+
+# ---------------------------------------------------------------------------
 # HTTP fixtures
 # ---------------------------------------------------------------------------
 
@@ -116,6 +188,21 @@ def finance_result(
 def client() -> TestClient:
     """FastAPI test client bound to the real application instance."""
     return TestClient(app)
+
+
+@pytest.fixture
+def registered_dataset_id(client: TestClient, retail_csv_bytes: bytes) -> str:
+    """Register the retail sample through the API and return its dataset id.
+
+    Registration is content-hash deduplicated, so repeated use across tests
+    resolves to the same dataset rather than re-running the pipeline.
+    """
+    response = client.post(
+        "/api/v1/datasets",
+        files={"file": ("retail.csv", io.BytesIO(retail_csv_bytes), "text/csv")},
+    )
+    assert response.status_code == 201, response.text
+    return response.json()["dataset"]["dataset_id"]
 
 
 @pytest.fixture

@@ -1,7 +1,10 @@
 import { apiClient } from '../api/apiClient';
+import { API_ENDPOINTS } from '../api/endpoints';
 
 export interface CopilotApiResponse {
   status: 'success' | 'error';
+  dataset_id: string;
+  dataset_name: string;
   query: string;
   answer: string;
   intent: string;
@@ -12,20 +15,17 @@ export interface CopilotApiResponse {
 
 export class CopilotService {
   /**
-   * Send natural language query to backend AI Copilot endpoint.
+   * Ask a natural language question against a registered dataset.
+   *
+   * The backend answers from that dataset's computed analysis, so figures come
+   * from the data rather than being generated. A follow-up question costs a
+   * cache lookup, not another pipeline run.
    */
-  public static async askCopilot(query: string, file: File): Promise<CopilotApiResponse> {
-    const formData = new FormData();
-    formData.append('query', query);
-    formData.append('file', file);
-
-    const response = await apiClient.post<CopilotApiResponse>(
-      '/api/v1/copilot/ask',
-      formData,
-      {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }
-    );
+  public static async askCopilot(datasetId: string, query: string): Promise<CopilotApiResponse> {
+    const response = await apiClient.post<CopilotApiResponse>(API_ENDPOINTS.COPILOT.ASK, {
+      dataset_id: datasetId,
+      query,
+    });
     return response.data;
   }
 }

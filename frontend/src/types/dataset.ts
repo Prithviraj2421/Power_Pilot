@@ -35,10 +35,51 @@ export interface DatasetProfile {
   columns: ColumnProfile[];
 }
 
+/**
+ * Durable metadata for a dataset registered in the backend registry.
+ * `dataset_id` is the handle every downstream operation uses instead of
+ * re-uploading the CSV.
+ */
+export interface DatasetRecord {
+  dataset_id: string;
+  filename: string;
+  size_bytes: number;
+  content_sha256: string;
+  original_rows: number;
+  total_rows: number;
+  total_columns: number;
+  rows_removed_by_cleaning: number;
+  detected_domain: string;
+  domain_confidence: number;
+  quality_grade: string;
+  quality_score: number;
+  quality_issues_count: number;
+  created_at: string;
+  last_accessed_at: string;
+}
+
 export interface AnalyzeCsvApiResponse {
   status: string;
+  dataset_id: string;
+  dataset: DatasetRecord;
   result: MasterIntelligenceResult;
   processing_time_ms?: number;
   dataset_name?: string;
   detected_domain?: string;
+}
+
+/** Response of GET /api/v1/datasets/:id/result — used to restore a workspace. */
+export interface DatasetResultApiResponse {
+  status: string;
+  dataset: DatasetRecord;
+  result: MasterIntelligenceResult;
+}
+
+/** Response of GET /api/v1/datasets — analysis history. */
+export interface DatasetListApiResponse {
+  status: string;
+  total: number;
+  limit: number;
+  offset: number;
+  datasets: DatasetRecord[];
 }

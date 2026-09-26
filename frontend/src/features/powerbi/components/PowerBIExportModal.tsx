@@ -3,7 +3,7 @@ import { Modal } from '../../../components/ui/Modal';
 import { Button } from '../../../components/ui/Button';
 import { Download, FileCode, Database, Copy, Check } from 'lucide-react';
 import { PowerBIService } from '../../../services/powerbiService';
-import { useUploadStore } from '../../../store/useUploadStore';
+import { useAnalysisStore } from '../../../store/useAnalysisStore';
 import { useToast } from '../../../hooks/useToast';
 
 export interface PowerBIExportModalProps {
@@ -12,7 +12,8 @@ export interface PowerBIExportModalProps {
 }
 
 export const PowerBIExportModal: React.FC<PowerBIExportModalProps> = ({ isOpen, onClose }) => {
-  const { file } = useUploadStore();
+  const { datasetId, currentDatasetName } = useAnalysisStore();
+  const datasetStem = (currentDatasetName ?? 'Dataset').replace(/[.]csv$/i, '');
   const { showSuccess, showError } = useToast();
   const [loadingType, setLoadingType] = useState<string | null>(null);
   const [copiedType, setCopiedType] = useState<string | null>(null);
@@ -39,15 +40,15 @@ export const PowerBIExportModal: React.FC<PowerBIExportModalProps> = ({ isOpen, 
   };
 
   const handleDaxAction = async (action: 'download' | 'copy') => {
-    if (!file) {
-      showError('No File Uploaded', 'Please upload a dataset CSV file first.');
+    if (!datasetId) {
+      showError('No Active Dataset', 'Please upload and analyze a CSV dataset first.');
       return;
     }
     setLoadingType('dax');
     try {
-      const script = await PowerBIService.exportDax(file);
+      const script = await PowerBIService.exportDax(datasetId);
       if (action === 'download') {
-        downloadBlob(script, `${file.name.replace('.csv', '')}_measures.dax`, 'text/plain');
+        downloadBlob(script, `${datasetStem}_measures.dax`, 'text/plain');
         showSuccess('DAX Script Exported', 'Downloaded .dax measures script file.');
       } else {
         await copyToClipboard(script, 'DAX Measures', 'dax');
@@ -60,16 +61,16 @@ export const PowerBIExportModal: React.FC<PowerBIExportModalProps> = ({ isOpen, 
   };
 
   const handleBimAction = async (action: 'download' | 'copy') => {
-    if (!file) {
-      showError('No File Uploaded', 'Please upload a dataset CSV file first.');
+    if (!datasetId) {
+      showError('No Active Dataset', 'Please upload and analyze a CSV dataset first.');
       return;
     }
     setLoadingType('bim');
     try {
-      const bimObj = await PowerBIService.exportBim(file);
+      const bimObj = await PowerBIService.exportBim(datasetId);
       const bimJson = JSON.stringify(bimObj, null, 2);
       if (action === 'download') {
-        downloadBlob(bimJson, `PowerPilot_${file.name.replace('.csv', '')}_Model.bim`, 'application/json');
+        downloadBlob(bimJson, `PowerPilot_${datasetStem}_Model.bim`, 'application/json');
         showSuccess('BIM Schema Exported', 'Downloaded Tabular Model .bim schema file.');
       } else {
         await copyToClipboard(bimJson, 'Tabular Model BIM Schema', 'bim');
@@ -82,15 +83,15 @@ export const PowerBIExportModal: React.FC<PowerBIExportModalProps> = ({ isOpen, 
   };
 
   const handleMAction = async (action: 'download' | 'copy') => {
-    if (!file) {
-      showError('No File Uploaded', 'Please upload a dataset CSV file first.');
+    if (!datasetId) {
+      showError('No Active Dataset', 'Please upload and analyze a CSV dataset first.');
       return;
     }
     setLoadingType('m');
     try {
-      const mScript = await PowerBIService.exportPowerQueryM(file);
+      const mScript = await PowerBIService.exportPowerQueryM(datasetId);
       if (action === 'download') {
-        downloadBlob(mScript, `${file.name.replace('.csv', '')}_PowerQuery.m`, 'text/plain');
+        downloadBlob(mScript, `${datasetStem}_PowerQuery.m`, 'text/plain');
         showSuccess('Power Query Script Exported', 'Downloaded .m transformation script file.');
       } else {
         await copyToClipboard(mScript, 'Power Query (M) Code', 'm');
@@ -106,7 +107,7 @@ export const PowerBIExportModal: React.FC<PowerBIExportModalProps> = ({ isOpen, 
     <Modal isOpen={isOpen} onClose={onClose} title="Export Assets to Power BI" maxWidth="lg">
       <div className="space-y-4 text-sm">
         <p className="text-gray-300">
-          Copy or download pre-formatted Power BI measures, Tabular Model schemas, and Power Query data transformation scripts for <strong>{file?.name || 'Uploaded Dataset'}</strong>.
+          Copy or download pre-formatted Power BI measures, Tabular Model schemas, and Power Query data transformation scripts for <strong>{currentDatasetName || 'Uploaded Dataset'}</strong>.
         </p>
 
         <div className="space-y-3 pt-2">
