@@ -3,6 +3,7 @@ from typing import Any
 from app.intelligence.domain.base_domain_classifier import BaseDomainClassifier
 from app.models.domain_detection_result import DomainDetectionResult
 from app.common.enums import DatasetDomain, SemanticType
+from app.common.keyword_match import contains_keyword
 
 
 class FinanceClassifier(BaseDomainClassifier):
@@ -59,7 +60,7 @@ class FinanceClassifier(BaseDomainClassifier):
         
         # 3. evidence: tuple of strings explaining matches
         evidence_list = []
-        keyword_matches = sum(1 for name in column_names for kw in self.KEYWORDS if kw in name)
+        keyword_matches = sum(1 for name in column_names for kw in self.KEYWORDS if contains_keyword(name, kw))
         
         if keyword_matches > 0:
             evidence_list.append(f"Found {keyword_matches} column name(s) matching finance keywords.")

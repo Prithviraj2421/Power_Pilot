@@ -7,6 +7,7 @@ from typing import Set, Any, List
 from app.intelligence.domain.base_domain_classifier import BaseDomainClassifier
 from app.models.domain_detection_result import DomainDetectionResult
 from app.common.enums import DatasetDomain, SemanticType
+from app.common.keyword_match import contains_keyword
 
 
 class HealthcareClassifier(BaseDomainClassifier):
@@ -67,7 +68,7 @@ class HealthcareClassifier(BaseDomainClassifier):
                 if hasattr(col, "name") and col.name:
                     col_name = str(col.name).lower()
                     for kw in self.keywords:
-                        if kw in col_name:
+                        if contains_keyword(col_name, kw):
                             matched_keywords.add(kw)
 
         found_primary = self.primary_entities.intersection(matched_entities_set)

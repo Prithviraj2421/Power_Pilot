@@ -3,6 +3,7 @@ from typing import Optional
 import pandas as pd
 
 from app.common.enums import SemanticType
+from app.common.keyword_match import any_keyword_matches
 from app.intelligence.entity.base_entity_detector import BaseEntityDetector
 from app.models.column_profile import ColumnProfile
 from app.models.entity_detection_result import EntityDetectionResult
@@ -34,7 +35,7 @@ class IdentifierDetector(BaseEntityDetector):
         if col_name_lower in self.KEYWORDS or any(col_name_lower.endswith(f"_{kw}") for kw in self.KEYWORDS):
             confidence += 0.5
             evidence.append(f"Column name '{column.name}' matches identifier pattern.")
-        elif any(kw in col_name_lower for kw in self.KEYWORDS):
+        elif any_keyword_matches(col_name_lower, self.KEYWORDS):
             confidence += 0.3
             evidence.append(f"Column name '{column.name}' contains identifier keywords.")
 

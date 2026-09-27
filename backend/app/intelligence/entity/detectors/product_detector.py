@@ -6,6 +6,7 @@ import pandas as pd
 from app.intelligence.entity.base_entity_detector import BaseEntityDetector
 from app.models.column_profile import ColumnProfile
 from app.models.entity_detection_result import EntityDetectionResult
+from app.common.keyword_match import any_keyword_matches
 from app.common.enums import SemanticType, PhysicalType
 
 
@@ -28,7 +29,7 @@ class ProductDetector(BaseEntityDetector):
         evidence = []
 
         col_name_lower = column.name.lower()
-        if any(kw in col_name_lower for kw in self.KEYWORDS):
+        if any_keyword_matches(col_name_lower, self.KEYWORDS):
             confidence += 0.5
             evidence.append(f"Column name '{column.name}' contains product keywords.")
 

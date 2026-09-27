@@ -6,6 +6,7 @@ import pandas as pd
 from app.intelligence.entity.base_entity_detector import BaseEntityDetector
 from app.models.column_profile import ColumnProfile
 from app.models.entity_detection_result import EntityDetectionResult
+from app.common.keyword_match import any_keyword_matches
 from app.common.enums import SemanticType, PhysicalType
 
 
@@ -28,7 +29,7 @@ class CustomerDetector(BaseEntityDetector):
         evidence = []
 
         col_name_lower = column.name.lower()
-        has_keyword = any(kw in col_name_lower for kw in self.KEYWORDS)
+        has_keyword = any_keyword_matches(col_name_lower, self.KEYWORDS)
 
         if has_keyword:
             confidence += 0.4

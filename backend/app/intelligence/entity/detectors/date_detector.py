@@ -6,6 +6,7 @@ from app.common.enums import PhysicalType, SemanticType
 from app.intelligence.entity.base_entity_detector import BaseEntityDetector
 from app.models.column_profile import ColumnProfile
 from app.models.entity_detection_result import EntityDetectionResult
+from app.common.keyword_match import any_keyword_matches
 
 
 class DateDetector(BaseEntityDetector):
@@ -34,7 +35,7 @@ class DateDetector(BaseEntityDetector):
             evidence.append("Physical type is 'time'.")
 
         col_name_lower = column.name.lower()
-        if any(kw in col_name_lower for kw in self.KEYWORDS):
+        if any_keyword_matches(col_name_lower, self.KEYWORDS):
             confidence += 0.4
             evidence.append(f"Column name '{column.name}' contains date keywords.")
 
