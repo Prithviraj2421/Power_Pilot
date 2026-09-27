@@ -247,3 +247,49 @@ def test_unknown_extension_lists_the_supported_set() -> None:
 def test_extension_matching_is_case_insensitive() -> None:
     result = read_dataset(_workbook(Sales=FRAME), "REPORT.XLSX")
     assert result.file_format == "xlsx"
+
+
+def test_a_cover_sheet_with_one_note_row_is_not_mistaken_for_data() -> None:
+    """Found with a real workbook: a "Read Me" tab holding a single note row is
+    technically non-empty, so "first sheet with data" analyzed a 1x1 table while
+    the real 900-row sheet sat next to it."""
+    payload = _workbook(
+        **{
+            "Read Me": pd.DataFrame({"Notes": ["Confidential - HR analytics extract"]}),
+            "Employees": FRAME,
+        }
+    )
+
+    result = read_dataset(payload, "hr.xlsx")
+
+    assert result.sheet_name == "Employees"
+    assert len(result.dataframe) == 3
+
+
+def test_the_largest_tabular_sheet_wins() -> None:
+    small = pd.DataFrame({"a": [1, 2], "b": [3, 4]})
+    large = pd.DataFrame({"a": range(50), "b": range(50), "c": range(50)})
+
+    result = read_dataset(_workbook(Small=small, Large=large), "book.xlsx")
+
+    assert result.sheet_name == "Large"
+
+
+def test_a_named_sheet_still_overrides_the_ranking() -> None:
+    """An explicit choice must beat the heuristic."""
+    payload = _workbook(Summary=pd.DataFrame({"note": ["x"]}), Detail=FRAME)
+
+    result = read_dataset(payload, "book.xlsx", sheet="Summary")
+
+    assert result.sheet_name == "Summary"
+
+
+def test_a_workbook_of_only_narrow_sheets_still_reads_the_biggest() -> None:
+    """With nothing tabular, it should still return something rather than fail."""
+    payload = _workbook(
+        One=pd.DataFrame({"note": ["a"]}), Two=pd.DataFrame({"note": ["a", "b", "c"]})
+    )
+
+    result = read_dataset(payload, "notes.xlsx")
+
+    assert result.sheet_name == "Two"

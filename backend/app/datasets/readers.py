@@ -127,6 +127,8 @@ def read_excel(payload: bytes, sheet: Optional[str] = None) -> DatasetReadResult
         candidates = sheet_names
 
     last_error: Optional[Exception] = None
+    parsed: list[tuple[str, pd.DataFrame]] = []
+
     for name in candidates:
         try:
             frame = workbook.parse(name)
@@ -134,22 +136,40 @@ def read_excel(payload: bytes, sheet: Optional[str] = None) -> DatasetReadResult
             last_error = exc
             continue
         if not frame.empty and len(frame.columns) > 0:
-            if name != sheet_names[0]:
-                logger.info(
-                    f"Sheet '{sheet_names[0]}' held no data; read '{name}' instead"
-                )
-            return DatasetReadResult(
-                dataframe=frame,
-                file_format="xlsx",
-                sheet_name=name,
-            )
+            parsed.append((name, frame))
 
-    if last_error is not None:
+    if not parsed:
+        if last_error is not None:
+            raise DatasetReadError(
+                f"No readable sheet found in the workbook: {last_error}"
+            ) from last_error
         raise DatasetReadError(
-            f"No readable sheet found in the workbook: {last_error}"
-        ) from last_error
-    raise DatasetReadError(
-        f"Every sheet in the workbook is empty (checked: {', '.join(candidates)})."
+            f"Every sheet in the workbook is empty (checked: {', '.join(candidates)})."
+        )
+
+    # Pick the largest sheet, not the first non-empty one. A "Read Me" or cover
+    # tab holding a single note row is technically non-empty, and taking it means
+    # analyzing a 1x1 table while the real data sits on the next sheet.
+    # Sheets that look like a table (2+ columns and 2+ rows) always beat ones that
+    # do not, and among those the one with the most cells wins.
+    def _rank(entry: tuple[str, pd.DataFrame]) -> tuple[int, int]:
+        _name, frame = entry
+        looks_tabular = len(frame.columns) >= 2 and len(frame) >= 2
+        return (1 if looks_tabular else 0, len(frame) * len(frame.columns))
+
+    best_name, best_frame = max(parsed, key=_rank)
+
+    if best_name != sheet_names[0]:
+        logger.info(
+            f"Read sheet '{best_name}' ({len(best_frame)} rows x "
+            f"{len(best_frame.columns)} cols) rather than the first sheet "
+            f"'{sheet_names[0]}', which held less data"
+        )
+
+    return DatasetReadResult(
+        dataframe=best_frame,
+        file_format="xlsx",
+        sheet_name=best_name,
     )
 
 
