@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, User, CheckCircle2, AlertCircle } from 'lucide-react';
+import { Sparkles, User, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
 import { Badge } from '../../../components/ui/Badge';
 import { cn } from '../../../utils/cn';
 
@@ -11,6 +11,10 @@ export interface ChatMessage {
   evidence?: string[];
   recommended_actions?: string[];
   suggested_followups?: string[];
+  /** Which engine produced this answer. */
+  source?: 'llm' | 'rules';
+  /** Set when the language model was skipped or its answer was rejected. */
+  fallbackReason?: string | null;
 }
 
 export const CopilotChatMessage: React.FC<{
@@ -43,6 +47,20 @@ export const CopilotChatMessage: React.FC<{
         </div>
 
         <p className="text-sm text-gray-100 leading-relaxed">{message.content}</p>
+
+        {/* Provenance. A reader should never have to guess whether an answer was
+            generated or composed from the analysis directly. */}
+        {!isUser && message.source && (
+          <div className="flex items-start gap-2 text-[11px] text-gray-500">
+            <ShieldCheck className="w-3.5 h-3.5 mt-px shrink-0 text-gray-500" />
+            <span>
+              {message.source === 'llm'
+                ? 'Generated from this dataset’s analysis; every figure verified against it.'
+                : 'Composed directly from the computed analysis.'}
+              {message.fallbackReason ? ` ${message.fallbackReason}` : ''}
+            </span>
+          </div>
+        )}
 
         {/* Supporting Evidence */}
         {message.evidence && message.evidence.length > 0 && (

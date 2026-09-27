@@ -79,6 +79,18 @@ class Settings(BaseSettings):
     # both. Raise it for stricter labelling, lower it to see more guesses.
     min_domain_confidence: float = 0.50
 
+    # --- LLM copilot ----------------------------------------------------------
+    # The language model is given ONLY the pipeline's computed analysis, never the
+    # dataset, and every answer's figures are verified against that analysis before
+    # it is returned. Without a key the deterministic engine answers instead, so
+    # the copilot works either way -- it just answers in templates.
+    anthropic_api_key: str = ""
+    llm_model: str = "claude-opus-5"
+    # Deliberately modest: a BI answer is a short paragraph or a few bullets, and
+    # a lower ceiling keeps an interactive chat responsive.
+    llm_max_tokens: int = 4000
+    llm_timeout_seconds: int = 60
+
     # --- Email delivery -------------------------------------------------------
     # Plain SMTP rather than a vendor SDK, so the same settings work against
     # Gmail, Amazon SES's SMTP endpoint, SendGrid's SMTP relay or a self-hosted
@@ -132,6 +144,11 @@ class Settings(BaseSettings):
                 "exclusive. Use smtp_use_ssl for port 465, smtp_use_tls for port 587."
             )
         return self
+
+    @property
+    def llm_enabled(self) -> bool:
+        """Whether LLM answering is configured. Without it, rules answer instead."""
+        return bool(self.anthropic_api_key.strip())
 
     @property
     def email_enabled(self) -> bool:

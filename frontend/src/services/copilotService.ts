@@ -11,9 +11,30 @@ export interface CopilotApiResponse {
   evidence: string[];
   recommended_actions: string[];
   suggested_followups: string[];
+  /** Which engine produced the answer: 'llm' or 'rules'. */
+  source: 'llm' | 'rules';
+  /** Whether every figure in the answer traces back to the computed analysis. */
+  verified: boolean;
+  verification_note: string;
+  /** Present when the LLM was skipped or its answer was rejected. */
+  fallback_reason: string | null;
+}
+
+export interface CopilotStatus {
+  status: string;
+  llm_enabled: boolean;
+  model: string | null;
+  engine: 'llm' | 'rules';
+  detail: string;
 }
 
 export class CopilotService {
+  /** Which engine will answer, so the UI can say so before the first question. */
+  public static async getStatus(): Promise<CopilotStatus> {
+    const response = await apiClient.get<CopilotStatus>(API_ENDPOINTS.COPILOT.STATUS);
+    return response.data;
+  }
+
   /**
    * Ask a natural language question against a registered dataset.
    *

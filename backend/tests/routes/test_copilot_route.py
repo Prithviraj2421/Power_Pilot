@@ -90,3 +90,50 @@ def test_overlong_query_is_rejected(client: TestClient, registered_dataset_id: s
         URL, json={"dataset_id": registered_dataset_id, "query": "x" * 2001}
     )
     assert response.status_code == 422
+
+
+# ---------------------------------------------------------------------------
+# Engine provenance
+# ---------------------------------------------------------------------------
+
+
+def test_status_reports_the_deterministic_engine_by_default(client: TestClient) -> None:
+    response = client.get("/api/v1/copilot/status")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["llm_enabled"] is False
+    assert body["engine"] == "rules"
+    assert "POWERPILOT_ANTHROPIC_API_KEY" in body["detail"]
+
+
+def test_status_never_returns_the_api_key_value(client: TestClient) -> None:
+    """Naming the env var is helpful; leaking its value is not."""
+    from app.core.config import Settings, get_settings
+    from app.main import app
+
+    secret = "sk-ant-secret-value-must-not-leak"
+    app.dependency_overrides[get_settings] = lambda: Settings(
+        data_dir=get_settings().data_dir, anthropic_api_key=secret
+    )
+    try:
+        body = client.get("/api/v1/copilot/status").json()
+        assert body["llm_enabled"] is True
+        assert body["engine"] == "llm"
+        assert secret not in str(body)
+        assert "anthropic_api_key" not in body
+    finally:
+        app.dependency_overrides.pop(get_settings, None)
+
+
+def test_answers_declare_which_engine_produced_them(
+    client: TestClient, registered_dataset_id: str
+) -> None:
+    """A reader should never have to guess whether an answer was generated."""
+    response = _ask(client, registered_dataset_id, "How is the data quality?")
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["source"] in ("rules", "llm")
+    assert body["verified"] is True
+    assert body["verification_note"]

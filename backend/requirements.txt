@@ -11,6 +11,11 @@ python-multipart==0.0.32      # required by FastAPI for multipart/form-data uplo
 # --- Configuration ---
 pydantic-settings==2.15.0     # app/core/config.py environment-backed settings
 
+# --- LLM copilot ---
+# Optional at runtime: without POWERPILOT_ANTHROPIC_API_KEY the deterministic
+# engine answers instead. Pinned here so the image is built ready for it.
+anthropic==1.8.0
+
 # --- Data processing ---
 pandas==3.0.3
 numpy==2.5.1

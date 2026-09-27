@@ -53,6 +53,10 @@ const answer = {
   evidence: ['unit_price is decreasing over order_date (-92.4% first to last)'],
   recommended_actions: ['Reallocate Inventory to High-Margin Product Categories'],
   suggested_followups: ['What should management do next?'],
+  source: 'llm' as const,
+  verified: true,
+  verification_note: 'All 1 numeric claim(s) trace to the analysis.',
+  fallback_reason: null,
 };
 
 describe('CopilotView', () => {
@@ -171,5 +175,31 @@ describe('CopilotView', () => {
     expect(screen.getByText('60 × 11')).toBeInTheDocument();
     // The old sidebar fell back to literal '95.8' and 'RETAIL' when data was absent.
     expect(screen.queryByText('95.8%')).not.toBeInTheDocument();
+  });
+  it('says which engine produced the answer', async () => {
+    vi.mocked(CopilotService.askCopilot).mockResolvedValue(answer);
+    loadDataset();
+    render(<CopilotView />);
+
+    await userEvent.type(screen.getByPlaceholderText(/Ask about data quality/), 'why');
+    await userEvent.click(screen.getByRole('button', { name: /Send/ }));
+
+    expect(await screen.findByText(/every figure verified against it/)).toBeInTheDocument();
+  });
+
+  it('surfaces why the language model was skipped', async () => {
+    vi.mocked(CopilotService.askCopilot).mockResolvedValue({
+      ...answer,
+      source: 'rules' as const,
+      fallback_reason: 'LLM answering is not configured on this server.',
+    });
+    loadDataset();
+    render(<CopilotView />);
+
+    await userEvent.click(screen.getByRole('button', { name: 'What are my key KPIs?' }));
+
+    expect(
+      await screen.findByText(/not configured on this server/)
+    ).toBeInTheDocument();
   });
 });

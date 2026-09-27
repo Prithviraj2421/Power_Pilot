@@ -16,6 +16,10 @@ services:
       POWERPILOT_CORS_ALLOW_ORIGINS: "http://localhost:8080,http://localhost:3000"
       POWERPILOT_DATA_DIR: /app/data
       POWERPILOT_MAX_UPLOAD_MB: "50"
+      POWERPILOT_MIN_DOMAIN_CONFIDENCE: "${POWERPILOT_MIN_DOMAIN_CONFIDENCE:-0.50}"
+      # Optional. Without it the copilot answers from the deterministic engine.
+      POWERPILOT_ANTHROPIC_API_KEY: "${POWERPILOT_ANTHROPIC_API_KEY:-}"
+      POWERPILOT_LLM_MODEL: "${POWERPILOT_LLM_MODEL:-claude-opus-5}"
       # Email stays disabled unless these are supplied. See backend/.env.example.
       POWERPILOT_SMTP_HOST: "${POWERPILOT_SMTP_HOST:-}"
       POWERPILOT_SMTP_PORT: "${POWERPILOT_SMTP_PORT:-587}"

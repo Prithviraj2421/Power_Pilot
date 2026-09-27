@@ -107,6 +107,8 @@ export const CopilotView: React.FC = () => {
           sender: 'assistant',
           content: response.answer,
           intent: response.intent,
+          source: response.source,
+          fallbackReason: response.fallback_reason,
           evidence: response.evidence,
           recommended_actions: response.recommended_actions,
           suggested_followups: response.suggested_followups,

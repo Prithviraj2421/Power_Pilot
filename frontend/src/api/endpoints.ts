@@ -42,6 +42,7 @@ export const API_ENDPOINTS = {
 
   COPILOT: {
     ASK: '/api/v1/copilot/ask',
+    STATUS: '/api/v1/copilot/status',
   },
 
   QUALITY: {
