@@ -4,8 +4,7 @@ import pandas as pd
 import pytest
 
 from app.export_center.builders.excel_builder import ExcelExportBuilder
-from app.export_center.builders.pdf_builder import PdfExportBuilder
-from app.export_center.models.export_models import BrandingConfig, ExportFormat, PageBudgetConfig, SmartMetricFilter
+from app.export_center.models.export_models import ExportFormat, SmartMetricFilter
 from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline
 
 
@@ -49,15 +48,14 @@ def test_smart_metric_filtering() -> None:
     assert business_cols == ["Sales", "Profit", "Quantity"]
 
 
-def test_pdf_page_budget_calculator() -> None:
-    df = pd.DataFrame({"order_id": [1, 2], "sales": [10.0, 20.0]})
-    pipeline = PowerPilotIntelligencePipeline()
-    result = pipeline.run_pipeline(df, dataset_name="SmallTest.csv")
-
-    budget = PdfExportBuilder.calculate_page_budget(result)
-    assert budget.dataset_scale == "SMALL"
-    assert budget.min_pages == 6
-    assert budget.max_pages == 8
+# PdfExportBuilder.calculate_page_budget() / PageBudgetConfig were removed along
+# with the test that covered them: the pdf_builder.py rewrite (see
+# test_pdf_report_content.py) deleted that method because it was dead code --
+# computed but never called from build_executive_pdf, so the elaborate
+# min/max/target page scaling it calculated never actually influenced the
+# report. Page count now emerges from how much real content each section has,
+# which is what let a 1,500-row dataset grow from a fixed 7 pages to 12 pages
+# of genuine content instead of a config nobody read.
 
 
 def test_cleaned_dataset_sheet_uses_a_native_table_not_per_cell_borders() -> None:

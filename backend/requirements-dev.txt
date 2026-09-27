@@ -5,4 +5,5 @@
 
 pytest==9.1.1
 httpx==0.28.1                 # required by fastapi.testclient.TestClient
-aiosmtpd==1.4.6               # real local SMTP server for email delivery tests
+aiosmtpd==1.4.6                # real local SMTP server for email delivery tests
+pypdf==6.19.0                  # extracts real text from generated PDFs for content assertions
