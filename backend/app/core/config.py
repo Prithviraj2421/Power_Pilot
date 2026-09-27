@@ -69,6 +69,16 @@ class Settings(BaseSettings):
     # pruned past this. Set to 0 to disable pruning.
     max_stored_datasets: int = 200
 
+    # --- Domain classification ------------------------------------------------
+    # Minimum confidence before a dataset is labelled with a business domain.
+    # Below this it is reported as UNKNOWN, and every downstream engine uses its
+    # generic fallback rather than a domain-specific template.
+    #
+    # Calibrated against the sample datasets: correctly classified ones score
+    # 0.633-0.800, while off-domain files score 0.120-0.325. 0.50 sits clear of
+    # both. Raise it for stricter labelling, lower it to see more guesses.
+    min_domain_confidence: float = 0.50
+
     # --- Email delivery -------------------------------------------------------
     # Plain SMTP rather than a vendor SDK, so the same settings work against
     # Gmail, Amazon SES's SMTP endpoint, SendGrid's SMTP relay or a self-hosted

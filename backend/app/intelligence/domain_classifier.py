@@ -7,10 +7,14 @@ and enriches the DatasetProfile.
 """
 
 from app.common.enums import DatasetDomain
+from app.common.logger import get_logger
+from app.core.config import get_settings
 from app.intelligence.domain.base_domain_classifier import BaseDomainClassifier
 from app.intelligence.domain.classifiers import DOMAIN_CLASSIFIER_REGISTRY
 from app.models.dataset_profile import DatasetProfile
 from app.models.domain_detection_result import DomainDetectionResult
+
+logger = get_logger("DomainClassifier")
 
 
 class DomainClassifier:
@@ -22,10 +26,20 @@ class DomainClassifier:
     and returns the ranked candidates list.
     """
 
-    _MIN_DOMAIN_CONFIDENCE_THRESHOLD: float = 0.20
+    def __init__(self, min_confidence: float | None = None) -> None:
+        """Initialize all registered domain classifier plugins.
 
-    def __init__(self) -> None:
-        """Initialize all registered domain classifier plugins."""
+        ``min_confidence`` defaults to the configured threshold. Below it a
+        dataset is reported as UNKNOWN rather than given the best of several weak
+        guesses -- a label like "RETAIL" carries the same visual weight at 25%
+        confidence as at 80%, and every downstream engine (KPI templates,
+        dashboard layout, strategic decisions) builds on it as though it were
+        established. Each of those engines has a generic fallback for UNKNOWN,
+        so admitting uncertainty degrades gracefully.
+        """
+        self._min_confidence = (
+            get_settings().min_domain_confidence if min_confidence is None else min_confidence
+        )
         self._classifiers: list[BaseDomainClassifier] = [
             classifier_cls() for classifier_cls in DOMAIN_CLASSIFIER_REGISTRY
         ]
@@ -63,12 +77,23 @@ class DomainClassifier:
         )
 
         # Enrich DatasetProfile
-        if ranked_candidates and ranked_candidates[0].confidence >= self._MIN_DOMAIN_CONFIDENCE_THRESHOLD:
+        if ranked_candidates and ranked_candidates[0].confidence >= self._min_confidence:
             profile.detected_domain = ranked_candidates[0].domain
             profile.domain_confidence = ranked_candidates[0].confidence
         else:
+            if ranked_candidates:
+                best = ranked_candidates[0]
+                logger.info(
+                    f"'{profile.dataset_name}' classified as UNKNOWN: the strongest "
+                    f"candidate was {best.domain.value} at {best.confidence:.2f}, below "
+                    f"the {self._min_confidence:.2f} threshold. Ranked candidates remain "
+                    "on the profile."
+                )
             profile.detected_domain = DatasetDomain.UNKNOWN
             profile.domain_confidence = 0.0
+
+        # Kept regardless of the outcome, so a rejected best guess is still
+        # inspectable rather than silently discarded.
 
         profile.candidate_domains = ranked_candidates
 
