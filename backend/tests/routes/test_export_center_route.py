@@ -34,11 +34,10 @@ def test_cleaned_csv_export_contains_the_cleaned_frame(
     assert retail_df["profit"].isna().sum() == 2
     assert exported["profit"].isna().sum() == 0
 
-    # KNOWN GAP: categorical gaps are NOT imputed -- the fixture's 3 missing
-    # 'region' values survive cleaning. Asserted so the behavior is visible and
-    # this test fails loudly if categorical imputation is added later.
+    # Categorical gaps are imputed too (mode fill); the fixture's 3 missing
+    # 'region' values come back filled.
     assert retail_df["region"].isna().sum() == 3
-    assert exported["region"].isna().sum() == 3
+    assert exported["region"].isna().sum() == 0
 
 
 def test_cleaned_csv_export_differs_from_the_raw_upload(

@@ -56,10 +56,15 @@ class TrendsPlugin(BaseDataIntelligencePlugin):
                 y = temp_df[n_col].values
 
                 if len(x) > 1:
-                    slope, _ = np.polyfit(x, y, 1)
-                    start_val = y[0]
-                    end_val = y[-1]
-                    growth_rate_pct = float(((end_val - start_val) / abs(start_val)) * 100 if start_val != 0 else 0.0)
+                    slope, intercept = np.polyfit(x, y, 1)
+                    # Growth is read off the fitted line, not the raw first/last
+                    # observations: a single noisy endpoint can otherwise flip the
+                    # sign relative to the slope-derived direction below.
+                    fitted_start = intercept
+                    fitted_end = slope * x[-1] + intercept
+                    growth_rate_pct = float(
+                        ((fitted_end - fitted_start) / abs(fitted_start)) * 100 if fitted_start != 0 else 0.0
+                    )
 
                     direction = "increasing" if slope > 0 else "decreasing" if slope < 0 else "stable"
                     confidence = 0.85

@@ -1,4 +1,5 @@
 import pandas as pd
+from app.data_quality.plugins.validators.missing_validator import MissingValueValidator
 from app.models.data_quality_models import AuditTrailEntry, ImputationStrategy
 
 
@@ -6,6 +7,11 @@ class MissingValueCleaner:
     """
     Imputes missing values using configured strategy (Mean, Median, Mode, Constant, FFill, BFill).
     """
+
+    # Same token set MissingValueValidator flags as missing, so a column the
+    # quality report calls out (e.g. a "-" or "Unknown" placeholder) actually
+    # gets imputed here instead of surviving as a literal string.
+    NULL_TOKENS = MissingValueValidator.NULL_TOKENS
 
     def clean(self, df: pd.DataFrame, strategy: ImputationStrategy) -> tuple[pd.DataFrame, list[AuditTrailEntry]]:
         if strategy == ImputationStrategy.LEAVE:
@@ -16,6 +22,12 @@ class MissingValueCleaner:
 
         for col in cleaned_df.columns:
             series = cleaned_df[col]
+            is_text = pd.api.types.is_string_dtype(series) or series.dtype == "object"
+            if is_text:
+                token_mask = series.astype(str).str.strip().str.lower().isin(self.NULL_TOKENS)
+                series = series.mask(token_mask)
+                cleaned_df[col] = series
+
             missing_count = series.isna().sum()
             if missing_count == 0:
                 continue
@@ -51,7 +63,7 @@ class MissingValueCleaner:
                     )
                 )
 
-            elif series.dtype == "object":
+            elif is_text:
                 mode_val = series.mode()[0] if len(series.mode()) > 0 else "Unknown"
                 cleaned_df[col] = series.fillna(mode_val)
                 audit_trail.append(

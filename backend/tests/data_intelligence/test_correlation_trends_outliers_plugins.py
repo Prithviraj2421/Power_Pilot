@@ -52,6 +52,35 @@ def test_trends_plugin() -> None:
     assert trend.confidence >= 0.7
 
 
+def test_trends_plugin_growth_rate_matches_slope_direction_despite_noisy_endpoint() -> None:
+    """
+    A single noisy first observation used to make growth_rate_pct contradict
+    the slope-derived direction: 7 of 8 points rise steadily, so the slope is
+    positive ("increasing"), but the raw first value (300) is a spike above
+    the trend line while the raw last value (220) sits on it, so comparing
+    raw endpoints gave a NEGATIVE growth_rate_pct alongside "increasing".
+    Growth must now be read off the fitted line, which keeps the same sign
+    as the slope.
+    """
+    plugin = TrendsPlugin()
+
+    df = pd.DataFrame({
+        "order_date": pd.to_datetime([
+            "2023-01-01", "2023-01-02", "2023-01-03", "2023-01-04",
+            "2023-01-05", "2023-01-06", "2023-01-07", "2023-01-08",
+        ]),
+        "sales": [300.0, 100.0, 120.0, 140.0, 160.0, 180.0, 200.0, 220.0],
+    })
+
+    dataset_profile = DatasetProfile(dataset_name="sales.csv", total_rows=8, total_columns=2)
+    results = plugin.analyze(df, dataset_profile)
+
+    trend = results[0]
+    assert trend.direction == "increasing"
+    assert trend.slope > 0
+    assert trend.growth_rate_pct > 0
+
+
 def test_outliers_plugin() -> None:
     """Test OutliersPlugin with a dataset containing extreme values."""
     plugin = OutliersPlugin()

@@ -19,6 +19,22 @@ def test_missing_value_cleaner_median() -> None:
     assert len(audit) == 1
 
 
+def test_missing_value_cleaner_imputes_null_token_strings() -> None:
+    # "Unknown" and "-" are literal strings, not NaN, so pandas' isna() alone
+    # never sees them -- but MissingValueValidator flags them as missing, so
+    # the cleaner must treat them the same way or the "cleaned" dataset still
+    # contains the placeholder text.
+    df = pd.DataFrame({"region": ["North", "Unknown", "South", "-"]})
+    cleaner = MissingValueCleaner()
+    cleaned, audit = cleaner.clean(df, ImputationStrategy.MEDIAN)
+
+    assert "Unknown" not in cleaned["region"].tolist()
+    assert "-" not in cleaned["region"].tolist()
+    assert cleaned["region"].isna().sum() == 0
+    assert len(audit) == 1
+    assert audit[0].rows_affected == 2
+
+
 def test_duplicate_cleaner_remove() -> None:
     df = pd.DataFrame({"id": [1, 1, 2], "val": ["a", "a", "b"]})
     cleaner = DuplicateCleaner()
