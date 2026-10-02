@@ -81,6 +81,31 @@ def test_trends_plugin_growth_rate_matches_slope_direction_despite_noisy_endpoin
     assert trend.growth_rate_pct > 0
 
 
+def test_trends_plugin_detects_day_first_date_columns() -> None:
+    """
+    Real-world retail export with day-first dates ("28/11/2015"): a naive
+    month-first pd.to_datetime call leaves every day > 12 as NaT, which used
+    to drop this column below the 80% valid-date threshold entirely and
+    silently produce zero trends for an otherwise clean time series.
+    """
+    plugin = TrendsPlugin()
+
+    df = pd.DataFrame({
+        "order_date": [
+            "13/01/2024", "20/01/2024", "27/01/2024", "03/02/2024",
+            "10/02/2024", "17/02/2024", "24/02/2024", "02/03/2024",
+        ],
+        "sales": [100.0, 120.0, 140.0, 160.0, 180.0, 200.0, 220.0, 240.0],
+    })
+
+    dataset_profile = DatasetProfile(dataset_name="sales.csv", total_rows=8, total_columns=2)
+    results = plugin.analyze(df, dataset_profile)
+
+    assert len(results) >= 1
+    trend = results[0]
+    assert trend.direction == "increasing"
+
+
 def test_outliers_plugin() -> None:
     """Test OutliersPlugin with a dataset containing extreme values."""
     plugin = OutliersPlugin()

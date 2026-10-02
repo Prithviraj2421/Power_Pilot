@@ -1,4 +1,5 @@
 import pandas as pd
+from app.common.date_parse import parse_dates_robust
 from app.models.data_quality_models import IssueSeverity, QualityIssue
 
 
@@ -15,7 +16,7 @@ class DateValidator:
                 if len(series) == 0:
                     continue
 
-                parsed = pd.to_datetime(series, errors="coerce")
+                parsed = parse_dates_robust(series)
                 failed_count = parsed.isna().sum()
 
                 if failed_count > 0:

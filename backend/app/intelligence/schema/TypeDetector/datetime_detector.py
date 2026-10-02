@@ -2,6 +2,7 @@
 Datetime detector plugin.
 """
 import pandas as pd
+from app.common.date_parse import parse_dates_robust
 from app.intelligence.schema.TypeDetector.base_detector import BaseDetector
 from app.models.type_detection_result import TypeDetectionResult
 from app.common.enums import PhysicalType
@@ -41,7 +42,7 @@ class DatetimeDetector(BaseDetector):
             return None
             
         # Attempt conversion
-        parsed = pd.to_datetime(valid_series, errors='coerce', format='mixed')
+        parsed = parse_dates_robust(valid_series, format='mixed')
         valid_count = parsed.notna().sum()
         total_count = len(valid_series)
         parse_ratio = valid_count / total_count if total_count > 0 else 0.0

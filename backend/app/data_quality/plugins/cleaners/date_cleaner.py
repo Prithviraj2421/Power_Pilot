@@ -1,4 +1,5 @@
 import pandas as pd
+from app.common.date_parse import parse_dates_robust
 from app.models.data_quality_models import AuditTrailEntry
 
 
@@ -18,7 +19,7 @@ class DateCleaner:
                     continue
 
                 if pd.api.types.is_string_dtype(series) or series.dtype == "object":
-                    parsed = pd.to_datetime(series, errors="coerce")
+                    parsed = parse_dates_robust(series)
                     valid_mask = parsed.notna()
 
                     if valid_mask.sum() > 0:

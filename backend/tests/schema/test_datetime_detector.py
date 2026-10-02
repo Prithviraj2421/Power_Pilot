@@ -38,6 +38,19 @@ class TestDatetimeDetector:
         assert result is not None
         assert result.physical_type == PhysicalType.DATETIME
 
+    def test_detects_day_first_date_strings(self) -> None:
+        """
+        Day-first dates like "28/11/2015" are unambiguous (28 can't be a
+        month) but pd.to_datetime defaults to month-first parsing, which
+        turns every day > 12 into NaT. A day-first column should still be
+        detected once both orderings are tried.
+        """
+        dates = [f"{d:02d}/11/2024" for d in range(13, 29)]  # day > 12 throughout
+        series = pd.Series(dates, dtype="object")
+        result = self.detector.detect(series)
+        assert result is not None
+        assert result.physical_type == PhysicalType.DATETIME
+
     def test_rejects_non_date_strings(self) -> None:
         """Non-date strings should return None."""
         series = pd.Series(["hello", "world", "foo", "bar"], dtype="object")

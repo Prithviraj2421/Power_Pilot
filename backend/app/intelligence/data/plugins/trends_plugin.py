@@ -3,6 +3,7 @@ from typing import Optional
 import numpy as np
 import pandas as pd
 
+from app.common.date_parse import parse_dates_robust
 from app.intelligence.data.base_data_intelligence_plugin import BaseDataIntelligencePlugin
 from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import TrendResult
@@ -29,7 +30,7 @@ class TrendsPlugin(BaseDataIntelligencePlugin):
         if not date_cols:
             for col in df_copy.select_dtypes(include=["object"]).columns:
                 try:
-                    parsed = pd.to_datetime(df_copy[col], errors="coerce")
+                    parsed = parse_dates_robust(df_copy[col])
                     if parsed.notna().sum() / len(df_copy) > 0.8:
                         df_copy[col] = parsed
                         date_cols.append(col)
