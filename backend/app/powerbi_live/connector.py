@@ -48,6 +48,7 @@ class NewMeasure:
     expression: str
     description: str
     kpi_id: str
+    display_folder: str = DISPLAY_FOLDER
 
 
 class ModelConnector(Protocol):

@@ -16,6 +16,7 @@ from typing import Optional
 
 import pandas as pd
 
+from app.intelligence.kpi.compilers import PandasCompiler
 from app.intelligence.kpi.ir import Expr, Measure, Op
 from app.intelligence.kpi.verification import verify
 from app.reverse import consistency
@@ -23,6 +24,7 @@ from app.reverse.consistency import Resolution
 from app.reverse.describe import describe, shape_of
 from app.reverse.diagnostics import diagnose, show_value
 from app.reverse.index import DataIndex
+from app.reverse.migration import build_plan
 from app.reverse.models import (
     AMBIGUOUS,
     DERIVED,
@@ -55,6 +57,7 @@ class ReverseEngine:
         time_budget: float = DEFAULT_TIME_BUDGET,
         max_filter_sets: int = 300,
         basis_label: str = "raw table",
+        existing_measures: Optional[set[str]] = None,
     ) -> None:
         self.raw = raw
         self.cleaned = cleaned
@@ -63,6 +66,7 @@ class ReverseEngine:
         self.time_budget = time_budget
         self.max_filter_sets = max_filter_sets
         self.basis_label = basis_label
+        self.existing_measures = existing_measures or set()
 
     # --- the whole report -----------------------------------------------------------
 
@@ -114,6 +118,15 @@ class ReverseEngine:
 
         ordered = [results[t.id] for t in parsed.targets]
         summary = self._summarise(ordered, time.monotonic() - started, exhausted)
+        plan = build_plan(
+            report_id,
+            self.table,
+            filename,
+            ordered,
+            lambda expr: PandasCompiler().evaluate(expr, self.raw),
+            existing_names=self.existing_measures,
+            columns=[str(c) for c in self.raw.columns],
+        )
         return ReverseReport(
             report_id=report_id,
             filename=filename,
@@ -123,6 +136,8 @@ class ReverseEngine:
             warnings=parsed.warnings,
             summary=summary,
             rows_analysed=len(self.raw),
+            plan=plan,
+            rows_total=len(self.raw),
         )
 
     # --- derived cells --------------------------------------------------------------

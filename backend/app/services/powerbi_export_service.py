@@ -75,14 +75,44 @@ class PowerBIExportService:
         return "\n".join(lines)
 
     @staticmethod
+    def generate_migrated_dax_script(plan: Any, filename: str, source_description: str) -> str:
+        """A .dax script holding only the measures proven from a legacy report (none that failed or were guessed)."""
+        proven = sum(len(m.cell_ids) for m in plan.measures)
+        lines = [
+            "// ===========================================================================",
+            "// PowerPilot - measures migrated from a legacy report",
+            f"// Report:  {filename}",
+            f"// Table:   {plan.table}",
+            f"// Proven:  {proven} number(s) in the report are reproduced exactly by the measures below.",
+            f"// Basis:   {source_description}",
+            "// Numbers PowerPilot could not reproduce, or could not tell apart, are NOT included.",
+            "// ===========================================================================",
+            "",
+        ]
+        for measure in plan.measures:
+            lines.append(f"// Measure: {measure.name}  ({measure.kind}; covers {len(measure.cell_ids)} number(s): {', '.join(measure.cell_ids[:6])}{'...' if len(measure.cell_ids) > 6 else ''})")
+            for note in measure.notes:
+                lines.append(f"// {note}")
+            lines.append(f"{measure.name} = {measure.dax}")
+            lines.append("")
+        if not plan.measures:
+            lines.append("// No number in the report could be proven, so there is nothing to export.")
+        return "\n".join(lines)
+
+    @staticmethod
     def generate_tabular_model_bim(
         dataset_profile: DatasetProfile,
         kpi_report: Optional[KPIReport] = None,
         relationship_report: Optional[RelationshipReport] = None,
+        extra_measures: Optional[list[dict[str, Any]]] = None,
+        extra_annotations: Optional[list[dict[str, str]]] = None,
     ) -> dict[str, Any]:
         """
         Generate a Tabular Model .bim: one Import-mode table whose partition loads
         the CSV through Power Query, with the KPI measures attached.
+
+        ``extra_measures`` (name, expression, description, optionally displayFolder) are added as given;
+        the migration export uses them for the measures proven from a legacy report.
         """
         tbl_name = powerbi_table_name(dataset_profile.dataset_name)
 
@@ -124,6 +154,7 @@ class PowerBIExportService:
                     }
                 )
 
+        measures_bim.extend(extra_measures or [])
         m_lines = PowerBIExportService.generate_power_query_m(dataset_profile).splitlines()
 
         annotations = []
@@ -135,6 +166,8 @@ class PowerBIExportService:
                 for rel in relationship_report.all_relationships
             )
             annotations.append({"name": "PowerPilot_DetectedRelationships", "value": found})
+
+        annotations.extend(extra_annotations or [])
 
         if kpi_report and kpi_report.rejected_kpis:
             rejected = "; ".join(f"{k.name}: {k.verification_note}" for k in kpi_report.rejected_kpis)

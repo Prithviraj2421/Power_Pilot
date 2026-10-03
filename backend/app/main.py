@@ -24,6 +24,7 @@ from app.powerbi_live.connector import ModelConnectionError
 from app.powerbi_live.launch_support import shutdown_gracefully, start_model_watchdog
 from app.routes.powerbi_live_route import router as powerbi_live_router
 from app.routes.powerbi_route import router as powerbi_router
+from app.routes.reverse_route import router as reverse_router
 
 logger = get_logger("PowerPilotAPI")
 settings = get_settings()
@@ -97,6 +98,7 @@ app.include_router(data_quality_router)
 app.include_router(intelligence_router)
 app.include_router(powerbi_router)
 app.include_router(powerbi_live_router)
+app.include_router(reverse_router)
 app.include_router(copilot_router)
 app.include_router(export_center_router)
 

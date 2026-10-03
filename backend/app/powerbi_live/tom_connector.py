@@ -98,7 +98,7 @@ def add_measures_to_model(tom: Any, model: Any, measures: list[NewMeasure]) -> N
         measure.Name = new.name
         measure.Expression = new.expression
         measure.Description = new.description
-        measure.DisplayFolder = DISPLAY_FOLDER
+        measure.DisplayFolder = new.display_folder
         marker = tom.Annotation()
         marker.Name = KPI_ANNOTATION
         marker.Value = new.kpi_id

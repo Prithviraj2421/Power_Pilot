@@ -28,6 +28,27 @@ class ApplyItem:
     kpi_id: str
 
 
+@dataclass(frozen=True)
+class MeasureToAdd:
+    """A measure proven elsewhere (a migrated report), with every check the engine must agree with.
+
+    ``checks`` are (label, DAX, expected value): each is run by Power BI's engine and must return the
+    value that was proven on the data. ``rows_total`` is the table's size when it was proven, so a table
+    that has changed since is refused, exactly as for KPIs.
+    """
+
+    table: str
+    id: str
+    name: str
+    expression: str
+    description: str
+    display_folder: str
+    checks: tuple[tuple[str, str, float], ...]
+    rows_total: int
+    sampled: bool
+    cells: tuple[str, ...] = ()
+
+
 class _EngineExecutor:
     """Adapts a connector to the ``DaxExecutor`` protocol and remembers the value it returned."""
 
@@ -47,6 +68,14 @@ class LiveModelService:
         self._connector = connector
         self._datasets = datasets
         self._max_rows = max_rows
+
+    @property
+    def connector(self) -> ModelConnector:
+        return self._connector
+
+    @property
+    def max_rows(self) -> int:
+        return self._max_rows
 
     # -- status -------------------------------------------------------------------------------
 
@@ -143,7 +172,31 @@ class LiveModelService:
             if measure is not None:
                 planned[measure.name.lower()] = len(results) - 1
                 to_write.append(measure)
+        return self._commit(results, to_write, planned, dry_run)
 
+    def apply_migrated(self, measures: list[MeasureToAdd], dry_run: bool = False) -> dict[str, Any]:
+        """Write measures proven by reverse-engineering a report, under the same rules as KPIs.
+
+        Each measure's checks (the grouped measure itself and every report number it must reproduce)
+        are run by Power BI's own engine; a measure is written only if all of them agree. Nothing is
+        replaced: a name that is taken is left alone.
+        """
+        tables = {t.name: t for t in self._connector.list_tables()}
+        existing = {m.name.lower(): m for m in self._connector.list_measures()}
+        results: list[dict[str, Any]] = []
+        to_write: list[NewMeasure] = []
+        planned: dict[str, int] = {}
+        for measure in measures:
+            outcome, new = self._check_migrated(measure, tables, existing, planned)
+            results.append(outcome)
+            if new is not None:
+                planned[new.name.lower()] = len(results) - 1
+                to_write.append(new)
+        return self._commit(results, to_write, planned, dry_run)
+
+    def _commit(
+        self, results: list[dict[str, Any]], to_write: list[NewMeasure], planned: dict[str, int], dry_run: bool
+    ) -> dict[str, Any]:
         if dry_run:
             return {"dry_run": True, "saved": False, "results": results, "reminder": None}
 
@@ -161,6 +214,66 @@ class LiveModelService:
                     index = planned[measure.name.lower()]
                     results[index] = {**results[index], "status": WRITTEN, "reason": "added to your model"}
         return {"dry_run": False, "saved": saved, "results": results, "reminder": SAVE_REMINDER if saved else None}
+
+    def _check_migrated(
+        self,
+        item: MeasureToAdd,
+        tables: dict[str, Any],
+        existing: dict[str, Any],
+        planned: dict[str, int],
+    ) -> tuple[dict[str, Any], Optional[NewMeasure]]:
+        def result(status: str, reason: str, engine: Any = None, computed: Any = None) -> dict[str, Any]:
+            return {
+                "table": item.table,
+                "kpi_id": item.id,
+                "name": item.name,
+                "status": status,
+                "reason": reason,
+                "engine_value": engine,
+                "computed_value": computed,
+                "cells": list(item.cells),
+            }
+
+        if item.sampled:
+            return result(REFUSED, "the report was reverse-engineered on a sample of this table, so it cannot be checked like for like"), None
+        current = tables.get(item.table)
+        if current is None:
+            return result(REFUSED, f"the model no longer has a table named '{item.table}'"), None
+        if current.row_count != item.rows_total:
+            return (
+                result(
+                    REFUSED,
+                    f"the report was proven on {item.rows_total:,} rows but '{item.table}' now has {current.row_count:,}. "
+                    "The data changed; run the reverse-engineering again.",
+                ),
+                None,
+            )
+        if item.name.lower() in existing:
+            return result(EXISTS, f"a measure named '{item.name}' already exists in your model and was left untouched"), None
+        if item.name.lower() in planned:
+            return result(EXISTS, "another selected measure has the same name"), None
+
+        first_value: Optional[float] = None
+        for label, dax, expected in item.checks:
+            engine = _EngineExecutor(self._connector)
+            problem = disagreement(expected, dax, item.table, pd.DataFrame(), engine)
+            if first_value is None:
+                first_value = engine.value
+            if problem:
+                return result(REFUSED, f"{label}: {problem}", engine.value, expected), None
+
+        measure = NewMeasure(
+            table=item.table,
+            name=item.name,
+            expression=item.expression,
+            description=item.description,
+            kpi_id=item.id,
+            display_folder=item.display_folder,
+        )
+        return (
+            result(VERIFIED, f"Power BI's engine agrees with all {len(item.checks)} check(s)", first_value, item.checks[0][2] if item.checks else None),
+            measure,
+        )
 
     def _check(
         self,

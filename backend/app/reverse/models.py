@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
 
 from app.intelligence.kpi.ir import Expr
 
@@ -227,6 +227,11 @@ class ReverseReport:
     warnings: list[str]
     summary: ReverseSummary
     rows_analysed: int = 0
+    plan: Optional[Any] = None  # a MigrationPlan: the measures the proven numbers can become
+    dataset_id: Optional[str] = None  # the registered upload this was run against (None for a live model)
+    live: bool = False  # run against a table of the open Power BI model
+    rows_total: int = 0  # rows the table held when it was analysed
+    sampled: bool = False  # only part of the table was read, so nothing may be written back
 
     def to_dict(self) -> dict:
         return {
@@ -234,6 +239,11 @@ class ReverseReport:
             "filename": self.filename,
             "table": self.table,
             "rows_analysed": self.rows_analysed,
+            "rows_total": self.rows_total,
+            "sampled": self.sampled,
+            "live": self.live,
+            "dataset_id": self.dataset_id,
+            "plan": self.plan.to_dict() if self.plan is not None else None,
             "summary": self.summary.__dict__,
             "warnings": self.warnings,
             "cells": [r.to_dict() for r in self.results],

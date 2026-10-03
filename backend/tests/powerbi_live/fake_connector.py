@@ -82,4 +82,4 @@ class FakeConnector:
             if new.name.lower() in taken:
                 raise ModelConnectionError(f"a measure named '{new.name}' already exists in the model")
         for new in measures:
-            self.measures.append(MeasureInfo(new.table, new.name, new.expression, "PowerPilot", new.kpi_id))
+            self.measures.append(MeasureInfo(new.table, new.name, new.expression, new.display_folder, new.kpi_id))

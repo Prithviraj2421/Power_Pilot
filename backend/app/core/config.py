@@ -101,6 +101,11 @@ class Settings(BaseSettings):
     pbi_watch_interval_seconds: float = Field(5.0, gt=0)
     pbi_watch_failures: int = Field(3, ge=1)
 
+    # --- Report reverse-engineering ("Prove-It Migration") ----------------------
+    reverse_time_budget_seconds: float = Field(90.0, gt=0)  # search time for one legacy report
+    reverse_max_reports: int = Field(16, ge=1)  # finished analyses kept in memory
+    reverse_report_ttl_seconds: int = Field(7200, ge=60)
+
     # --- LLM copilot ----------------------------------------------------------
     # The language model is given ONLY the pipeline's computed analysis, never the
     # dataset, and every answer's figures are verified against that analysis before

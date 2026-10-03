@@ -3,7 +3,7 @@ from __future__ import annotations
 from functools import lru_cache
 from typing import Any, Optional
 
-from fastapi import APIRouter, Depends, Header, HTTPException, status
+from fastapi import APIRouter, Depends, File, Form, Header, HTTPException, UploadFile, status
 from pydantic import BaseModel, ConfigDict, Field
 
 from app.common.logger import get_logger
@@ -12,6 +12,9 @@ from app.datasets.service import get_dataset_service
 from app.powerbi_live.security import TOKEN_HEADER, token_matches
 from app.powerbi_live.service import ApplyItem, LiveModelService
 from app.powerbi_live.tom_connector import TomAdomdConnector
+from app.reverse.errors import ReportReadError
+from app.reverse.service import ReportNotFoundError, ReverseService
+from app.routes.reverse_route import get_reverse_service
 
 router = APIRouter(prefix="/api/v1/powerbi-live", tags=["Power BI live model"])
 logger = get_logger("PowerBILiveRoute")
@@ -37,6 +40,16 @@ class ApplyRequest(BaseModel):
     model_config = ConfigDict(extra="forbid")
 
     items: list[ApplyItemModel] = Field(min_length=1, max_length=50)
+    dry_run: bool = False
+
+
+class ReverseApplyRequest(BaseModel):
+    """Measure ids only. The DAX comes from the server's own proven plan, never from the client."""
+
+    model_config = ConfigDict(extra="forbid")
+
+    report_id: str = Field(min_length=3, max_length=64)
+    measure_ids: list[str] = Field(min_length=1, max_length=200)
     dry_run: bool = False
 
 
@@ -96,4 +109,44 @@ def apply_measures(
     result = service.apply([ApplyItem(i.table, i.kpi_id) for i in request.items], dry_run=request.dry_run)
     written = sum(1 for r in result["results"] if r["status"] == "written")
     logger.info(f"apply-measures dry_run={request.dry_run}: {written} written of {len(request.items)} requested")
+    return result
+
+
+@router.post("/reverse-engineer")
+def reverse_engineer_table(
+    table: str = Form(..., min_length=1, max_length=256),
+    file: UploadFile = File(..., description="The legacy report: .xlsx, .csv or a PDF with tables"),
+    live: LiveModelService = Depends(get_live_service),
+    reverse: ReverseService = Depends(get_reverse_service),
+) -> dict[str, Any]:
+    """Find the formula behind every number of a legacy report, using a table of the open model as the data."""
+    content = file.file.read()
+    try:
+        report = reverse.run_for_live(live.connector, table, content, file.filename or "report", live.max_rows)
+    except ReportReadError as exc:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, str(exc)) from exc
+    s = report.summary
+    logger.info(f"Reverse-engineered '{report.filename}' against '{table}': {s.reproduced}/{s.cells} reproduced in {s.seconds}s")
+    return report.to_dict()
+
+
+@router.post("/reverse-engineer/apply")
+def apply_reverse_engineered(
+    request: ReverseApplyRequest,
+    live: LiveModelService = Depends(get_live_service),
+    reverse: ReverseService = Depends(get_reverse_service),
+) -> dict[str, Any]:
+    """Add proven measures to the open model, if Power BI's engine agrees with each one's checks."""
+    try:
+        report = reverse.get(request.report_id)
+        if not report.live:
+            raise HTTPException(
+                status.HTTP_409_CONFLICT, "That report was not run against the open model, so it cannot be added to it."
+            )
+        measures = reverse.measures_to_add(report, request.measure_ids)
+    except ReportNotFoundError as exc:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, str(exc)) from exc
+    result = live.apply_migrated(measures, dry_run=request.dry_run)
+    written = sum(1 for r in result["results"] if r["status"] == "written")
+    logger.info(f"reverse apply dry_run={request.dry_run}: {written} written of {len(measures)} requested")
     return result
