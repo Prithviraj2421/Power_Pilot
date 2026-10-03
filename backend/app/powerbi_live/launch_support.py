@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import signal
 import socket
 import sys
 import threading
@@ -63,17 +64,78 @@ def process_alive(pid: int) -> bool:
         return True
 
 
-def watch_process(pid: int, on_gone: Callable[[], None], interval: float = 5.0) -> threading.Thread:
-    """Call ``on_gone`` once ``pid`` has exited. Used so the server stops with Power BI Desktop."""
+def port_open(port: int, timeout: float = 1.0) -> bool:
+    """Whether something accepts connections on this local port (the engine listens on IPv4 and IPv6).
+
+    Windows takes about two seconds to refuse a connection to a closed local port, so the timeout also
+    bounds how long a check on a closed port can take; a timeout is simply a miss.
+    """
+    for host in ("127.0.0.1", "::1"):
+        try:
+            with socket.create_connection((host, port), timeout=timeout):
+                return True
+        except OSError:
+            continue
+    return False
+
+
+def watch_port(
+    port: int,
+    on_gone: Callable[[], None],
+    *,
+    interval: float = 5.0,
+    failures: int = 3,
+    is_open: Callable[[int], bool] = port_open,
+) -> threading.Thread:
+    """Call ``on_gone`` once nothing has accepted connections on ``port`` for ``failures`` checks in a row.
+
+    The server exists to serve one open Power BI model, and that model's engine owns this port, so the
+    port closing is the real signal that the report was closed. Watching a process instead does not
+    work: Power BI Desktop starts external tools through a short-lived helper, so the launching
+    process exits within seconds while the report is still open. A single failed check is ignored,
+    and the first check only happens after one full interval.
+    """
 
     def run() -> None:
-        while process_alive(pid):
+        misses = 0
+        while True:
             time.sleep(interval)
-        on_gone()
+            misses = 0 if is_open(port) else misses + 1
+            if misses >= failures:
+                on_gone()
+                return
 
-    thread = threading.Thread(target=run, name=f"watch-pid-{pid}", daemon=True)
+    thread = threading.Thread(target=run, name=f"watch-port-{port}", daemon=True)
     thread.start()
     return thread
+
+
+def shutdown_gracefully(grace: float = 10.0) -> None:
+    """Stop the server the way Ctrl+C would, and force the exit if it has not stopped within ``grace``."""
+    timer = threading.Timer(grace, lambda: os._exit(0))
+    timer.daemon = True
+    timer.start()
+    signal.raise_signal(signal.SIGTERM)
+
+
+def start_model_watchdog(
+    server: str,
+    *,
+    interval: float,
+    failures: int,
+    stop: Callable[[], None] = shutdown_gracefully,
+    watch: Callable[..., threading.Thread] = watch_port,
+) -> Optional[threading.Thread]:
+    """Stop the server when the model at ``server`` ("localhost:<port>") goes away. None if there is no model."""
+    from app.powerbi_live.security import validate_model_address
+
+    if not server.strip():
+        return None
+    try:
+        port = int(validate_model_address(server).rsplit(":", 1)[1])
+    except ValueError:
+        return None
+    return watch(port, stop, interval=interval, failures=failures)
 
 
 # -- one backend per open model -----------------------------------------------------------------

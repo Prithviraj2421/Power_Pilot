@@ -97,7 +97,9 @@ class Settings(BaseSettings):
     pbi_max_rows: int = 500_000  # rows read per table; a larger table is analysed as a sample
     tom_dll_dir: str = ""  # folder holding Microsoft.PowerBI.Tabular.dll / AdomdClient.dll
     serve_frontend: str = ""  # built SPA directory to serve, so the launcher needs no dev server
-    parent_pid: int = 0  # exit when this process (Power BI Desktop) exits; 0 disables
+    # The server stops once the model's port has refused connections this many checks in a row.
+    pbi_watch_interval_seconds: float = Field(5.0, gt=0)
+    pbi_watch_failures: int = Field(3, ge=1)
 
     # --- LLM copilot ----------------------------------------------------------
     # The language model is given ONLY the pipeline's computed analysis, never the

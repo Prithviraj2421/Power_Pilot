@@ -73,7 +73,11 @@ The launcher sets these for the backend it starts. They are read from the enviro
 | `PBI_MAX_ROWS` | Rows read per table (default 500,000). A larger table is analysed as a sample. |
 | `TOM_DLL_DIR` | Folder holding the Analysis Services libraries (see above). |
 | `SERVE_FRONTEND` | The built UI directory the backend serves. |
-| `PARENT_PID` | Exit when this process (Power BI Desktop) exits. |
+| `PBI_WATCH_INTERVAL_SECONDS`, `PBI_WATCH_FAILURES` | The server stops once the model's port has refused connections this many checks in a row (default every 5 s, 3 times). |
+
+## How long the server lives
+
+One server runs per open model and stops when that model goes away. It watches the model's own port (the Analysis Services engine Desktop started for the report) and stops once it has refused connections three checks in a row. It deliberately does **not** watch the process that launched it: Power BI Desktop starts external tools through a short-lived helper process, so that process exits within seconds of every launch while the report is still open. (An early version watched it and shut down five seconds after launching; `tests/powerbi_live/test_model_watchdog_process.py` is the regression test.)
 
 ## What protects your report
 
@@ -105,7 +109,7 @@ with a few tables and at least one numeric column, and note what each step shows
 12. **Large table.** If you have a table over 500,000 rows: it is marked "sample only", and its KPIs cannot be selected.
 13. **Save.** Press Ctrl+S in Power BI, close and reopen the report: the measures are still there. (Without saving they are lost, which is why the reminder is shown.)
 14. **Second click.** Click the ribbon button again: the same backend is reused (same port) and the page reopens.
-15. **Close Desktop.** Close Power BI Desktop. Within about 10 seconds the PowerPilot backend process ends (check Task Manager for a `python.exe` listening on that port).
+15. **Close the report.** Close the report (or Power BI Desktop). Within about 20 seconds the PowerPilot backend stops by itself (check Task Manager for the `python.exe` that was listening on that port). Reopening the page afterwards shows a message telling you to click the ribbon button again.
 16. **Forget data.** Click **Forget this model's data**; the local copy is deleted (`backend\data\datasets`).
 17. **Uninstall.** Run `uninstall.ps1` as administrator and restart Desktop: the button is gone.
 
@@ -118,6 +122,7 @@ with a few tables and at least one numeric column, and note what each step shows
 | "PowerPilot's server did not start" | The message box shows the end of the log; the full log is `%LOCALAPPDATA%\PowerPilot\live\backend-<port>.log`. |
 | "Could not find the Analysis Services client libraries" | Desktop is not installed where expected: set `POWERPILOT_TOM_DLL_DIR`. |
 | "PowerPilot needs the 'pythonnet' package" | `backend\.venv\Scripts\python.exe -m pip install -r backend\requirements-powerbi.txt`. |
+| The page says "PowerPilot's background program is not running any more" (or just "Network Error" in an older build) | The server stopped: the report was closed, or the server crashed. Click PowerPilot on the External Tools ribbon again. If it keeps happening, the log in `%LOCALAPPDATA%\PowerPilot\live\backend-<port>.log` says why; a line ending in "is gone; shutting down" means it saw the model's port close. |
 | "Power BI Desktop's model is not reachable. Is the report still open?" | The report was closed, or Desktop restarted (a new port is assigned each time): click the ribbon button again. |
 | "This PowerPilot session has expired" (401) | The page was opened without the launcher's token: use the ribbon button. |
 | Analyze is slow on a large table | Rows are read through pythonnet; lower `POWERPILOT_PBI_MAX_ROWS` or analyze fewer tables. |

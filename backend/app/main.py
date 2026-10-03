@@ -1,4 +1,3 @@
-import os
 from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import AsyncIterator
@@ -22,7 +21,7 @@ from app.routes.datasets_route import router as datasets_router
 from app.routes.export_center_route import router as export_center_router
 from app.routes.intelligence_route import router as intelligence_router
 from app.powerbi_live.connector import ModelConnectionError
-from app.powerbi_live.launch_support import watch_process
+from app.powerbi_live.launch_support import shutdown_gracefully, start_model_watchdog
 from app.routes.powerbi_live_route import router as powerbi_live_router
 from app.routes.powerbi_route import router as powerbi_router
 
@@ -39,14 +38,19 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         f"cache={settings.result_cache_size} entries/{settings.result_cache_ttl_seconds}s | "
         f"registered_datasets={service.count_datasets()}"
     )
-    if settings.parent_pid:
-        # Started by Power BI Desktop's External Tools ribbon: stop when Desktop does, rather than
-        # leave a server behind for a report that is no longer open.
+    if settings.powerbi_live_enabled:
+        # Started from Power BI Desktop's External Tools ribbon: stop when the model it is serving
+        # goes away (the report was closed) rather than leave a server behind.
         def stop() -> None:
-            logger.info(f"Parent process {settings.parent_pid} exited; shutting down")
-            os._exit(0)
+            logger.info(f"The Power BI model at {settings.pbi_server} is gone; shutting down")
+            shutdown_gracefully()
 
-        watch_process(settings.parent_pid, stop)
+        start_model_watchdog(
+            settings.pbi_server,
+            interval=settings.pbi_watch_interval_seconds,
+            failures=settings.pbi_watch_failures,
+            stop=stop,
+        )
     yield
     logger.info(f"{settings.app_name} shutting down")
 

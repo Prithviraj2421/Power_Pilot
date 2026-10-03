@@ -63,21 +63,24 @@ class Recorder:
             state_dir=tmp_path / "state",
             dist=built,
             sleep=lambda s: None,
-            **kwargs,
+            **{"kill": lambda process: process.kill(), **kwargs},  # never a real taskkill on a fake PID
         )
 
 
 def test_a_fresh_launch_starts_one_loopback_server_with_the_models_address_and_a_token(launcher, tmp_path) -> None:
     rec = Recorder()
 
-    code = rec.run(launcher, tmp_path, [SERVER, DB], parent_pid=777)
+    code = rec.run(launcher, tmp_path, [SERVER, DB])
 
     assert code == 0 and rec.errors == []
     (call,) = rec.spawned
     command, env = call["command"], call["env"]
     assert command[1:5] == ["-m", "uvicorn", "app.main:app", "--host"] and command[5] == "127.0.0.1"
     assert env["POWERPILOT_PBI_SERVER"] == SERVER and env["POWERPILOT_PBI_DATABASE"] == DB
-    assert env["POWERPILOT_PARENT_PID"] == "777"
+    assert "POWERPILOT_PARENT_PID" not in env, (
+        "Desktop starts tools through a short-lived helper, so tying the server to the launching process "
+        "made it shut down seconds after every launch"
+    )
     assert env["POWERPILOT_SERVE_FRONTEND"] == str(tmp_path / "dist")
     assert len(env["POWERPILOT_PBI_TOKEN"]) >= 24
     assert call["cwd"].endswith("backend")
@@ -205,3 +208,24 @@ def test_a_recorded_backend_that_has_died_is_replaced_not_reused(launcher, tmp_p
 
     assert len(rec.spawned) == 1 and "stale-token" not in rec.opened[0]
     assert read_lock(lock_path(SERVER, tmp_path / "state"))["token"] != "stale-token"
+
+
+def test_a_server_that_fails_to_start_is_killed_with_its_children_on_windows(launcher, monkeypatch) -> None:
+    # The venv's python.exe is a stub that starts the real interpreter as a child: killing only the stub
+    # would leave the server running.
+    calls = []
+    monkeypatch.setattr(launcher.sys, "platform", "win32")
+    monkeypatch.setattr(launcher.subprocess, "run", lambda command, **kwargs: calls.append(command))
+
+    launcher.stop_process_tree(FakeProcess())
+
+    assert calls == [["taskkill", "/F", "/T", "/PID", "4242"]]
+
+
+def test_elsewhere_a_plain_kill_is_enough(launcher, monkeypatch) -> None:
+    monkeypatch.setattr(launcher.sys, "platform", "linux")
+    process = FakeProcess()
+
+    launcher.stop_process_tree(process)
+
+    assert process.killed

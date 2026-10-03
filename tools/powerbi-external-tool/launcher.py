@@ -65,6 +65,20 @@ def server_python() -> str:
     return str(candidate)
 
 
+def stop_process_tree(process: "subprocess.Popen") -> None:
+    """Kill a started server and its children.
+
+    On Windows the virtual environment's python.exe is a small launcher that starts the real interpreter as
+    a child, so killing only the process we started would leave the actual server running.
+    """
+    if sys.platform == "win32":
+        subprocess.run(
+            ["taskkill", "/F", "/T", "/PID", str(process.pid)], capture_output=True, creationflags=CREATE_NO_WINDOW
+        )
+    else:
+        process.kill()
+
+
 def tail(path: Path, lines: int = 12) -> str:
     try:
         return "\n".join(path.read_text(encoding="utf-8", errors="replace").splitlines()[-lines:])
@@ -82,12 +96,11 @@ def main(
     state_dir: Optional[Path] = None,
     dist: Optional[Path] = None,
     sleep: Callable[[float], None] = time.sleep,
-    parent_pid: Optional[int] = None,
+    kill: Callable[["subprocess.Popen"], None] = stop_process_tree,
 ) -> int:
     parser = argparse.ArgumentParser(description="Start PowerPilot for the model open in Power BI Desktop.")
     parser.add_argument("server", help="Desktop's %%server%% (localhost:port)")
     parser.add_argument("database", help="Desktop's %%database%% (the model's name)")
-    parser.add_argument("--parent-pid", type=int, default=None, help="process to stop with (default: whoever started this)")
     args = parser.parse_args(argv)
 
     try:
@@ -109,14 +122,12 @@ def main(
         return 0
 
     port, token = find_free_port(), secrets.token_urlsafe(24)
-    watched = parent_pid if parent_pid is not None else (args.parent_pid or os.getppid())
     env = {
         **os.environ,
         "POWERPILOT_PBI_SERVER": server,
         "POWERPILOT_PBI_DATABASE": database,
         "POWERPILOT_PBI_TOKEN": token,
         "POWERPILOT_SERVE_FRONTEND": str(dist),
-        "POWERPILOT_PARENT_PID": str(watched),
     }
     state.mkdir(parents=True, exist_ok=True)
     log_path = state / f"backend-{port}.log"
@@ -137,7 +148,7 @@ def main(
     while not healthy(port):
         if process.poll() is not None or time.monotonic() > deadline:
             if process.poll() is None:
-                process.kill()
+                kill(process)
             error(f"PowerPilot's server did not start.\n\n{tail(log_path)}\n\nLog: {log_path}")
             return 4
         sleep(0.25)

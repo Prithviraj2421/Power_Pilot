@@ -20,7 +20,10 @@ from app.powerbi_live.launch_support import (
     read_lock,
     reusable_session,
     ui_url,
-    watch_process,
+    port_open,
+    shutdown_gracefully,
+    start_model_watchdog,
+    watch_port,
     write_lock,
 )
 from app.powerbi_live.security import token_matches, validate_database_name, validate_model_address
@@ -96,17 +99,6 @@ def test_probing_a_process_does_not_affect_it() -> None:
         sleeper.wait()
 
 
-def test_the_watcher_fires_once_the_parent_exits() -> None:
-    child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(0.6)"])
-    # Reap the child as soon as it exits, as a real parent would; an unreaped child is a zombie on Linux.
-    threading.Thread(target=child.wait, daemon=True).start()
-    fired = threading.Event()
-
-    watch_process(child.pid, fired.set, interval=0.05)
-
-    assert fired.wait(timeout=15), "the watcher never noticed the process exit"
-
-
 @pytest.mark.skipif(sys.platform == "win32", reason="zombie processes are a POSIX concept")
 def test_a_zombie_counts_as_dead() -> None:
     child = subprocess.Popen([sys.executable, "-c", "pass"])
@@ -130,13 +122,6 @@ def test_a_zombie_counts_as_dead() -> None:
 )
 def test_the_process_state_is_read_after_the_last_parenthesis(line: str, state: str) -> None:
     assert proc_stat_state(line) == state
-
-
-def test_the_watcher_stays_quiet_while_the_parent_runs() -> None:
-    fired = threading.Event()
-    watch_process(os.getpid(), fired.set, interval=0.05)
-
-    assert not fired.wait(timeout=0.5)
 
 
 def test_lock_files_are_per_model_and_case_insensitive(tmp_path: Path) -> None:
@@ -224,3 +209,138 @@ def test_the_error_says_where_it_looked_and_what_to_do(tmp_path: Path) -> None:
 def test_an_explicit_folder_is_tried_before_the_default_locations(tmp_path: Path) -> None:
     assert candidate_dirs(str(tmp_path / "mine"))[0] == tmp_path / "mine"
     assert candidate_dirs("") == candidate_dirs(None) == candidate_dirs("   ")
+
+
+# -- the server lives exactly as long as the model it serves -----------------------------------------
+
+
+def listening_socket() -> tuple[socket.socket, int]:
+    sock = socket.socket()
+    sock.bind(("127.0.0.1", 0))
+    sock.listen()
+    return sock, sock.getsockname()[1]
+
+
+def test_port_open_tells_a_listening_port_from_a_closed_one() -> None:
+    sock, port = listening_socket()
+    try:
+        assert port_open(port)
+    finally:
+        sock.close()
+    assert not port_open(port)
+
+
+def watch(sequence: list[bool], *, failures: int = 3):
+    """Run the watcher against a scripted series of answers; returns (fired, number of checks made)."""
+    answers = iter(sequence)
+    checks = []
+    fired = threading.Event()
+
+    def is_open(port: int) -> bool:
+        checks.append(port)
+        return next(answers, False)
+
+    thread = watch_port(1234, fired.set, interval=0.01, failures=failures, is_open=is_open)
+    thread.join(timeout=5)
+    return fired.is_set(), len(checks)
+
+
+def test_the_watcher_fires_after_the_configured_number_of_consecutive_misses() -> None:
+    fired, checks = watch([True, False, False, False], failures=3)
+
+    assert fired and checks == 4
+
+
+def test_one_blip_does_not_stop_the_server() -> None:
+    # open, miss, open, miss, open ... then gone for good: the misses never reach 3 in a row until the end.
+    fired, checks = watch([True, False, True, False, False, True, False, False, False], failures=3)
+
+    assert fired and checks == 9
+
+
+def test_the_watcher_ignores_misses_that_recover() -> None:
+    answers = [False, False, True] * 4
+    fired = threading.Event()
+    seen = []
+
+    def is_open(port: int) -> bool:
+        seen.append(1)
+        return answers[len(seen) - 1] if len(seen) <= len(answers) else True
+
+    watch_port(1, fired.set, interval=0.01, failures=3, is_open=is_open)
+    time.sleep(0.5)
+
+    assert not fired.is_set() and len(seen) > len(answers)
+
+
+def test_the_first_check_waits_one_full_interval() -> None:
+    fired = threading.Event()
+    calls = []
+    watch_port(1, fired.set, interval=0.4, failures=1, is_open=lambda p: calls.append(p) or True)
+
+    time.sleep(0.1)
+
+    assert calls == [], "the server is given time to come up before it is judged"
+
+
+def test_a_real_listener_keeps_it_alive_and_closing_it_stops_it() -> None:
+    sock, port = listening_socket()
+    fired = threading.Event()
+    # A short probe timeout: Windows takes ~2 s to refuse a connection to a closed local port.
+    watch_port(port, fired.set, interval=0.05, failures=3, is_open=lambda p: port_open(p, timeout=0.3))
+
+    assert not fired.wait(timeout=0.5), "an open port must not trigger a shutdown"
+    sock.close()
+    assert fired.wait(timeout=30), "the watcher never noticed the port close"
+
+
+def test_the_watch_thread_does_not_keep_the_process_alive() -> None:
+    thread = watch_port(1, lambda: None, interval=60, is_open=lambda p: True)
+
+    assert thread.daemon
+
+
+@pytest.mark.parametrize("server", ["", "   ", "example.com:80", "localhost", "localhost:99999"])
+def test_no_watchdog_without_a_valid_local_model_address(server: str) -> None:
+    started = []
+
+    result = start_model_watchdog(server, interval=1, failures=3, watch=lambda *a, **k: started.append(a))
+
+    assert result is None and started == []
+
+
+def test_the_watchdog_watches_the_models_port_with_the_configured_timing() -> None:
+    calls = []
+    stop = lambda: None  # noqa: E731
+
+    def fake_watch(port, on_gone, **kwargs):
+        calls.append((port, on_gone, kwargs))
+        return "thread"
+
+    result = start_model_watchdog("localhost:65426", interval=2.5, failures=4, stop=stop, watch=fake_watch)
+
+    assert result == "thread"
+    assert calls == [(65426, stop, {"interval": 2.5, "failures": 4})]
+
+
+def test_shutting_down_asks_politely_first_and_forces_only_after_the_grace_period(monkeypatch) -> None:
+    import app.powerbi_live.launch_support as support
+
+    raised, timers = [], []
+
+    class FakeTimer:
+        def __init__(self, grace, action):
+            self.grace, self.action, self.daemon, self.started = grace, action, False, False
+            timers.append(self)
+
+        def start(self):
+            self.started = True
+
+    monkeypatch.setattr(support.signal, "raise_signal", raised.append)
+    monkeypatch.setattr(support.threading, "Timer", FakeTimer)
+
+    shutdown_gracefully(grace=7)
+
+    assert raised == [support.signal.SIGTERM]
+    (timer,) = timers
+    assert timer.grace == 7 and timer.started and timer.daemon, "the forced exit is only a backstop"
