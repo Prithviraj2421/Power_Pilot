@@ -35,6 +35,10 @@ assembles the result (the docstring says "12 stages"; the 12th is the assembly).
 ## Other layers
 - `datasets/`: SQLite + CSV store in `backend/data/` is the source of truth; the result cache is performance only.
   Upload with `POST /api/v1/datasets`, then address everything by dataset id.
+- `powerbi_live/` + `routes/powerbi_live_route.py` + `tools/powerbi-external-tool/`: PowerPilot as a Power BI Desktop External
+  Tool (see `docs/powerbi-external-tool.md`). `ModelConnector` is the seam: `TomAdomdConnector` (pythonnet, Desktop's own DLLs,
+  Windows only, imported lazily) in production, `tests/powerbi_live/fake_connector.py` in CI. KPIs there are verified on the model's
+  raw rows and written back only if Power BI's engine returns the same value.
 - `export_center/` (xlsx/pdf/docx/html), `services/powerbi_export_service.py` with `common/powerbi_names.py`
   (one table-name and DAX-escaping rule for measures, model and M script), `intelligence/llm/` (fact sheet + numeric
   verifier; any failure falls back to the rules copilot).
@@ -61,3 +65,4 @@ CI (`.github/workflows/ci.yml`): backend on Python 3.12 and 3.13, frontend, and 
 7. Match keywords in column names with `common/keyword_match` (whole token), never substring `in`.
 8. Never `rm -rf` anything under `backend/data/`: it is the live dataset registry.
 9. Ask before pushing to GitHub.
+10. Anything that writes into a user's Power BI model must be add-only, token-guarded, and take KPI ids, never client DAX.
