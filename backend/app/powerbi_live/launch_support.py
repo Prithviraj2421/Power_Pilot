@@ -23,6 +23,15 @@ def find_free_port(host: str = "127.0.0.1") -> int:
         return sock.getsockname()[1]
 
 
+def proc_stat_state(stat_text: str) -> str:
+    """The state letter from a Linux ``/proc/<pid>/stat`` line (``Z`` is a zombie).
+
+    The command name sits in parentheses and may itself contain spaces and parentheses, so the
+    state is read after the *last* closing parenthesis.
+    """
+    return stat_text.rsplit(")", 1)[1].split()[0]
+
+
 def process_alive(pid: int) -> bool:
     """Whether a process is still running, without affecting it.
 
@@ -46,7 +55,12 @@ def process_alive(pid: int) -> bool:
         os.kill(pid, 0)
     except OSError:
         return False
-    return True
+    # An exited child that has not been reaped yet still answers kill(pid, 0). It is dead.
+    try:
+        with open(f"/proc/{pid}/stat", encoding="utf-8") as stat:
+            return proc_stat_state(stat.read()) != "Z"
+    except OSError:
+        return True
 
 
 def watch_process(pid: int, on_gone: Callable[[], None], interval: float = 5.0) -> threading.Thread:

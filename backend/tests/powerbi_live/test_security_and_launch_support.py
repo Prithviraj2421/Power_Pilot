@@ -15,6 +15,7 @@ from app.powerbi_live.dll_locator import REQUIRED, DllNotFoundError, candidate_d
 from app.powerbi_live.launch_support import (
     find_free_port,
     lock_path,
+    proc_stat_state,
     process_alive,
     read_lock,
     reusable_session,
@@ -97,12 +98,38 @@ def test_probing_a_process_does_not_affect_it() -> None:
 
 def test_the_watcher_fires_once_the_parent_exits() -> None:
     child = subprocess.Popen([sys.executable, "-c", "import time; time.sleep(0.6)"])
+    # Reap the child as soon as it exits, as a real parent would; an unreaped child is a zombie on Linux.
+    threading.Thread(target=child.wait, daemon=True).start()
     fired = threading.Event()
 
     watch_process(child.pid, fired.set, interval=0.05)
 
     assert fired.wait(timeout=15), "the watcher never noticed the process exit"
-    child.wait()
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="zombie processes are a POSIX concept")
+def test_a_zombie_counts_as_dead() -> None:
+    child = subprocess.Popen([sys.executable, "-c", "pass"])
+    try:
+        deadline = time.time() + 10
+        while process_alive(child.pid) and time.time() < deadline:
+            time.sleep(0.05)  # the child has exited but is deliberately not reaped yet
+        assert not process_alive(child.pid), "an exited, unreaped child must not look alive"
+    finally:
+        child.wait()
+
+
+@pytest.mark.parametrize(
+    ("line", "state"),
+    [
+        ("1234 (python3) S 1 1234 1234 0 -1 4194560 100 0", "S"),
+        ("77 (python) Z 1 77 77 0 -1 4227076 0 0", "Z"),
+        ("9 (my app (v2) x) R 1 9 9 0 -1 0 0 0", "R"),  # a name with spaces and parentheses
+        ("5 (weird) name)) Z 1 5 5 0", "Z"),
+    ],
+)
+def test_the_process_state_is_read_after_the_last_parenthesis(line: str, state: str) -> None:
+    assert proc_stat_state(line) == state
 
 
 def test_the_watcher_stays_quiet_while_the_parent_runs() -> None:
