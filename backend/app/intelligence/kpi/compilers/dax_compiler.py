@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from app.common.powerbi_names import dax_column, dax_table
-from app.intelligence.kpi.ir import Compare, Difference, Expr, Filter, Measure, Op, Ratio, Scalar
+from app.intelligence.kpi.ir import Compare, DatePart, Difference, Expr, Filter, Measure, Op, Ratio, Scalar
 
 _FUNCTIONS = {
     Op.SUM: "SUM",
@@ -11,6 +11,7 @@ _FUNCTIONS = {
     Op.COUNT: "COUNTA",
     Op.DISTINCT_COUNT: "DISTINCTCOUNT",
 }
+_DATE_FUNCTIONS = {DatePart.YEAR: "YEAR", DatePart.QUARTER: "QUARTER", DatePart.MONTH: "MONTH"}
 _OPERATORS = {
     Compare.EQ: "=",
     Compare.NE: "<>",
@@ -65,12 +66,14 @@ class DaxCompiler:
             body = f"COUNTROWS({dax_table(self.table)})"
         else:
             body = f"{_FUNCTIONS[measure.op]}({self.ref(measure.column)})"
-        if measure.filter is None:
+        if not measure.filters:
             return body
-        return f"CALCULATE({body}, {self._filter(measure.filter)})"
+        return f"CALCULATE({body}, {', '.join(self._filter(f) for f in measure.filters)})"
 
     def _filter(self, flt: Filter) -> str:
         column = self.ref(flt.column)
+        if flt.part is not None:
+            column = f"{_DATE_FUNCTIONS[flt.part]}({column})"
         if flt.compare is Compare.IN:
             return f"{column} IN {{{', '.join(literal(v) for v in flt.value)}}}"
         return f"{column} {_OPERATORS[flt.compare]} {literal(flt.value)}"

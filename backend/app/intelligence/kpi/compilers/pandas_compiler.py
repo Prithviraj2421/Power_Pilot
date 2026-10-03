@@ -5,11 +5,45 @@ from typing import Optional
 
 import pandas as pd
 
-from app.intelligence.kpi.ir import Compare, Expr, Filter, Measure, Op, Ratio
+from app.common.date_parse import parse_dates_robust
+from app.intelligence.kpi.ir import Compare, DatePart, Expr, Filter, Measure, Op, Ratio
 
 
 def _blank_if_nan(value: float) -> Optional[float]:
     return None if value is None or math.isnan(value) else float(value)
+
+
+def as_dates(series: pd.Series) -> pd.Series:
+    """A date column as datetimes: already-parsed columns as they are, text via ``parse_dates_robust``."""
+    if pd.api.types.is_datetime64_any_dtype(series):
+        return series
+    return parse_dates_robust(series)
+
+
+def date_part(series: pd.Series, part: DatePart) -> pd.Series:
+    """The year, quarter or month of each date (NaN where the cell is blank or not a date)."""
+    dates = as_dates(series).dt
+    return {DatePart.YEAR: dates.year, DatePart.QUARTER: dates.quarter, DatePart.MONTH: dates.month}[part]
+
+
+def filter_mask(df: pd.DataFrame, flt: Filter) -> pd.Series:
+    """Rows a filter keeps. Blank cells never pass (DAX does not match them either)."""
+    column = date_part(df[flt.column], flt.part) if flt.part is not None else df[flt.column]
+    if flt.compare is Compare.IN:
+        mask = column.isin(flt.value)
+    elif flt.compare is Compare.EQ:
+        mask = column == flt.value
+    elif flt.compare is Compare.NE:
+        mask = column != flt.value
+    else:
+        numbers = pd.to_numeric(column, errors="coerce")
+        mask = {
+            Compare.GT: numbers > flt.value,
+            Compare.GE: numbers >= flt.value,
+            Compare.LT: numbers < flt.value,
+            Compare.LE: numbers <= flt.value,
+        }[flt.compare]
+    return mask.fillna(False).astype(bool)
 
 
 class PandasCompiler:
@@ -46,12 +80,12 @@ class PandasCompiler:
     def evaluate_grouped(self, measure: Measure, df: pd.DataFrame) -> dict[object, Optional[float]]:
         if not measure.group:
             raise ValueError("evaluate_grouped needs a grouped measure")
-        scoped = self._scope(df, measure.filter)
+        scoped = self._scope(df, measure.filters)
         plain = Measure(measure.op, measure.column)
         return {key: self._measure(plain, part) for key, part in scoped.groupby(measure.group, dropna=False)}
 
     def _measure(self, measure: Measure, df: pd.DataFrame) -> Optional[float]:
-        scoped = self._scope(df, measure.filter)
+        scoped = self._scope(df, measure.filters)
         if len(scoped) == 0:
             return None
         if measure.op is Op.COUNT and measure.column is None:
@@ -68,22 +102,7 @@ class PandasCompiler:
         return _blank_if_nan(aggregate[measure.op]())
 
     @staticmethod
-    def _scope(df: pd.DataFrame, flt: Optional[Filter]) -> pd.DataFrame:
-        if flt is None:
-            return df
-        column = df[flt.column]
-        if flt.compare is Compare.IN:
-            mask = column.isin(flt.value)
-        elif flt.compare is Compare.EQ:
-            mask = column == flt.value
-        elif flt.compare is Compare.NE:
-            mask = column != flt.value
-        else:
-            numbers = pd.to_numeric(column, errors="coerce")
-            mask = {
-                Compare.GT: numbers > flt.value,
-                Compare.GE: numbers >= flt.value,
-                Compare.LT: numbers < flt.value,
-                Compare.LE: numbers <= flt.value,
-            }[flt.compare]
-        return df[mask.fillna(False)]
+    def _scope(df: pd.DataFrame, filters: tuple[Filter, ...]) -> pd.DataFrame:
+        for flt in filters:
+            df = df[filter_mask(df, flt)]
+        return df

@@ -24,3 +24,6 @@ numpy==2.5.1
 openpyxl==3.1.5               # app/export_center/builders/excel_builder.py
 reportlab==5.0.0              # app/export_center/builders/pdf_builder.py
 python-docx==1.2.0            # app/export_center/builders/docx_builder.py
+
+# --- Prove-It Migration: reading legacy reports ---
+pdfplumber==0.11.10           # app/reverse/report_reader.py (PDF tables); pulls in pdfminer.six and pypdfium2

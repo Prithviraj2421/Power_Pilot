@@ -9,6 +9,7 @@ import pandas as pd
 
 from app.common.powerbi_names import dax_references
 from app.intelligence.kpi.compilers import DaxCompiler, PandasCompiler
+from app.intelligence.kpi.compilers.pandas_compiler import as_dates
 from app.intelligence.kpi.ir import Compare, Difference, Expr, Measure, Op, Ratio, columns_of
 
 _NUMERIC_OPS = {Op.SUM, Op.AVERAGE, Op.MIN, Op.MAX}
@@ -48,25 +49,55 @@ def _numeric_problem(df: pd.DataFrame, column: str, what: str) -> Optional[str]:
     return None
 
 
+def _date_problem(df: pd.DataFrame, column: str) -> Optional[str]:
+    """A date-part filter needs real dates: DAX raises an error on text it cannot read as a date."""
+    series = df[column]
+    if pd.api.types.is_bool_dtype(series) or pd.api.types.is_numeric_dtype(series):
+        return f"column '{column}' is {series.dtype}, not a date, so it has no year, quarter or month"
+    present = series.notna()
+    if not present.any():
+        return f"column '{column}' has no values"
+    if pd.api.types.is_datetime64_any_dtype(series):
+        return None
+    unreadable = int((present & as_dates(series).isna()).sum())
+    if unreadable:
+        return f"{unreadable} value(s) in '{column}' cannot be read as dates, which makes the year/month filter fail in DAX"
+    return None
+
+
 def _first_dtype_problem(expr: Expr, df: pd.DataFrame) -> Optional[str]:
     for measure in _measures(expr):
         if measure.op in _NUMERIC_OPS:
             problem = _numeric_problem(df, measure.column, "aggregated numerically")
             if problem:
                 return problem
-        flt = measure.filter
-        if flt and flt.compare in _ORDERED:
-            problem = _numeric_problem(df, flt.column, "compared with < or >")
-            if problem:
-                return problem
-        if flt and flt.compare in _ORDERED | {Compare.NE} and df[flt.column].isna().any():
-            # DAX gives BLANK its own comparison rules here, so pandas cannot vouch for the result.
-            return f"filter column '{flt.column}' has blank values, which {flt.compare.value} treats differently in DAX"
+        for flt in measure.filters:
+            if flt.part is not None:
+                problem = _date_problem(df, flt.column)
+                if problem:
+                    return problem
+            elif flt.compare in _ORDERED:
+                problem = _numeric_problem(df, flt.column, "compared with < or >")
+                if problem:
+                    return problem
+            if flt.compare in _ORDERED | {Compare.NE} and df[flt.column].isna().any():
+                # DAX gives BLANK its own comparison rules here, so pandas cannot vouch for the result.
+                return f"filter column '{flt.column}' has blank values, which {flt.compare.value} treats differently in DAX"
     return None
 
 
 def _blank_cells(expr: Expr, df: pd.DataFrame) -> list[str]:
     notes = []
+    text_dates = sorted(
+        {
+            f.column
+            for m in _measures(expr)
+            for f in m.filters
+            if f.part is not None and not pd.api.types.is_datetime64_any_dtype(df[f.column])
+        }
+    )
+    for column in text_dates:
+        notes.append(f"'{column}' holds dates as text; DAX reads them with Power BI's own date parsing, so check the result there")
     for measure in _measures(expr):
         if measure.op in _NUMERIC_OPS:
             series = df[measure.column]
@@ -76,13 +107,14 @@ def _blank_cells(expr: Expr, df: pd.DataFrame) -> list[str]:
     return notes
 
 
-def verify(expr: Expr, df: pd.DataFrame, table: str) -> Verification:
+def verify(expr: Expr, df: pd.DataFrame, table: str, basis: str = "cleaned dataset") -> Verification:
     """
     The gate every KPI passes before it can be exported or shown.
 
     A KPI is verified only if (a) every column it reads exists with a type its operation
     accepts, (b) the DAX and the expression refer to exactly the same table and columns,
-    and (c) computing it on the dataset yields a finite number.
+    and (c) computing it on the dataset yields a finite number. ``basis`` only words the note
+    ("the cleaned dataset", "the raw table").
     """
     missing = [c for c in columns_of(expr) if c not in df.columns]
     if missing:
@@ -115,5 +147,5 @@ def verify(expr: Expr, df: pd.DataFrame, table: str) -> Verification:
     if not math.isfinite(value):
         return Verification(False, f"result is not a finite number ({value})", dax=dax)
 
-    note = "; ".join([f"computed on {len(df):,} rows of the cleaned dataset", *_blank_cells(expr, df)])
+    note = "; ".join([f"computed on {len(df):,} rows of the {basis}", *_blank_cells(expr, df)])
     return Verification(True, note, value=value, dax=dax)

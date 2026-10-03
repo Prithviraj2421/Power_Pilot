@@ -11,6 +11,7 @@ blank numerator), subtraction treats one BLANK operand as 0, and multiplication 
 
 from __future__ import annotations
 
+import datetime as dt
 import math
 import re
 from typing import Any, Optional
@@ -161,7 +162,7 @@ def _evaluate(node: Any, rows: list[dict]) -> Optional[float]:
             return None
         return numerator / denominator
     if name == "CALCULATE":
-        return _evaluate(args[0], [row for row in rows if _passes(args[1], row)])
+        return _evaluate(args[0], [row for row in rows if all(_passes(f, row) for f in args[1:])])
     if not rows:
         return None
     if name == "COUNTROWS":
@@ -186,12 +187,37 @@ def _literal(node: Any) -> Any:
     return node[1] == "TRUE"
 
 
+def _date_of(cell: Any) -> dt.date:
+    if isinstance(cell, dt.datetime):
+        return cell.date()
+    if isinstance(cell, dt.date):
+        return cell
+    return dt.date.fromisoformat(str(cell)[:10])
+
+
+_DATE_PARTS = {
+    "YEAR": lambda d: d.year,
+    "MONTH": lambda d: d.month,
+    "QUARTER": lambda d: (d.month - 1) // 3 + 1,
+}
+
+
+def _subject(node: Any, row: dict) -> Any:
+    """The left side of a filter: a column, or YEAR/QUARTER/MONTH of one. BLANK stays BLANK here
+    (real DAX turns BLANK into year 1899; verification refuses the filters where that would matter)."""
+    if node[0] == "call" and node[1] in _DATE_PARTS:
+        cell = row[node[2][0][1]]
+        return None if _blank(cell) else _DATE_PARTS[node[1]](_date_of(cell))
+    assert node[0] == "ref", f"cannot filter on {node[0]}"
+    return row[node[1]]
+
+
 def _passes(node: Any, row: dict) -> bool:
     if node[0] == "in":
-        cell = row[node[1][1]]
+        cell = _subject(node[1], row)
         return not _blank(cell) and cell in [_literal(item) for item in node[2]]
     assert node[0] == "cmp"
-    cell, wanted = row[node[2][1]], _literal(node[3])
+    cell, wanted = _subject(node[2], row), _literal(node[3])
     if _blank(cell):
         return False
     if node[1] == "=":
