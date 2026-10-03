@@ -19,7 +19,6 @@ from app.routes.datasets_route import router as datasets_router
 from app.routes.export_center_route import router as export_center_router
 from app.routes.intelligence_route import router as intelligence_router
 from app.routes.powerbi_route import router as powerbi_router
-from app.routes.upload import router as upload_router
 
 logger = get_logger("PowerPilotAPI")
 settings = get_settings()
@@ -69,7 +68,6 @@ def handle_invalid_dataset(request: Request, exc: InvalidDatasetError) -> JSONRe
     return JSONResponse(status_code=status.HTTP_400_BAD_REQUEST, content={"detail": str(exc)})
 
 
-app.include_router(upload_router)
 app.include_router(datasets_router)
 app.include_router(data_quality_router)
 app.include_router(intelligence_router)
