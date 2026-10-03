@@ -5,6 +5,14 @@ import { ApplyResponse, ApplySelection, LiveAnalysis, LiveStatus } from '../type
 
 const TOKEN_HEADER = 'X-PowerPilot-Token';
 
+export const SERVER_GONE_MESSAGE =
+  "PowerPilot's background program is not running any more. It stops when the report is closed (or if it " +
+  'crashed). In Power BI Desktop, click PowerPilot on the External Tools ribbon to start it again.';
+
+export const TIMED_OUT_MESSAGE =
+  'This is taking much longer than expected. A very large table can take several minutes to read; ' +
+  'try analyzing fewer tables.';
+
 /** An error that keeps the HTTP status, so the page can tell "not launched" from "wrong token". */
 export class LiveApiError extends Error {
   constructor(message: string, public readonly status?: number) {
@@ -21,8 +29,10 @@ async function call<T>(request: Promise<{ data: T }>): Promise<T> {
   try {
     return (await request).data;
   } catch (error) {
-    // The shared client already turns responses into Errors; recover the status it recorded.
-    const status = (error as { status?: number }).status;
+    // The shared client already turns responses into Errors; recover what it recorded.
+    const { status, code } = error as { status?: number; code?: string };
+    if (status === undefined && code === 'ERR_NETWORK') throw new LiveApiError(SERVER_GONE_MESSAGE);
+    if (status === undefined && code === 'ECONNABORTED') throw new LiveApiError(TIMED_OUT_MESSAGE);
     throw new LiveApiError((error as Error).message, status);
   }
 }

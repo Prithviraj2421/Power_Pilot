@@ -27,7 +27,10 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<{ detail?: string }>) => {
     const message = error.response?.data?.detail || error.message || 'An unexpected API error occurred.';
-    // Keep the HTTP status: callers sometimes need to tell, say, a missing session (401) from a server error.
-    return Promise.reject(Object.assign(new Error(message), { status: error.response?.status }));
+    // Keep the HTTP status and axios's error code: callers sometimes need to tell a missing session (401)
+    // from a server error, or a server that is not there (ERR_NETWORK) from a request that merely timed out.
+    return Promise.reject(
+      Object.assign(new Error(message), { status: error.response?.status, code: error.code })
+    );
   }
 );
