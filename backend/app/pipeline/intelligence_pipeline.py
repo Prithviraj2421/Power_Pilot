@@ -1,4 +1,5 @@
 from dataclasses import dataclass, replace
+from typing import Literal, Optional
 
 import pandas as pd
 
@@ -11,6 +12,7 @@ from app.intelligence.decision_engine import DecisionEngine
 from app.intelligence.domain_classifier import DomainClassifier
 from app.intelligence.entity_detector import EntityDetector
 from app.intelligence.insight_engine import InsightEngine
+from app.intelligence.kpi.column_resolver import POWERBI_TABLE_KEY
 from app.intelligence.kpi_engine import KPIEngine
 from app.intelligence.relationship_engine import RelationshipEngine
 from app.intelligence.schema.schema_analyzer import SchemaAnalyzer
@@ -57,12 +59,17 @@ class PowerPilotIntelligencePipeline:
         df: pd.DataFrame,
         dataset_name: str = "Dataset.csv",
         prep_config: PreparationConfig = PreparationConfig(),
+        *,
+        powerbi_table: Optional[str] = None,
+        verify_on: Literal["cleaned", "source"] = "cleaned",
     ) -> MasterIntelligenceResult:
         """Run all 12 stages and return the analysis.
 
         Use :meth:`execute` instead when you also need the cleaned DataFrame.
         """
-        return self.execute(df, dataset_name=dataset_name, prep_config=prep_config).result
+        return self.execute(
+            df, dataset_name=dataset_name, prep_config=prep_config, powerbi_table=powerbi_table, verify_on=verify_on
+        ).result
 
     @log_execution_time(logger, "Master Intelligence Pipeline Run")
     def execute(
@@ -70,8 +77,17 @@ class PowerPilotIntelligencePipeline:
         df: pd.DataFrame,
         dataset_name: str = "Dataset.csv",
         prep_config: PreparationConfig = PreparationConfig(),
+        *,
+        powerbi_table: Optional[str] = None,
+        verify_on: Literal["cleaned", "source"] = "cleaned",
     ) -> PipelineExecution:
-        """Run all 12 stages, returning the analysis and the cleaned DataFrame."""
+        """Run all 12 stages, returning the analysis and the cleaned DataFrame.
+
+        ``powerbi_table`` names the table of an open Power BI model this data was read from, so KPI
+        formulas address it by its real name. ``verify_on`` picks the data KPIs are verified against:
+        the cleaned frame (an upload, from which the exported model is built) or the frame as given
+        (a live model, which holds the raw data and must be compared with itself).
+        """
         logger.info(f"Starting pipeline execution for dataset '{dataset_name}' ({len(df)} rows)")
 
         # Stage 1: Data Quality & Preparation Engine (DQPE)
@@ -80,6 +96,8 @@ class PowerPilotIntelligencePipeline:
 
         # Stage 2: Schema Analyzer (Receives ONLY Cleaned DataFrame)
         dataset_profile = self.schema_analyzer.analyze(cleaned_df, dataset_name=dataset_name)
+        if powerbi_table:
+            dataset_profile.metadata[POWERBI_TABLE_KEY] = powerbi_table
 
         # Stage 3: Entity Detector
         detected_entities = self.entity_detector.detect(dataset_profile, cleaned_df)
@@ -90,7 +108,8 @@ class PowerPilotIntelligencePipeline:
         # Stage 5: KPI Engine. It runs before the Business Profiler so that every KPI shown
         # anywhere (insights, executive summary, dashboard cards, exports) is one that was
         # compiled to DAX and verified against this cleaned data. Unverified ones are rejected.
-        kpi_report = self.kpi_engine.recommend(dataset_profile, entities=detected_entities, df=cleaned_df)
+        kpi_frame = df if verify_on == "source" else cleaned_df
+        kpi_report = self.kpi_engine.recommend(dataset_profile, entities=detected_entities, df=kpi_frame)
 
         # Stage 6: Business Profiler. Its KPI lists are replaced with the verified ones.
         business_profile = self.business_profiler.profile(dataset_profile, detected_entities)

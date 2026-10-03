@@ -1,0 +1,10 @@
+# PowerPilot backend — optional: run as a Power BI Desktop External Tool (Windows only)
+# Install:  python -m pip install -r requirements-powerbi.txt
+#
+# pythonnet bridges Python to the .NET Framework libraries that ship with Power BI Desktop
+# (Microsoft.PowerBI.Tabular.dll, Microsoft.PowerBI.AdomdClient.dll), so nothing else is downloaded.
+# It is imported lazily: the rest of PowerPilot, and CI on Linux, never need it.
+
+-r requirements.txt
+
+pythonnet==3.2.0

@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional
 
 
 @dataclass(slots=True, frozen=True)
@@ -37,6 +37,14 @@ class DatasetRecord:
     source_delimiter: str = ","
     source_file_format: str = "csv"
     source_sheet: Optional[str] = None
+    # Set when the data was read from a table of an open Power BI model rather than uploaded.
+    powerbi_table: Optional[str] = None
+    # Which frame KPIs are verified against: the cleaned one (uploads) or the data as read (live).
+    verify_on: str = "cleaned"
+
+    @property
+    def is_live_model(self) -> bool:
+        return self.powerbi_table is not None
 
     @property
     def source_format(self) -> str:
@@ -92,6 +100,7 @@ class DatasetRecord:
             "source_delimiter": self.source_delimiter,
             "source_file_format": self.source_file_format,
             "source_sheet": self.source_sheet,
+            "powerbi_table": self.powerbi_table,
             "source_format": self.source_format,
             "read_with_defaults": self.read_with_defaults,
         }

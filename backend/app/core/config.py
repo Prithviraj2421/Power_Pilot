@@ -86,6 +86,19 @@ class Settings(BaseSettings):
     # must agree with the pandas value to a relative tolerance of 1e-6.
     dax_engine_check: bool = False
 
+    # --- Power BI External Tool ------------------------------------------------
+    # Set by the launcher when Power BI Desktop starts PowerPilot from its External Tools
+    # ribbon. The model address comes from here and never from a request, so a web page cannot
+    # point the tool at another endpoint. Left unset, the live endpoints report that PowerPilot
+    # was not started as an external tool.
+    pbi_server: str = ""  # e.g. localhost:51234, from Desktop's %server%
+    pbi_database: str = ""  # the model's GUID name, from %database%
+    pbi_token: str = ""  # per-launch secret the UI must send; the write endpoint edits a report
+    pbi_max_rows: int = 500_000  # rows read per table; a larger table is analysed as a sample
+    tom_dll_dir: str = ""  # folder holding Microsoft.PowerBI.Tabular.dll / AdomdClient.dll
+    serve_frontend: str = ""  # built SPA directory to serve, so the launcher needs no dev server
+    parent_pid: int = 0  # exit when this process (Power BI Desktop) exits; 0 disables
+
     # --- LLM copilot ----------------------------------------------------------
     # The language model is given ONLY the pipeline's computed analysis, never the
     # dataset, and every answer's figures are verified against that analysis before
@@ -156,6 +169,11 @@ class Settings(BaseSettings):
     def llm_enabled(self) -> bool:
         """Whether LLM answering is configured. Without it, rules answer instead."""
         return bool(self.anthropic_api_key.strip())
+
+    @property
+    def powerbi_live_enabled(self) -> bool:
+        """Whether PowerPilot was launched against an open Power BI model."""
+        return bool(self.pbi_server.strip() and self.pbi_database.strip())
 
     @property
     def email_enabled(self) -> bool:

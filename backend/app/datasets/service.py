@@ -196,6 +196,67 @@ class DatasetService:
             cleaned_dataframe=execution.cleaned_dataframe,
         )
 
+    def register_dataframe(
+        self,
+        df: pd.DataFrame,
+        name: str,
+        *,
+        powerbi_table: str,
+        verify_on: str = "source",
+        reuse_identical: bool = True,
+    ) -> DatasetAnalysis:
+        """Analyze and register a DataFrame read from a table of an open Power BI model.
+
+        The pipeline runs on ``df`` exactly as given, not on a CSV re-parse of it, so what is analysed
+        is what the model holds. A CSV copy is still stored: it is what makes the registration durable
+        and recomputable after a cache miss, like any upload. That copy lives in the local data
+        directory; ``delete`` removes it.
+
+        ``name`` is a display name (it gains ``.csv`` so a later recompute can parse the stored copy);
+        ``powerbi_table`` is the table's real name, which KPI formulas must use.
+        """
+        if df.empty or len(df.columns) == 0:
+            raise InvalidDatasetError("The table has no rows to analyse.")
+
+        filename = name if is_supported(name) else f"{name}.csv"
+        payload = df.to_csv(index=False).encode("utf-8")
+
+        if reuse_identical:
+            existing = self._store.find_by_content_hash(sha256_of(payload), powerbi_table)
+            if existing is not None:
+                logger.info(f"Table '{powerbi_table}' matches dataset {existing.dataset_id}; reusing it")
+                return self.get_analysis(existing.dataset_id)
+
+        execution = self._pipeline.execute(
+            df, dataset_name=filename, powerbi_table=powerbi_table, verify_on=verify_on
+        )
+        profile = execution.result.dataset_profile
+        quality = execution.result.quality_report
+
+        record = self._store.insert(
+            filename=filename,
+            payload=payload,
+            original_rows=len(df),
+            total_rows=profile.total_rows,
+            total_columns=profile.total_columns,
+            detected_domain=profile.detected_domain.value,
+            domain_confidence=float(profile.domain_confidence),
+            quality_grade=quality.grade.value if quality else "N/A",
+            quality_score=float(quality.overall_score) if quality else 0.0,
+            quality_issues_count=int(quality.total_issues_count) if quality else 0,
+            powerbi_table=powerbi_table,
+            verify_on=verify_on,
+        )
+
+        self._cache.put(record.dataset_id, execution)
+        self._store.prune(self._settings.max_stored_datasets)
+
+        return DatasetAnalysis(
+            record=record,
+            result=execution.result,
+            cleaned_dataframe=execution.cleaned_dataframe,
+        )
+
     # -- retrieval ----------------------------------------------------------
 
     def get_record(self, dataset_id: str) -> DatasetRecord:
@@ -234,7 +295,12 @@ class DatasetService:
             f"from stored source '{record.filename}'"
         )
         df = self.parse_csv(payload, record.filename)
-        return self._pipeline.execute(df, dataset_name=record.filename)
+        return self._pipeline.execute(
+            df,
+            dataset_name=record.filename,
+            powerbi_table=record.powerbi_table,
+            verify_on=record.verify_on,
+        )
 
     def get_source_dataframe(self, dataset_id: str) -> pd.DataFrame:
         """The original uploaded data, exactly as submitted, before any cleaning."""

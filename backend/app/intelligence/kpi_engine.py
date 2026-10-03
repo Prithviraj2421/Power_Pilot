@@ -6,12 +6,11 @@ import pandas as pd
 
 from app.common.enums import DatasetDomain, Priority
 from app.common.logger import get_logger
-from app.common.powerbi_names import powerbi_table_name
 from app.core.config import get_settings
 from app.intelligence.kpi.base_kpi_plugin import BaseKPIPlugin
 from app.intelligence.kpi.baseline import period_baseline
 from app.intelligence.kpi.candidate import KPICandidate
-from app.intelligence.kpi.column_resolver import ColumnResolver
+from app.intelligence.kpi.column_resolver import ColumnResolver, table_for
 from app.intelligence.kpi.compilers import DaxCompiler
 from app.intelligence.kpi.dax_executor import DaxExecutor, disagreement
 from app.intelligence.kpi.plugins import KPI_RECOMMENDATION_REGISTRY, FallbackKPIPlugin
@@ -103,7 +102,7 @@ class KPIEngine:
         df: Optional[pd.DataFrame],
     ) -> tuple[list[KPIRecommendation], list[KPIRecommendation]]:
         date_column = ColumnResolver(profile, entities).date()
-        table = powerbi_table_name(profile.dataset_name)
+        table = table_for(profile)
         verified: list[KPIRecommendation] = []
         rejected: list[KPIRecommendation] = []
         for candidate in candidates:

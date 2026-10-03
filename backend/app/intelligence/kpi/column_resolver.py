@@ -17,6 +17,19 @@ _DATES = {PhysicalType.DATE, PhysicalType.DATETIME}
 # Numeric columns that are labels, not quantities: summing or charting them means nothing.
 LABEL_TOKENS = ("id", "key", "code", "zip", "postal", "pin", "phone", "index")
 
+# Set on a profile when it describes a table that already exists in an open Power BI model.
+POWERBI_TABLE_KEY = "powerbi_table"
+
+
+def table_for(profile: DatasetProfile) -> str:
+    """The Power BI table KPI formulas must name.
+
+    A table read from a live model keeps its real name, which may contain spaces that
+    ``powerbi_table_name`` would rewrite, so the formulas would no longer resolve there.
+    Everything else (an uploaded file) gets the sanitised file-name stem.
+    """
+    return profile.metadata.get(POWERBI_TABLE_KEY) or powerbi_table_name(profile.dataset_name)
+
 
 class ColumnResolver:
     """
@@ -29,7 +42,7 @@ class ColumnResolver:
     """
 
     def __init__(self, profile: DatasetProfile, entities: Optional[list[DetectedEntity]] = None) -> None:
-        self.table = powerbi_table_name(profile.dataset_name)
+        self.table = table_for(profile)
         self._columns = list(profile.columns)
         # The detector's verdicts, which win over whatever is stamped on the column profile.
         self._entity_of = {e.column_name: e.entity_type for e in entities or []}

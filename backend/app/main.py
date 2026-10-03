@@ -1,4 +1,6 @@
+import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncIterator
 
 from fastapi import Depends, FastAPI, Request, status
@@ -7,6 +9,7 @@ from fastapi.responses import JSONResponse
 
 from app.common.logger import get_logger
 from app.core.config import get_settings
+from app.core.frontend import mount_frontend
 from app.datasets.service import (
     DatasetNotFoundError,
     DatasetService,
@@ -18,6 +21,9 @@ from app.routes.data_quality_route import router as data_quality_router
 from app.routes.datasets_route import router as datasets_router
 from app.routes.export_center_route import router as export_center_router
 from app.routes.intelligence_route import router as intelligence_router
+from app.powerbi_live.connector import ModelConnectionError
+from app.powerbi_live.launch_support import watch_process
+from app.routes.powerbi_live_route import router as powerbi_live_router
 from app.routes.powerbi_route import router as powerbi_router
 
 logger = get_logger("PowerPilotAPI")
@@ -33,6 +39,14 @@ async def lifespan(_: FastAPI) -> AsyncIterator[None]:
         f"cache={settings.result_cache_size} entries/{settings.result_cache_ttl_seconds}s | "
         f"registered_datasets={service.count_datasets()}"
     )
+    if settings.parent_pid:
+        # Started by Power BI Desktop's External Tools ribbon: stop when Desktop does, rather than
+        # leave a server behind for a report that is no longer open.
+        def stop() -> None:
+            logger.info(f"Parent process {settings.parent_pid} exited; shutting down")
+            os._exit(0)
+
+        watch_process(settings.parent_pid, stop)
     yield
     logger.info(f"{settings.app_name} shutting down")
 
@@ -62,6 +76,12 @@ def handle_dataset_not_found(request: Request, exc: DatasetNotFoundError) -> JSO
     return JSONResponse(status_code=status.HTTP_404_NOT_FOUND, content={"detail": str(exc)})
 
 
+@app.exception_handler(ModelConnectionError)
+def handle_model_connection(request: Request, exc: ModelConnectionError) -> JSONResponse:
+    """The open Power BI model could not be reached or queried; the message is safe to show."""
+    return JSONResponse(status_code=status.HTTP_502_BAD_GATEWAY, content={"detail": str(exc)})
+
+
 @app.exception_handler(InvalidDatasetError)
 def handle_invalid_dataset(request: Request, exc: InvalidDatasetError) -> JSONResponse:
     """Upload validation failures carry client-safe messages from the service."""
@@ -72,13 +92,16 @@ app.include_router(datasets_router)
 app.include_router(data_quality_router)
 app.include_router(intelligence_router)
 app.include_router(powerbi_router)
+app.include_router(powerbi_live_router)
 app.include_router(copilot_router)
 app.include_router(export_center_router)
 
 
-@app.get("/")
-def home():
-    return {"message": "Welcome to PowerPilot"}
+if not settings.serve_frontend:
+
+    @app.get("/")
+    def home():
+        return {"message": "Welcome to PowerPilot"}
 
 
 @app.get("/health")
@@ -91,3 +114,8 @@ def health(service: DatasetService = Depends(get_dataset_service)):
         "registered_datasets": service.count_datasets(),
         "analysis_cache": service.cache_stats(),
     }
+
+
+if settings.serve_frontend:
+    # Last, so the catch-all that serves the single-page app cannot shadow any API route.
+    mount_frontend(app, Path(settings.serve_frontend))

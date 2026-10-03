@@ -45,7 +45,9 @@ CREATE TABLE IF NOT EXISTS datasets (
     source_encoding      TEXT    NOT NULL DEFAULT 'utf-8',
     source_delimiter     TEXT    NOT NULL DEFAULT ',',
     source_file_format   TEXT    NOT NULL DEFAULT 'csv',
-    source_sheet         TEXT
+    source_sheet         TEXT,
+    powerbi_table        TEXT,
+    verify_on            TEXT    NOT NULL DEFAULT 'cleaned'
 );
 CREATE INDEX IF NOT EXISTS idx_datasets_sha      ON datasets (content_sha256);
 CREATE INDEX IF NOT EXISTS idx_datasets_accessed ON datasets (last_accessed_at DESC);
@@ -56,7 +58,8 @@ _COLUMNS = (
     "dataset_id, filename, stored_path, size_bytes, content_sha256, "
     "original_rows, total_rows, total_columns, detected_domain, domain_confidence, "
     "quality_grade, quality_score, quality_issues_count, created_at, last_accessed_at, "
-    "source_encoding, source_delimiter, source_file_format, source_sheet"
+    "source_encoding, source_delimiter, source_file_format, source_sheet, "
+    "powerbi_table, verify_on"
 )
 
 # Columns added after the first release. CREATE TABLE IF NOT EXISTS does not alter
@@ -66,6 +69,8 @@ _ADDED_COLUMNS: tuple[tuple[str, str], ...] = (
     ("source_delimiter", "TEXT NOT NULL DEFAULT ','"),
     ("source_file_format", "TEXT NOT NULL DEFAULT 'csv'"),
     ("source_sheet", "TEXT"),
+    ("powerbi_table", "TEXT"),
+    ("verify_on", "TEXT NOT NULL DEFAULT 'cleaned'"),
 )
 
 
@@ -175,6 +180,8 @@ class DatasetStore:
         source_delimiter: str = ",",
         source_file_format: str = "csv",
         source_sheet: Optional[str] = None,
+        powerbi_table: Optional[str] = None,
+        verify_on: str = "cleaned",
     ) -> DatasetRecord:
         """Register a dataset, writing its source bytes and metadata row."""
         dataset_id = dataset_id or uuid.uuid4().hex
@@ -201,9 +208,11 @@ class DatasetStore:
             source_delimiter=source_delimiter,
             source_file_format=source_file_format,
             source_sheet=source_sheet,
+            powerbi_table=powerbi_table,
+            verify_on=verify_on,
         )
 
-        placeholders = ", ".join(["?"] * 19)
+        placeholders = ", ".join(["?"] * 21)
         with self._connect() as connection:
             connection.execute(
                 f"INSERT INTO datasets ({_COLUMNS}) VALUES ({placeholders})",
@@ -227,6 +236,8 @@ class DatasetStore:
                     record.source_delimiter,
                     record.source_file_format,
                     record.source_sheet,
+                    record.powerbi_table,
+                    record.verify_on,
                 ),
             )
 
@@ -271,17 +282,21 @@ class DatasetStore:
             ).fetchone()
         return self._to_record(row) if row else None
 
-    def find_by_content_hash(self, content_sha256: str) -> Optional[DatasetRecord]:
+    def find_by_content_hash(
+        self, content_sha256: str, powerbi_table: Optional[str] = None
+    ) -> Optional[DatasetRecord]:
         """Look up an existing registration of identical bytes.
 
         Re-uploading the same file returns the existing dataset instead of paying
-        for a duplicate pipeline run and a duplicate copy on disk.
+        for a duplicate pipeline run and a duplicate copy on disk. The Power BI table
+        must match too: the same bytes read from a live model's table are a different
+        dataset from an upload of them, because their formulas name different tables.
         """
         with self._connect() as connection:
             row = connection.execute(
-                f"SELECT {_COLUMNS} FROM datasets WHERE content_sha256 = ? "
+                f"SELECT {_COLUMNS} FROM datasets WHERE content_sha256 = ? AND powerbi_table IS ? "
                 "ORDER BY created_at DESC LIMIT 1",
-                (content_sha256,),
+                (content_sha256, powerbi_table),
             ).fetchone()
         return self._to_record(row) if row else None
 
