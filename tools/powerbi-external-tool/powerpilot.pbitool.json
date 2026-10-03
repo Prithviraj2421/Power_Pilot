@@ -1,0 +1,8 @@
+{
+    "version": "1.0.0",
+    "name": "PowerPilot",
+    "description": "Analyze this model, verify KPIs against Power BI's own engine, and add them to your report.",
+    "path": "__PYTHONW__",
+    "arguments": "\"__LAUNCHER__\" \"%server%\" \"%database%\"",
+    "iconData": "image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAg0lEQVR42u3X3Q3AIAgEYJfpZI7fIewCWjk8wk8k6aO9L02D0Fqmevo7JI9LqAnmNPwIwQpXIdjhEMIqXIRYHUJLhfg7wAZMEUyABBILsPtc0her/4ULSAeg94NyALgtpwPQLyZ3ANqKTa7lC0AGEpepqMRcmGcsD7GYhFjNQiyn1vUB7aUIQSAB34oAAAAASUVORK5CYII="
+}
