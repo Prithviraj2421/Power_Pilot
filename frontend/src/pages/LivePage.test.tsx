@@ -317,3 +317,22 @@ describe('forgetting the data', () => {
     expect(screen.queryByTestId('analysis-Sales Data')).not.toBeInTheDocument();
   });
 });
+
+describe('Prove-It Migration section', () => {
+  it('is offered once connected, defaulting to the largest table', async () => {
+    render(<LivePage />);
+
+    expect(await screen.findByRole('heading', { name: 'Prove-It Migration' })).toBeInTheDocument();
+    expect(screen.getByLabelText('Table to check the report against')).toHaveValue('Sales Data');
+    expect(screen.getByRole('button', { name: /Find the formulas/ })).toBeDisabled(); // until an old report is chosen
+  });
+
+  it('is not offered when PowerPilot is not attached to a model', async () => {
+    launchWith(null);
+
+    render(<LivePage />);
+
+    await screen.findByText('Open PowerPilot from Power BI Desktop');
+    expect(screen.queryByRole('heading', { name: 'Prove-It Migration' })).not.toBeInTheDocument();
+  });
+});

@@ -158,6 +158,7 @@ export function useLiveModel() {
 
   return {
     ...state,
+    token,
     writableCount: writableIds.length,
     refresh,
     toggleTable,

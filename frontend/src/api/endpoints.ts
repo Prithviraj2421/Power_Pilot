@@ -44,6 +44,15 @@ export const API_ENDPOINTS = {
     STATUS: '/api/v1/powerbi-live/status',
     ANALYZE: '/api/v1/powerbi-live/analyze',
     APPLY: '/api/v1/powerbi-live/apply-measures',
+    REVERSE: '/api/v1/powerbi-live/reverse-engineer',
+    REVERSE_APPLY: '/api/v1/powerbi-live/reverse-engineer/apply',
+  },
+
+  REVERSE: {
+    RUN: (datasetId: string) => `/api/v1/datasets/${datasetId}/reverse-engineer`,
+    REPORT: (reportId: string) => `/api/v1/reverse/${reportId}`,
+    DAX: (reportId: string) => `/api/v1/reverse/${reportId}/dax`,
+    BIM: (reportId: string) => `/api/v1/reverse/${reportId}/bim`,
   },
 
   COPILOT: {

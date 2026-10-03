@@ -8,8 +8,9 @@ import { LoadingSpinner } from '../components/ui/LoadingSpinner';
 import { KpiPicker } from '../features/live/components/KpiPicker';
 import { ApplyOutcome } from '../features/live/components/ApplyOutcome';
 import { TablePicker } from '../features/live/components/TablePicker';
+import { LiveReverseSection } from '../features/reverse/components/LiveReverseSection';
 import { launchedModel } from '../features/live/liveSession';
-import { useLiveModel } from '../features/live/useLiveModel';
+import { largestTable, useLiveModel } from '../features/live/useLiveModel';
 
 export const LivePage: React.FC = () => {
   const live = useLiveModel();
@@ -58,7 +59,7 @@ export const LivePage: React.FC = () => {
 
   return (
     <PageContainer>
-      <div className="mx-auto max-w-4xl space-y-6 py-8">
+      <div className="mx-auto max-w-6xl space-y-6 py-8">
         <header>
           <h1 className="text-2xl font-bold text-white">PowerPilot for Power BI</h1>
           <p className="mt-1 text-sm text-gray-400">
@@ -127,6 +128,8 @@ export const LivePage: React.FC = () => {
             </div>
           </>
         )}
+
+        {live.token && <LiveReverseSection token={live.token} status={status} defaultTable={largestTable(status)} />}
       </div>
     </PageContainer>
   );

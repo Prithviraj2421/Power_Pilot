@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, ArrowLeft, Lightbulb, Code, Network, Target, Monitor, Sparkles, ShieldCheck, Download, Upload } from 'lucide-react';
+import { LayoutDashboard, FileText, ArrowLeft, Lightbulb, Code, Network, Target, Monitor, Sparkles, ShieldCheck, Download, Upload, FileSearch } from 'lucide-react';
 import { PageContainer } from '../components/layout/PageContainer';
 import { PageHeader } from '../components/ui/PageHeader';
 import { Button } from '../components/ui/Button';
@@ -19,6 +19,7 @@ import { PowerBIStudioView } from '../features/powerbi/components/PowerBIStudioV
 import { CopilotView } from '../features/copilot/components/CopilotView';
 import { QualityStudioView } from '../features/quality/components/QualityStudioView';
 import { ExportCenterView } from '../features/export/components/ExportCenterView';
+import { ReverseStudioView } from '../features/reverse/components/ReverseStudioView';
 
 export const WorkspacePage: React.FC = () => {
   const navigate = useNavigate();
@@ -92,6 +93,7 @@ export const WorkspacePage: React.FC = () => {
     { id: 'decision', label: 'Strategic Decisions', icon: <Target />, badge: decision_report?.primary_decisions?.length || 0 },
     { id: 'copilot', label: 'AI Copilot', icon: <Sparkles /> },
     { id: 'powerbi', label: 'Power BI Studio', icon: <Monitor /> },
+    { id: 'proveit', label: 'Prove-It Migration', icon: <FileSearch /> },
     { id: 'export', label: 'Export Center', icon: <Download /> },
   ];
 
@@ -126,7 +128,7 @@ export const WorkspacePage: React.FC = () => {
         <Tabs tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
 
         {/* Global Filter Bar */}
-        {dashboard_report && activeTab !== 'copilot' && activeTab !== 'powerbi' && activeTab !== 'quality' && activeTab !== 'export' && (
+        {dashboard_report && activeTab !== 'copilot' && activeTab !== 'powerbi' && activeTab !== 'quality' && activeTab !== 'export' && activeTab !== 'proveit' && (
           <FilterControlPanel
             globalFilters={dashboard_report.global_filters || []}
             timeDimensions={dashboard_report.time_intelligence_dimensions || []}
@@ -160,6 +162,7 @@ export const WorkspacePage: React.FC = () => {
           {activeTab === 'copilot' && <CopilotView />}
 
           {activeTab === 'powerbi' && <PowerBIStudioView />}
+          {activeTab === 'proveit' && <ReverseStudioView />}
 
           {activeTab === 'export' && <ExportCenterView />}
         </div>

@@ -21,11 +21,11 @@ export class LiveApiError extends Error {
   }
 }
 
-function authorised(token: string) {
+export function authorised(token: string) {
   return { headers: { [TOKEN_HEADER]: token } };
 }
 
-async function call<T>(request: Promise<{ data: T }>): Promise<T> {
+export async function call<T>(request: Promise<{ data: T }>): Promise<T> {
   try {
     return (await request).data;
   } catch (error) {
