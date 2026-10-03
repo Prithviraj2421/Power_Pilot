@@ -47,6 +47,23 @@ class MigratedMeasure:
     checks: list[MeasureCheck] = field(default_factory=list)
     notes: list[str] = field(default_factory=list)
     display_folder: str = DISPLAY_FOLDER
+    axes: list[str] = field(default_factory=list)  # what the visual must slice a grouped measure by
+    filename: str = ""
+
+    def refresh(self) -> None:
+        """Rewrite the description and usage note from the cells and axes now covered (after merging)."""
+        count = len(self.cell_ids)
+        sliced = f", sliced by {' and '.join(self.axes)}" if self.axes else ""
+        self.description = (
+            f"Migrated from the legacy report '{self.filename}' ({_cells_text(self.cell_ids)}). "
+            f"{describe(self.expr)}{sliced}. Proven by recomputation on the raw data."
+        )
+        if self.axes:
+            self.notes = [f"Put {' and '.join(self.axes)} on the visual (rows / columns) and this one measure gives all {count} numbers."]
+        elif count > 1:
+            self.notes = [f"{count} numbers in the report use exactly this formula."]
+        else:
+            self.notes = []
 
     def to_dict(self) -> dict:
         return {
@@ -135,6 +152,9 @@ def _filter_words(result: CellResult) -> list[str]:
 class _Namer:
     def __init__(self, taken: set[str]) -> None:
         self.taken = {t.casefold() for t in taken}
+
+    def release(self, name: str) -> None:
+        self.taken.discard(name.casefold())
 
     def claim(self, name: str) -> str:
         name = re.sub(r"\s+", " ", name).strip()[:MAX_NAME_LENGTH].rstrip(" -")
@@ -230,11 +250,28 @@ def build_plan(
             by_formula.setdefault(_canonical(result.expr), []).append(result)
         varying = _varying_keys(list(by_formula))
         if len(by_formula) >= 2 and varying and all(_same_scope(r.expr) for r in group):
-            plan.measures.append(_grouped(report_id, table, filename, group, varying, namer, dax, evaluate))
+            _add(plan, _grouped(report_id, table, filename, group, varying, namer, dax, evaluate), namer)
         else:
             for expr, members in by_formula.items():
-                plan.measures.append(_single(report_id, filename, expr, members, namer))
+                _add(plan, _single(report_id, filename, expr, members, namer), namer)
     return plan
+
+
+def _add(plan: MigrationPlan, measure: MigratedMeasure, namer: _Namer) -> None:
+    """Add a measure, unless one with exactly the same DAX exists: then it simply covers these cells too."""
+    same = next((m for m in plan.measures if m.dax == measure.dax), None)
+    if same is None:
+        plan.measures.append(measure)
+        return
+    namer.release(measure.name)
+    same.cell_ids.extend(measure.cell_ids)
+    same.checks.extend(c for c in measure.checks if c.cell_id is not None)
+    for axis in measure.axes:
+        if axis not in same.axes:
+            same.axes.append(axis)
+    if same.axes:
+        same.kind = "grouped"
+    same.refresh()
 
 
 def _varying_keys(exprs: list[Expr]) -> set[tuple]:
@@ -245,8 +282,7 @@ def _varying_keys(exprs: list[Expr]) -> set[tuple]:
     return {k for k, v in values.items() if len(v) > 1}
 
 
-def _cells_text(results: list[CellResult]) -> str:
-    refs = [r.target.id for r in results]
+def _cells_text(refs: list[str]) -> str:
     return refs[0] if len(refs) == 1 else f"{refs[0]} to {refs[-1]} ({len(refs)} cells)"
 
 
@@ -256,20 +292,19 @@ def _single(report_id: str, filename: str, expr: Expr, members: list[CellResult]
     base = heading or _short(expr)
     words = _filter_words(first)
     name = namer.claim(" - ".join([base, *words]) if words else base)
-    notes = []
-    if len(members) > 1:
-        notes.append(f"{len(members)} numbers in the report use exactly this formula.")
-    return MigratedMeasure(
+    measure = MigratedMeasure(
         id=f"{report_id}:{_slug(name)}",
         name=name,
         kind="single",
         expr=expr,
         dax=first.dax,
-        description=f"Migrated from the legacy report '{filename}' ({_cells_text(members)}). {describe(expr)}. Proven by recomputation on the raw data.",
+        description="",
         cell_ids=[m.target.id for m in members],
         checks=[MeasureCheck(describe(expr), first.dax, first.recomputed, first.target.id)],
-        notes=notes,
+        filename=filename,
     )
+    measure.refresh()
+    return measure
 
 
 def _grouped(report_id, table, filename, group, varying, namer, dax: DaxCompiler, evaluate) -> MigratedMeasure:
@@ -288,17 +323,17 @@ def _grouped(report_id, table, filename, group, varying, namer, dax: DaxCompiler
         checks.append(MeasureCheck("the measure itself, with nothing filtered", body, base_value))
     for result in group:
         checks.append(MeasureCheck(", ".join(_filter_words(result)) or describe(result.expr), result.dax, result.recomputed, result.target.id))
-    return MigratedMeasure(
+    measure = MigratedMeasure(
         id=f"{report_id}:{_slug(name)}",
         name=name,
         kind="grouped",
         expr=base,
         dax=body,
-        description=(
-            f"Migrated from the legacy report '{filename}' ({_cells_text(group)}). {describe(base)}, "
-            f"sliced by {' and '.join(axes)}. Each of the report's numbers was proven by recomputation on the raw data."
-        ),
+        description="",
         cell_ids=[r.target.id for r in group],
         checks=checks,
-        notes=[f"Put {' and '.join(axes)} on the visual (rows / columns) and this one measure gives all {len(group)} numbers."],
+        axes=axes,
+        filename=filename,
     )
+    measure.refresh()
+    return measure

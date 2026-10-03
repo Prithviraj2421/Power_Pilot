@@ -166,3 +166,18 @@ def test_the_plan_serialises_without_ir_objects() -> None:
 def test_the_written_dax_is_exactly_what_the_compiler_produces() -> None:
     (measure,) = plan_for(region_year_results()).measures
     assert measure.dax == DaxCompiler(TABLE).compile(measure.expr)
+
+
+def test_a_measure_whose_dax_already_exists_just_covers_the_extra_cells() -> None:
+    """"All Regions" by year is the same SUM(Sales) once the year comes from the visual: one measure, not two."""
+    by_region = region_year_results()
+    all_regions = [proven(lr.sales_by(None, year), ["All Regions"], [str(year)], f"S!{'BC'[j]}9") for j, year in enumerate([2023, 2024])]
+    plan = plan_for([*by_region, *all_regions])
+
+    assert [m.name for m in plan.measures] == ["Total Sales"]
+    (measure,) = plan.measures
+    assert measure.cell_ids == ["S!B3", "S!C3", "S!B4", "S!C4", "S!B9", "S!C9"] and measure.dax == "SUM('Orders'[Sales])"
+    assert "all 6 numbers" in measure.notes[0] and "6 cells" in measure.description
+    assert sum(1 for c in measure.checks if c.cell_id) == 6  # every extra cell is still engine-checked
+    again = plan_for([proven(Measure(Op.SUM, "Sales", ()), ["x"], ["y"], "S!B1")], existing_names=set())
+    assert again.measures[0].name == "Total Sales"  # the merged-away name was released, not leaked
