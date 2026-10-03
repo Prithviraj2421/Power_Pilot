@@ -10,3 +10,4 @@ export * from './dashboard';
 export * from './decision';
 export * from './master';
 export * from './quality';
+export * from './live';

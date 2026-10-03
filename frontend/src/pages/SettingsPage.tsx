@@ -4,6 +4,7 @@ import { PageContainer } from '../components/layout/PageContainer';
 import { PageHeader } from '../components/ui/PageHeader';
 import { Card } from '../components/ui/Card';
 import { usePreferencesStore } from '../store/usePreferencesStore';
+import { apiClient } from '../api/apiClient';
 
 export const SettingsPage: React.FC = () => {
   const { denseView, autoAnalyzeOnUpload, setDenseView, setAutoAnalyzeOnUpload } = usePreferencesStore();
@@ -60,7 +61,7 @@ export const SettingsPage: React.FC = () => {
           <div className="space-y-3 text-xs text-gray-300">
             <div className="flex justify-between py-1">
               <span className="text-gray-400">Backend API URL:</span>
-              <span className="font-mono text-primary">http://localhost:8000</span>
+              <span className="font-mono text-primary">{apiClient.defaults.baseURL || window.location.origin}</span>
             </div>
             <div className="flex justify-between py-1">
               <span className="text-gray-400">Pipeline Endpoint:</span>

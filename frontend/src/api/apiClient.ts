@@ -1,6 +1,9 @@
 import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+// Development talks to the backend on :8000. A production build is served by the backend itself (as when
+// PowerPilot runs from Power BI Desktop's External Tools ribbon, on a port chosen at launch), so it must use
+// its own origin. An explicitly empty VITE_API_BASE_URL also means same-origin.
+const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? (import.meta.env.DEV ? 'http://localhost:8000' : '');
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: BASE_URL,
@@ -24,6 +27,7 @@ apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError<{ detail?: string }>) => {
     const message = error.response?.data?.detail || error.message || 'An unexpected API error occurred.';
-    return Promise.reject(new Error(message));
+    // Keep the HTTP status: callers sometimes need to tell, say, a missing session (401) from a server error.
+    return Promise.reject(Object.assign(new Error(message), { status: error.response?.status }));
   }
 );

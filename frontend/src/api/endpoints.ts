@@ -40,6 +40,12 @@ export const API_ENDPOINTS = {
     M: (datasetId: string) => `/api/v1/export/powerbi/${datasetId}/m`,
   },
 
+  POWERBI_LIVE: {
+    STATUS: '/api/v1/powerbi-live/status',
+    ANALYZE: '/api/v1/powerbi-live/analyze',
+    APPLY: '/api/v1/powerbi-live/apply-measures',
+  },
+
   COPILOT: {
     ASK: '/api/v1/copilot/ask',
     STATUS: '/api/v1/copilot/status',
