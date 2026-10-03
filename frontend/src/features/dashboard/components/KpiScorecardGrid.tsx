@@ -2,6 +2,7 @@ import React from 'react';
 import { KPIRecommendation } from '../../../types';
 import { MetricCard } from '../../../components/ui/MetricCard';
 import { TrendingUp, Target, ShieldAlert, Award } from 'lucide-react';
+import { formatKpiValue } from '../../kpis/formatKpiValue';
 
 export interface KpiScorecardGridProps {
   kpis: KPIRecommendation[];
@@ -23,8 +24,8 @@ export const KpiScorecardGrid: React.FC<KpiScorecardGridProps> = ({ kpis }) => {
         <MetricCard
           key={index}
           title={kpi.name}
-          value={kpi.target_threshold || 'Active Benchmark'}
-          subtitle={kpi.business_impact || kpi.reason}
+          value={formatKpiValue(kpi) ?? 'Not computed'}
+          subtitle={kpi.target_threshold || kpi.business_impact || kpi.reason}
           badge={kpi.priority}
           icon={icons[index % icons.length]}
           trend={{
