@@ -1,9 +1,23 @@
-import json
+import re
 from typing import Any, Optional
 
+from app.common.powerbi_names import m_string, table_name
 from app.models.dataset_profile import DatasetProfile
 from app.models.kpi_report import KPIReport
 from app.models.relationship_models import RelationshipReport
+
+_NUMERIC = ("INTEGER", "FLOAT", "DECIMAL")
+_DATES = ("DATE", "DATETIME")
+_STEM = re.compile(r"\.(csv|tsv|txt|xlsx|xlsm|xls)$", re.IGNORECASE)
+
+
+def _ptype(column: Any) -> str:
+    value = column.physical_type
+    return (value.value if hasattr(value, "value") else str(value)).upper()
+
+
+def _measure_name(kpi_name: str) -> str:
+    return kpi_name.replace(" ", "_").replace("(", "").replace(")", "").replace("%", "Pct")
 
 
 class PowerBIExportService:
@@ -15,15 +29,17 @@ class PowerBIExportService:
     @staticmethod
     def generate_dax_script(kpi_report: KPIReport, dataset_name: str = "Dataset") -> str:
         """
-        Generate a formatted, executable .dax script containing all KPI measures.
+        Generate a .dax script with one measure per KPI, ready to paste into
+        Power BI Desktop (Modeling > New measure) or Tabular Editor.
         """
         lines = [
-            f"// ===========================================================================",
-            f"// PowerPilot Generated DAX Measures Script",
+            "// ===========================================================================",
+            "// PowerPilot Generated DAX Measures Script",
             f"// Dataset: {dataset_name}",
+            f"// Table:   {table_name(dataset_name)}",
             f"// Domain: {kpi_report.domain.value.upper() if hasattr(kpi_report.domain, 'value') else str(kpi_report.domain).upper()}",
             f"// Total Recommended Measures: {kpi_report.total_kpis_recommended}",
-            f"// ===========================================================================",
+            "// ===========================================================================",
             "",
         ]
 
@@ -36,10 +52,11 @@ class PowerBIExportService:
                 lines.append(f"// Benchmark Target: {kpi.target_threshold}")
             if kpi.business_impact:
                 lines.append(f"// Impact: {kpi.business_impact}")
-            
-            clean_name = kpi.name.replace(" ", "_").replace("(", "").replace(")", "").replace("%", "Pct")
-            formula = kpi.formula if kpi.formula else f"SUM('{dataset_name}'[{clean_name}])"
-            lines.append(f"{clean_name} = {formula}")
+
+            if kpi.formula:
+                lines.append(f"{_measure_name(kpi.name)} = {kpi.formula}")
+            else:
+                lines.append("// (no formula could be derived from this dataset's columns)")
             lines.append("")
 
         return "\n".join(lines)
@@ -51,108 +68,139 @@ class PowerBIExportService:
         relationship_report: Optional[RelationshipReport] = None,
     ) -> dict[str, Any]:
         """
-        Generate a valid Microsoft Analysis Services Tabular Model .bim JSON schema.
+        Generate a Tabular Model .bim: one Import-mode table whose partition loads
+        the CSV through Power Query, with the KPI measures attached.
         """
-        tbl_name = dataset_profile.dataset_name.replace(".csv", "").replace(" ", "_")
+        tbl_name = table_name(dataset_profile.dataset_name)
 
         columns_bim = []
+        key_assigned = False
         for col in dataset_profile.columns:
-            ptype_str = col.physical_type.value.upper() if hasattr(col.physical_type, "value") else str(col.physical_type).upper()
-            data_type = "String"
-            if ptype_str in ("INTEGER", "FLOAT", "DECIMAL"):
-                data_type = "Double" if ptype_str == "FLOAT" else "Int64"
-            elif ptype_str in ("DATE", "DATETIME"):
-                data_type = "DateTime"
-            elif ptype_str == "BOOLEAN":
-                data_type = "Boolean"
+            ptype = _ptype(col)
+            if ptype in _NUMERIC:
+                data_type = "double" if ptype in ("FLOAT", "DECIMAL") else "int64"
+            elif ptype in _DATES:
+                data_type = "dateTime"
+            elif ptype == "BOOLEAN":
+                data_type = "boolean"
+            else:
+                data_type = "string"
 
-            columns_bim.append(
-                {
-                    "name": col.name,
-                    "dataType": data_type,
-                    "sourceColumn": col.name,
-                    "isKey": col.identifier,
-                    "summarizeBy": "none" if col.identifier else "default",
-                }
-            )
+            column: dict[str, Any] = {
+                "name": col.name,
+                "dataType": data_type,
+                "sourceColumn": col.name,
+                "summarizeBy": "sum" if ptype in _NUMERIC and not col.identifier else "none",
+            }
+            # A table may have exactly one key column, and it must hold unique values.
+            if col.identifier and col.unique and not key_assigned:
+                column["isKey"] = True
+                key_assigned = True
+            columns_bim.append(column)
 
         measures_bim = []
         if kpi_report:
-            all_kpis = list(kpi_report.primary_kpis) + list(kpi_report.secondary_kpis)
-            for kpi in all_kpis:
-                clean_name = kpi.name.replace(" ", "_").replace("(", "").replace(")", "").replace("%", "Pct")
+            for kpi in list(kpi_report.primary_kpis) + list(kpi_report.secondary_kpis):
+                if not kpi.formula:
+                    continue
                 measures_bim.append(
                     {
-                        "name": clean_name,
-                        "expression": kpi.formula if kpi.formula else f"SUM('{tbl_name}'[{clean_name}])",
+                        "name": _measure_name(kpi.name),
+                        "expression": kpi.formula,
                         "description": kpi.reason,
                     }
                 )
 
-        relationships_bim = []
-        if relationship_report:
-            for rel in relationship_report.all_relationships:
-                relationships_bim.append(
-                    {
-                        "name": f"rel_{rel.source_column}_{rel.target_column}",
-                        "fromTable": tbl_name,
-                        "fromColumn": rel.source_column,
-                        "toTable": tbl_name,
-                        "toColumn": rel.target_column,
-                        "cardinality": rel.cardinality.lower(),
-                        "isActive": True,
-                    }
-                )
+        m_lines = PowerBIExportService.generate_power_query_m(dataset_profile).splitlines()
 
-        bim_structure = {
+        annotations = []
+        if relationship_report and relationship_report.all_relationships:
+            # A single flat table cannot hold relationships (Power BI rejects a table related
+            # to itself), so they are kept as a note rather than emitted as invalid joins.
+            found = "; ".join(
+                f"{rel.source_column} -> {rel.target_column} ({rel.cardinality})"
+                for rel in relationship_report.all_relationships
+            )
+            annotations.append({"name": "PowerPilot_DetectedRelationships", "value": found})
+
+        return {
             "name": f"PowerPilot_{tbl_name}_Model",
             "compatibilityLevel": 1500,
             "model": {
                 "culture": "en-US",
+                "defaultPowerBIDataSourceVersion": "powerBI_V3",
                 "tables": [
                     {
                         "name": tbl_name,
                         "columns": columns_bim,
+                        "partitions": [
+                            {
+                                "name": tbl_name,
+                                "mode": "import",
+                                "source": {"type": "m", "expression": m_lines},
+                            }
+                        ],
                         "measures": measures_bim,
                     }
                 ],
-                "relationships": relationships_bim,
+                "relationships": [],
+                "annotations": annotations,
             },
         }
 
-        return bim_structure
-
     @staticmethod
-    def generate_power_query_m(dataset_profile: DatasetProfile) -> str:
+    def generate_power_query_m(
+        dataset_profile: DatasetProfile,
+        file_path: Optional[str] = None,
+        delimiter: str = ",",
+        encoding: int = 65001,
+    ) -> str:
         """
-        Generate Power Query M code for dataset importing and column type casting.
-        """
-        tbl_name = dataset_profile.dataset_name.replace(".csv", "")
+        Generate Power Query M that loads the CSV and casts every column to its detected type.
 
-        type_transformations = []
+        The default path is a visible placeholder to edit, never a real user's folder.
+        """
+        stem = _STEM.sub("", dataset_profile.dataset_name)
+        path = file_path or f"C:\\path\\to\\Cleaned_{stem}.csv"
+
+        casts = []
+        typed_columns = []
         for col in dataset_profile.columns:
-            ptype_str = col.physical_type.value.upper() if hasattr(col.physical_type, "value") else str(col.physical_type).upper()
+            ptype = _ptype(col)
             m_type = "type text"
-            if ptype_str in ("INTEGER", "DECIMAL"):
-                m_type = "Int64.Type"
-            elif ptype_str == "FLOAT":
+            if ptype == "INTEGER":
+                # Cleaning fills gaps with a median, which can be fractional; Int64 would round it.
+                m_type = "Int64.Type" if col.missing_count == 0 else "type number"
+            elif ptype in ("FLOAT", "DECIMAL"):
                 m_type = "type number"
-            elif ptype_str in ("DATE", "DATETIME"):
+            elif ptype in _DATES:
                 m_type = "type datetime"
-            elif ptype_str == "BOOLEAN":
+            elif ptype == "BOOLEAN":
                 m_type = "type logical"
-            
-            type_transformations.append(f'{{"{col.name}", {m_type}}}')
+            casts.append(f"{{{m_string(col.name)}, {m_type}}}")
+            if m_type != "type text":
+                typed_columns.append(col.name)
 
-        m_types_str = ", ".join(type_transformations)
+        steps = [
+            f"FilePath = {m_string(path)}",
+            f"Source = Csv.Document(File.Contents(FilePath), [Delimiter={m_string(delimiter)}, "
+            f"Columns={dataset_profile.total_columns}, Encoding={encoding}, QuoteStyle=QuoteStyle.Csv])",
+            '#"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true])',
+            f'#"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{{", ".join(casts)}}})',
+        ]
+        last_step = '#"Changed Type"'
+        if typed_columns:
+            # A column can be detected as numeric/date while a few cells (ranges, units, junk) are
+            # not; the cast turns those into error cells, so blank them instead of failing the load.
+            blanks = ", ".join(f"{{{m_string(name)}, null}}" for name in typed_columns)
+            steps.append(f'#"Replaced Errors" = Table.ReplaceErrorValues(#"Changed Type", {{{blanks}}})')
+            last_step = '#"Replaced Errors"'
 
-        m_code = f"""// PowerPilot Generated Power Query (M) Script
-// NOTE: Change the file path below to match where your CSV file is stored on your computer.
-let
-    Source = Csv.Document(File.Contents("C:\\Users\\Admin\\Downloads\\{dataset_profile.dataset_name}"), [Delimiter=",", Columns={dataset_profile.total_columns}, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers", {{{m_types_str}}})
-in
-    #"Changed Type"
-"""
-        return m_code
+        header = (
+            "// PowerPilot Generated Power Query (M) Script\n"
+            "// 1. In PowerPilot's Export Center, download the Cleaned Dataset (CSV).\n"
+            "// 2. Set FilePath below to where you saved it.\n"
+            f"// 3. Name this query {table_name(dataset_profile.dataset_name)} so the exported DAX measures resolve.\n"
+        )
+        body = ",\n".join(f"    {step}" for step in steps)
+        return f"{header}let\n{body}\nin\n    {last_step}\n"

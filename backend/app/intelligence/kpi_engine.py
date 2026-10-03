@@ -73,6 +73,11 @@ class KPIEngine:
             raw_kpis = self._fallback.recommend(dataset_profile, business_profile, intelligence_report, relationship_report, entities, df)
 
         kpis_list = list(raw_kpis) if isinstance(raw_kpis, (list, tuple)) else []
+        if not kpis_list and plugin is not self._fallback:
+            # The domain plugin found none of the columns it needs; say something true instead.
+            kpis_list = list(
+                self._fallback.recommend(dataset_profile, business_profile, intelligence_report, relationship_report, entities, df)
+            )
 
         prio_order = {Priority.CRITICAL: 0, Priority.HIGH: 1, Priority.MEDIUM: 2, Priority.LOW: 3}
         kpis_list.sort(key=lambda k: (prio_order.get(k.priority, 2), -k.confidence))

@@ -6,11 +6,16 @@ from app.models.dataset_profile import DatasetProfile
 from app.models.kpi_recommendation import KPIRecommendation
 from app.models.kpi_report import KPIReport
 
+from tests.kpi.conftest import F, I, T
 
-def test_kpi_engine_orchestrator() -> None:
+
+def test_kpi_engine_orchestrator(make_profile) -> None:
     engine = KPIEngine()
 
-    profile = DatasetProfile(dataset_name="pos_transactions", total_rows=500, total_columns=6, detected_domain=DatasetDomain.RETAIL)
+    profile = make_profile(
+        "pos_transactions.csv", DatasetDomain.RETAIL,
+        ("Order ID", T, True), ("Customer ID", T, True), ("Quantity", I), ("Sales", F),
+    )
 
     report = engine.recommend(profile)
 

@@ -2,8 +2,9 @@ from typing import Optional
 
 import pandas as pd
 
-from app.common.enums import DatasetDomain, Priority
+from app.common.enums import DatasetDomain, Priority, SemanticType
 from app.intelligence.kpi.base_kpi_plugin import BaseKPIPlugin
+from app.intelligence.kpi.column_resolver import ColumnResolver
 from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import DataIntelligenceReport
 from app.models.dataset_profile import DatasetProfile
@@ -28,36 +29,49 @@ class MarketingKPIPlugin(BaseKPIPlugin):
         entities: Optional[list[DetectedEntity]] = None,
         df: Optional[pd.DataFrame] = None,
     ) -> tuple[KPIRecommendation, ...]:
-        tbl = dataset_profile.dataset_name
+        r = ColumnResolver(dataset_profile)
+        revenue = r.measure(SemanticType.REVENUE, ("revenue", "sales", "income", "amount"))
+        spend = r.measure(SemanticType.COST, ("spend", "cost", "budget"))
+        conversions = r.measure(None, ("conversions", "conversion", "leads", "acquisitions"))
+        clicks = r.measure(None, ("clicks", "click"))
+        impressions = r.measure(None, ("impressions", "impression", "views"))
 
-        kpis = [
-            KPIRecommendation(
-                name="Return on Ad Spend (ROAS)",
-                priority=Priority.CRITICAL,
-                confidence=0.95,
-                reason="Ratio of campaign revenue generated per dollar of ad spend.",
-                formula=f"SUM('{tbl}'[Revenue]) / SUM('{tbl}'[Ad_Spend])",
-                target_threshold="> 3.5x ROAS",
-                business_impact="Measures ad spend efficiency.",
-            ),
-            KPIRecommendation(
-                name="Cost Per Acquisition (CPA)",
-                priority=Priority.HIGH,
-                confidence=0.90,
-                reason="Ad spend required per lead conversion.",
-                formula=f"SUM('{tbl}'[Ad_Spend]) / SUM('{tbl}'[Conversions])",
-                target_threshold="< $45.00",
-                business_impact="Measures customer acquisition efficiency.",
-            ),
-            KPIRecommendation(
-                name="Click-Through Rate (CTR %)",
-                priority=Priority.MEDIUM,
-                confidence=0.85,
-                reason="Percentage of ad impressions converted to clicks.",
-                formula=f"(SUM('{tbl}'[Clicks]) / SUM('{tbl}'[Impressions])) * 100",
-                target_threshold="> 2.5%",
-                business_impact="Measures ad creative engagement.",
-            ),
-        ]
+        kpis: list[KPIRecommendation] = []
+        if revenue and spend:
+            kpis.append(
+                KPIRecommendation(
+                    name='Return on Ad Spend (ROAS)',
+                    priority=Priority.CRITICAL,
+                    confidence=0.95,
+                    reason=f"'{revenue}' generated per unit of '{spend}'.",
+                    formula=f'DIVIDE(SUM({r.ref(revenue)}), SUM({r.ref(spend)}))',
+                    target_threshold='> 3.5x ROAS',
+                    business_impact='Measures ad spend efficiency.',
+                )
+            )
+        if spend and conversions:
+            kpis.append(
+                KPIRecommendation(
+                    name='Cost Per Acquisition (CPA)',
+                    priority=Priority.HIGH,
+                    confidence=0.9,
+                    reason=f"'{spend}' per '{conversions}'.",
+                    formula=f'DIVIDE(SUM({r.ref(spend)}), SUM({r.ref(conversions)}))',
+                    target_threshold='< $45.00',
+                    business_impact='Measures customer acquisition efficiency.',
+                )
+            )
+        if clicks and impressions:
+            kpis.append(
+                KPIRecommendation(
+                    name='Click-Through Rate (CTR %)',
+                    priority=Priority.MEDIUM,
+                    confidence=0.85,
+                    reason=f"'{clicks}' as a share of '{impressions}'.",
+                    formula=f'DIVIDE(SUM({r.ref(clicks)}), SUM({r.ref(impressions)})) * 100',
+                    target_threshold='> 2.5%',
+                    business_impact='Measures ad creative engagement.',
+                )
+            )
 
         return tuple(kpis)

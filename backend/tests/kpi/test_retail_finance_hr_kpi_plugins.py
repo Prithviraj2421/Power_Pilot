@@ -1,41 +1,46 @@
-import pytest
-
-from app.common.enums import DatasetDomain, Priority
+from app.common.enums import DatasetDomain
 from app.intelligence.kpi.plugins.finance_kpi_plugin import FinanceKPIPlugin
 from app.intelligence.kpi.plugins.hr_kpi_plugin import HRKPIPlugin
 from app.intelligence.kpi.plugins.retail_kpi_plugin import RetailKPIPlugin
-from app.models.dataset_profile import DatasetProfile
 from app.models.kpi_recommendation import KPIRecommendation
 
+from tests.kpi.conftest import F, I, T
 
-def test_retail_kpi_plugin() -> None:
-    plugin = RetailKPIPlugin()
-    profile = DatasetProfile(dataset_name="transactions", total_rows=100, total_columns=5, detected_domain=DatasetDomain.RETAIL)
 
-    results = plugin.recommend(profile)
+def test_retail_kpi_plugin(make_profile) -> None:
+    profile = make_profile(
+        "transactions.csv", DatasetDomain.RETAIL,
+        ("Order ID", T, True), ("Customer ID", T, True), ("Quantity", I), ("Sales", F),
+    )
+
+    results = RetailKPIPlugin().recommend(profile)
+
     assert isinstance(results, tuple)
-    assert len(results) >= 3
+    assert len(results) == 4
     for kpi in results:
         assert isinstance(kpi, KPIRecommendation)
         assert kpi.formula is not None
         assert kpi.target_threshold is not None
 
 
-def test_finance_kpi_plugin() -> None:
-    plugin = FinanceKPIPlugin()
-    profile = DatasetProfile(dataset_name="ledger", total_rows=100, total_columns=5, detected_domain=DatasetDomain.FINANCE)
+def test_finance_kpi_plugin(make_profile) -> None:
+    profile = make_profile(
+        "ledger.csv", DatasetDomain.FINANCE, ("Revenue", F), ("Operating_Expenses", F),
+    )
 
-    results = plugin.recommend(profile)
-    assert isinstance(results, tuple)
-    assert len(results) >= 3
+    results = FinanceKPIPlugin().recommend(profile)
+
+    assert len(results) == 3
     assert any("EBITDA" in k.name for k in results)
 
 
-def test_hr_kpi_plugin() -> None:
-    plugin = HRKPIPlugin()
-    profile = DatasetProfile(dataset_name="employees", total_rows=100, total_columns=5, detected_domain=DatasetDomain.HR)
+def test_hr_kpi_plugin(make_profile) -> None:
+    profile = make_profile(
+        "employees.csv", DatasetDomain.HR,
+        ("Employee_ID", T, True), ("Salary", F), ("Tenure_Years", F),
+    )
 
-    results = plugin.recommend(profile)
-    assert isinstance(results, tuple)
-    assert len(results) >= 3
+    results = HRKPIPlugin().recommend(profile)
+
+    assert len(results) == 3
     assert any("Headcount" in k.name for k in results)

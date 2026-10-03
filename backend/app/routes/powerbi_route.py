@@ -1,4 +1,6 @@
-from fastapi import APIRouter, Depends
+from typing import Optional
+
+from fastapi import APIRouter, Depends, Query
 from fastapi.responses import PlainTextResponse
 
 from app.common.logger import get_logger
@@ -59,10 +61,15 @@ def export_tabular_bim(
 @router.post("/{dataset_id}/m", response_class=PlainTextResponse)
 def export_power_query_m(
     dataset_id: str,
+    file_path: Optional[str] = Query(
+        None, description="Where the cleaned CSV is saved on your machine; a placeholder is used if omitted."
+    ),
     service: DatasetService = Depends(get_dataset_service),
 ):
-    """Generate Power Query M transformation code for a registered dataset."""
+    """Generate Power Query M code that loads the cleaned CSV and types every column."""
     analysis = service.get_analysis(dataset_id)
-    script = PowerBIExportService.generate_power_query_m(analysis.result.dataset_profile)
+    script = PowerBIExportService.generate_power_query_m(
+        analysis.result.dataset_profile, file_path=file_path
+    )
     logger.info(f"Generated Power Query M script for dataset {dataset_id}")
     return PlainTextResponse(content=script, media_type="text/plain")
