@@ -71,6 +71,26 @@ class GroundedAnswer:
         )
 
 
+def make_anthropic_client(settings: Settings) -> Optional[Any]:
+    """An Anthropic client for the configured key, or None (not installed, or construction failed)."""
+    try:
+        import anthropic
+    except ImportError:
+        logger.error(
+            "LLM copilot is enabled but the 'anthropic' package is not installed. "
+            "Install it with: pip install anthropic"
+        )
+        return None
+    try:
+        return anthropic.Anthropic(
+            api_key=settings.anthropic_api_key,
+            timeout=float(settings.llm_timeout_seconds),
+        )
+    except Exception as exc:  # pragma: no cover - constructor rarely raises
+        logger.error(f"Could not construct the Anthropic client: {exc}")
+        return None
+
+
 class LlmCopilotService:
     """Answers questions with Claude, grounded in a dataset's analysis."""
 
@@ -96,23 +116,8 @@ class LlmCopilotService:
         if self._client_failed or not self.enabled:
             return None
 
-        try:
-            import anthropic
-        except ImportError:
-            logger.error(
-                "LLM copilot is enabled but the 'anthropic' package is not installed. "
-                "Install it with: pip install anthropic"
-            )
-            self._client_failed = True
-            return None
-
-        try:
-            self._client = anthropic.Anthropic(
-                api_key=self._settings.anthropic_api_key,
-                timeout=float(self._settings.llm_timeout_seconds),
-            )
-        except Exception as exc:  # pragma: no cover - constructor rarely raises
-            logger.error(f"Could not construct the Anthropic client: {exc}")
+        self._client = make_anthropic_client(self._settings)
+        if self._client is None:
             self._client_failed = True
             return None
 

@@ -20,6 +20,7 @@ from app.reverse.numbers import ParsedNumber
 _TOTAL = re.compile(r"\b(grand\s*total|sub\s*-?\s*total|total|sum)\b", re.IGNORECASE)
 _AVERAGE = re.compile(r"\b(average|avg|mean)\b", re.IGNORECASE)
 _GRAND = re.compile(r"grand\s*total", re.IGNORECASE)
+_AGGREGATE = re.compile(r"\b(all|overall|grand\s*total|sub\s*-?\s*total|total|sum|average|avg|mean)\b", re.IGNORECASE)
 _GENERIC_SHEET = re.compile(r"^(sheet|page|table)\s*\d*$", re.IGNORECASE)
 
 
@@ -112,8 +113,8 @@ def extract(grid: Grid) -> tuple[list[TargetCell], SheetLayout]:
     targets: list[TargetCell] = []
     pending_context: list[str] = []
 
-    for band in _bands(grid):
-        built = _read_band(grid, band, list(pending_context), kinds, target_ids)
+    for number, band in enumerate(_bands(grid)):
+        built = _read_band(grid, band, list(pending_context), kinds, target_ids, number)
         if built is None:  # text only: a title or caption for the table that follows
             for r in band:
                 texts = [grid.text(r, c) for c in range(grid.cols) if grid.text(r, c)]
@@ -154,6 +155,7 @@ def _read_band(
     context: list[str],
     kinds: dict[tuple[int, int], CellKind],
     target_ids: dict[tuple[int, int], str],
+    block: int = 0,
 ) -> Optional[list[TargetCell]]:
     first = _first_data_row(grid, band)
     if first is None:
@@ -201,6 +203,9 @@ def _read_band(
 
     total_rows = {r: _total_kind(row_labels[r]) for r in data_rows}
     total_cols = {c: _total_kind(col_labels.get(c, ())) for c in data_cols}
+    # a typed "All Regions" row is a summary too: it is never one of the parts a Total adds up
+    summary_rows = {r for r in data_rows if _is_summary(row_labels[r])}
+    summary_cols = {c for c in data_cols if _is_summary(col_labels.get(c, ()))}
     targets: list[TargetCell] = []
     for r in data_rows:
         for c in data_cols:
@@ -208,7 +213,7 @@ def _read_band(
             if cell is None or cell.number is None:
                 continue
             ident = f"{grid.name}!{ref_of(r, c)}"
-            derived = _derived_info(grid, cell, r, c, data_rows, data_cols, total_rows, total_cols)
+            derived = _derived_info(grid, cell, r, c, data_rows, data_cols, total_rows, total_cols, summary_rows, summary_cols)
             targets.append(
                 TargetCell(
                     id=ident,
@@ -225,6 +230,7 @@ def _read_band(
                     row_axis_names=axis_names,
                     full_precision=cell.full_precision,
                     derived=derived,
+                    block=block,
                 )
             )
             kinds[(r, c)] = "derived" if derived else "value"
@@ -310,6 +316,11 @@ def _row_labels(grid: Grid, data_rows: list[int], label_cols: list[int]) -> dict
     return out
 
 
+def _is_summary(labels) -> bool:
+    deepest = [label for label in labels if label]
+    return bool(deepest) and bool(_AGGREGATE.search(deepest[-1]))
+
+
 def _total_kind(labels) -> Optional[str]:
     """'total' | 'grand' | 'average' when the deepest label says the row/column is a computed figure."""
     for label in reversed(list(labels)):
@@ -332,6 +343,8 @@ def _derived_info(
     data_cols: list[int],
     total_rows: dict[int, Optional[str]],
     total_cols: dict[int, Optional[str]],
+    summary_rows: set[int],
+    summary_cols: set[int],
 ) -> Optional[DerivedInfo]:
     if cell.formula:
         refs = formulas.references(cell.formula)
@@ -346,7 +359,7 @@ def _derived_info(
 
     kind = total_rows.get(row)
     if kind:
-        rows = [r for r in data_rows if r < row and numeric(r, col)]
+        rows = [r for r in data_rows if r < row and numeric(r, col) and r not in summary_rows]
         if kind != "grand":  # stop at the previous subtotal
             previous = [r for r in data_rows if r < row and total_rows.get(r)]
             if previous:
@@ -358,7 +371,7 @@ def _derived_info(
             return DerivedInfo("total_label", tuple(f"{grid.name}!{ref_of(r, col)}" for r in rows), op)
     kind = total_cols.get(col)
     if kind:
-        cols = [c for c in data_cols if c < col and numeric(row, c)]
+        cols = [c for c in data_cols if c < col and numeric(row, c) and c not in summary_cols]
         if kind != "grand":
             previous = [c for c in data_cols if c < col and total_cols.get(c)]
             if previous:
