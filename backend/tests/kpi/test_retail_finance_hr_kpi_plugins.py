@@ -1,10 +1,12 @@
-from app.common.enums import DatasetDomain
+from app.common.enums import DatasetDomain, PhysicalType
 from app.intelligence.kpi.plugins.finance_kpi_plugin import FinanceKPIPlugin
 from app.intelligence.kpi.plugins.hr_kpi_plugin import HRKPIPlugin
 from app.intelligence.kpi.plugins.retail_kpi_plugin import RetailKPIPlugin
 from app.models.kpi_recommendation import KPIRecommendation
 
-from tests.kpi.conftest import F, I, T
+
+
+I, F, T = PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.TEXT
 
 
 def test_retail_kpi_plugin(make_profile) -> None:

@@ -37,11 +37,14 @@ import pandas as pd  # noqa: E402
 import pytest  # noqa: E402
 from fastapi.testclient import TestClient  # noqa: E402
 
+from app.common.enums import DatasetDomain  # noqa: E402
 from app.core.config import get_settings  # noqa: E402
 from app.datasets.cache import ResultCache  # noqa: E402
 from app.datasets.service import DatasetService  # noqa: E402
 from app.datasets.store import DatasetStore  # noqa: E402
 from app.main import app  # noqa: E402
+from app.models.column_profile import ColumnProfile  # noqa: E402
+from app.models.dataset_profile import DatasetProfile  # noqa: E402
 from app.models.master_intelligence_result import MasterIntelligenceResult  # noqa: E402
 from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline  # noqa: E402
 
@@ -221,3 +224,36 @@ def csv_upload() -> Callable[..., dict]:
         return {"file": (filename, buffer, "text/csv")}
 
     return _build
+
+
+# ---------------------------------------------------------------------------
+# Profile builder
+# ---------------------------------------------------------------------------
+
+
+@pytest.fixture
+def make_profile() -> Callable[..., DatasetProfile]:
+    """Build a profile from (name, physical_type[, is_identifier]) tuples."""
+
+    def build(name: str, domain: DatasetDomain, *columns: tuple) -> DatasetProfile:
+        cols = [
+            ColumnProfile(
+                name=col[0],
+                physical_type=col[1],
+                nullable=False,
+                unique=False,
+                identifier=bool(col[2]) if len(col) > 2 else False,
+                missing_count=0,
+                unique_count=10,
+            )
+            for col in columns
+        ]
+        return DatasetProfile(
+            dataset_name=name,
+            total_rows=100,
+            total_columns=len(cols),
+            columns=cols,
+            detected_domain=domain,
+        )
+
+    return build

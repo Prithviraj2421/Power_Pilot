@@ -14,9 +14,13 @@ def make_col(name: str, ptype: PhysicalType) -> ColumnProfile:
     return ColumnProfile(name=name, physical_type=ptype, nullable=False, unique=False, identifier=False, missing_count=0, unique_count=10)
 
 
-def test_healthcare_dashboard_plugin() -> None:
+def test_healthcare_dashboard_plugin(make_profile) -> None:
     plugin = HealthcareDashboardPlugin()
-    profile = DatasetProfile(dataset_name="admissions", total_rows=100, total_columns=5, detected_domain=DatasetDomain.HEALTHCARE)
+    profile = make_profile(
+        "admissions.csv", DatasetDomain.HEALTHCARE,
+        ("Patient_ID", PhysicalType.TEXT, True), ("Treatment_Cost", PhysicalType.FLOAT),
+        ("Diagnosis", PhysicalType.TEXT), ("Ward", PhysicalType.TEXT),
+    )
 
     report = plugin.recommend(profile)
     assert isinstance(report, DashboardRecommendationReport)
@@ -24,9 +28,13 @@ def test_healthcare_dashboard_plugin() -> None:
     assert len(report.tabs) >= 1
 
 
-def test_marketing_dashboard_plugin() -> None:
+def test_marketing_dashboard_plugin(make_profile) -> None:
     plugin = MarketingDashboardPlugin()
-    profile = DatasetProfile(dataset_name="campaigns", total_rows=100, total_columns=5, detected_domain=DatasetDomain.MARKETING)
+    profile = make_profile(
+        "campaigns.csv", DatasetDomain.MARKETING,
+        ("Revenue", PhysicalType.FLOAT), ("Conversions", PhysicalType.INTEGER),
+        ("Channel", PhysicalType.TEXT), ("Campaign", PhysicalType.TEXT),
+    )
 
     report = plugin.recommend(profile)
     assert isinstance(report, DashboardRecommendationReport)
@@ -34,9 +42,13 @@ def test_marketing_dashboard_plugin() -> None:
     assert len(report.tabs) >= 1
 
 
-def test_logistics_dashboard_plugin() -> None:
+def test_logistics_dashboard_plugin(make_profile) -> None:
     plugin = LogisticsDashboardPlugin()
-    profile = DatasetProfile(dataset_name="shipments", total_rows=100, total_columns=5, detected_domain=DatasetDomain.LOGISTICS)
+    profile = make_profile(
+        "shipments.csv", DatasetDomain.LOGISTICS,
+        ("Freight_Cost", PhysicalType.FLOAT), ("Delay_Days", PhysicalType.INTEGER),
+        ("Carrier", PhysicalType.TEXT), ("Destination_Region", PhysicalType.TEXT),
+    )
 
     report = plugin.recommend(profile)
     assert isinstance(report, DashboardRecommendationReport)

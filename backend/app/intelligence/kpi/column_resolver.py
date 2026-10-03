@@ -10,6 +10,11 @@ from app.models.dataset_profile import DatasetProfile
 
 _NUMERIC = {PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.DECIMAL}
 _ID_TOKENS = ("id", "key", "code", "number", "no")
+_TEXTUAL = {PhysicalType.CATEGORICAL, PhysicalType.TEXT}
+_DATES = {PhysicalType.DATE, PhysicalType.DATETIME}
+
+# Numeric columns that are labels, not quantities: summing or charting them means nothing.
+LABEL_TOKENS = ("id", "key", "code", "zip", "postal", "pin", "phone", "index")
 
 
 class ColumnResolver:
@@ -46,6 +51,31 @@ class ColumnResolver:
             return picked
         # No explicit ID column: fall back to any column of that entity type (e.g. a customer name).
         return self._pick(self._columns, semantic, keywords) if semantic else None
+
+    def measures(self) -> list[str]:
+        """Every numeric column that is a quantity rather than a label, in column order."""
+        return [
+            c.name
+            for c in self._columns
+            if c.physical_type in _NUMERIC and not c.identifier and not any_keyword_matches(c.name, LABEL_TOKENS)
+        ]
+
+    def dimension(
+        self, semantic: Optional[SemanticType] = None, keywords: Iterable[str] = ()
+    ) -> Optional[str]:
+        """A column to group by. Descriptive text columns win over identifiers (names beat IDs)."""
+        textual = [c for c in self._columns if c.physical_type in _TEXTUAL]
+        descriptive = [c for c in textual if not c.identifier]
+        return self._pick(descriptive, semantic, keywords) or self._pick(textual, semantic, keywords)
+
+    def dimensions(self) -> list[str]:
+        """Every descriptive text/category column, in column order."""
+        return [c.name for c in self._columns if c.physical_type in _TEXTUAL and not c.identifier]
+
+    def date(self, keywords: Iterable[str] = ()) -> Optional[str]:
+        """A date column: a typed one, preferring a name match, else one the entity detector tagged."""
+        dated = [c for c in self._columns if c.physical_type in _DATES]
+        return self._pick(dated, SemanticType.DATE, keywords) or (dated[0].name if dated else None)
 
     @staticmethod
     def _pick(

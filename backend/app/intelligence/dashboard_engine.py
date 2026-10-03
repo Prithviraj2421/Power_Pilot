@@ -66,6 +66,11 @@ class DashboardEngine:
         plugin = self._plugins.get(domain, self._fallback)
 
         try:
-            return plugin.recommend(dataset_profile, business_profile, intelligence_report, insight_report, relationship_report, kpi_report)
+            report = plugin.recommend(dataset_profile, business_profile, intelligence_report, insight_report, relationship_report, kpi_report)
         except Exception:
+            report = None
+
+        if report is None or not report.tabs:
+            # The domain plugin found none of the columns it needs; say something true instead.
             return self._fallback.recommend(dataset_profile, business_profile, intelligence_report, insight_report, relationship_report, kpi_report)
+        return report

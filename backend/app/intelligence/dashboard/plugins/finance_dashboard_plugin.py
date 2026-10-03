@@ -1,19 +1,44 @@
 from typing import Optional
 
-from app.common.enums import DatasetDomain
+from app.common.enums import DatasetDomain, SemanticType
 from app.intelligence.dashboard.base_dashboard_plugin import BaseDashboardPlugin
+from app.intelligence.dashboard.builder import ChartSpec, DashboardSpec, Role, TabSpec, build_dashboard
 from app.models.business_profile import BusinessProfile
-from app.models.dashboard_models import DashboardRecommendationReport, DashboardTab, WidgetConfig
+from app.models.dashboard_models import DashboardRecommendationReport
 from app.models.data_intelligence_models import DataIntelligenceReport
 from app.models.dataset_profile import DatasetProfile
 from app.models.insight_models import InsightReport
 from app.models.kpi_report import KPIReport
 from app.models.relationship_models import RelationshipReport
 
+SPEC = DashboardSpec(
+    title='Financial P&L Executive Command Center',
+    description='Multi-tab financial BI dashboard for FP&A ledger monitoring and EBITDA margin analysis.',
+    domain=DatasetDomain.FINANCE,
+    roles={
+        "revenue": Role("measure", keywords=("revenue", "income", "turnover", "sales", "amount",), semantic=SemanticType.REVENUE),
+        "expense": Role("measure", keywords=("expense", "expenses", "opex", "cost", "cogs",), semantic=SemanticType.COST),
+        "date": Role("date", keywords=("posting", "date", "period",)),
+        "account": Role("dimension", keywords=("account", "ledger", "category",)),
+        "department": Role("dimension", keywords=("department", "division", "unit", "entity",)),
+        "cost_center": Role("dimension", keywords=("cost_center", "center",)),
+    },
+    tabs=(
+        TabSpec("tab_pnl", "Executive P&L Overview", "P&L financial metrics, revenue, and operating profit.", kpi_cards=True, charts=(
+                ChartSpec("w_rev_account", "{metric} by {dimension}", "BAR_CHART", "revenue", dimension="account", chart_type="bar", width=8, height=4),
+                ChartSpec("w_exp_pie", "{metric} by {dimension}", "PIE_CHART", "expense", dimension="department", chart_type="pie", width=4, height=4),
+        )),
+    ),
+    filters=('date', 'department', 'cost_center'),
+)
+
 
 class FinanceDashboardPlugin(BaseDashboardPlugin):
     """
     Dashboard recommendation plugin for the FINANCE domain.
+
+    Widgets are described by role and instantiated against the columns the
+    dataset really has; a widget whose columns are absent is left out.
     """
 
     target_domain = DatasetDomain.FINANCE
@@ -27,20 +52,4 @@ class FinanceDashboardPlugin(BaseDashboardPlugin):
         relationship_report: Optional[RelationshipReport] = None,
         kpi_report: Optional[KPIReport] = None,
     ) -> DashboardRecommendationReport:
-        t1_widgets = (
-            WidgetConfig(widget_id="w_gross_rev", title="Gross Revenue", widget_type="KPI_CARD", metric_column="Gross_Revenue", grid_row=1, grid_col=1, grid_width=4, grid_height=2),
-            WidgetConfig(widget_id="w_ebitda", title="Net EBITDA Profit", widget_type="KPI_CARD", metric_column="EBITDA", grid_row=1, grid_col=5, grid_width=4, grid_height=2),
-            WidgetConfig(widget_id="w_opex_ratio", title="Operating Expense Ratio", widget_type="KPI_CARD", metric_column="Opex_Ratio", grid_row=1, grid_col=9, grid_width=4, grid_height=2),
-            WidgetConfig(widget_id="w_waterfall", title="P&L EBITDA Waterfall Breakdown", widget_type="BAR_CHART", metric_column="Amount", dimension_column="Ledger_Account", chart_type="waterfall", grid_row=2, grid_col=1, grid_width=8, grid_height=4),
-            WidgetConfig(widget_id="w_exp_pie", title="Operating Expenses by Department", widget_type="PIE_CHART", metric_column="Operating_Expenses", dimension_column="Department", chart_type="pie", grid_row=2, grid_col=9, grid_width=4, grid_height=4),
-        )
-        tab1 = DashboardTab(tab_id="tab_pnl", tab_name="Executive P&L Overview", description="P&L financial metrics, revenue, and operating profit.", widgets=t1_widgets)
-
-        return DashboardRecommendationReport(
-            dashboard_title="Financial P&L Executive Command Center",
-            description="Multi-tab financial BI dashboard for FP&A ledger monitoring and EBITDA margin analysis.",
-            domain=DatasetDomain.FINANCE,
-            tabs=(tab1,),
-            global_filters=("Fiscal_Period", "Department", "Cost_Center", "Entity"),
-            time_intelligence_dimensions=("Posting_Date", "Fiscal_Year", "Fiscal_Quarter"),
-        )
+        return build_dashboard(dataset_profile, kpi_report, SPEC)

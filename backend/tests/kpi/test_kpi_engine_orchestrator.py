@@ -1,12 +1,14 @@
 import pytest
 
-from app.common.enums import DatasetDomain, Priority
+from app.common.enums import DatasetDomain, PhysicalType, Priority
 from app.intelligence.kpi_engine import KPIEngine
 from app.models.dataset_profile import DatasetProfile
 from app.models.kpi_recommendation import KPIRecommendation
 from app.models.kpi_report import KPIReport
 
-from tests.kpi.conftest import F, I, T
+
+
+I, F, T = PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.TEXT
 
 
 def test_kpi_engine_orchestrator(make_profile) -> None:

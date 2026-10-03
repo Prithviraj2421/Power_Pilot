@@ -1,6 +1,7 @@
 import pytest
 
-from app.common.enums import DatasetDomain
+from app.common.enums import DatasetDomain, PhysicalType
+from app.intelligence.kpi_engine import KPIEngine
 from app.intelligence.dashboard.plugins.finance_dashboard_plugin import FinanceDashboardPlugin
 from app.intelligence.dashboard.plugins.hr_dashboard_plugin import HRDashboardPlugin
 from app.intelligence.dashboard.plugins.retail_dashboard_plugin import RetailDashboardPlugin
@@ -8,22 +9,38 @@ from app.models.dashboard_models import DashboardRecommendationReport, Dashboard
 from app.models.dataset_profile import DatasetProfile
 
 
-def test_retail_dashboard_plugin() -> None:
-    plugin = RetailDashboardPlugin()
-    profile = DatasetProfile(dataset_name="transactions", total_rows=100, total_columns=5, detected_domain=DatasetDomain.RETAIL)
+I, F, T = PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.TEXT
+DT = PhysicalType.DATETIME
 
-    report = plugin.recommend(profile)
+
+@pytest.fixture
+def kpi_report_for():
+    return lambda profile: KPIEngine().recommend(profile)
+
+
+def test_retail_dashboard_plugin(make_profile, kpi_report_for) -> None:
+    plugin = RetailDashboardPlugin()
+    profile = make_profile(
+        "transactions.csv", DatasetDomain.RETAIL,
+        ("Order ID", T, True), ("Customer ID", T, True), ("Order Date", DT), ("Category", T),
+        ("Region", T), ("Product Name", T), ("Quantity", I), ("Sales", F),
+    )
+
+    report = plugin.recommend(profile, kpi_report=kpi_report_for(profile))
     assert isinstance(report, DashboardRecommendationReport)
     assert report.domain == DatasetDomain.RETAIL
     assert len(report.tabs) >= 2
     tab1 = report.tabs[0]
     assert isinstance(tab1, DashboardTab)
-    assert len(tab1.widgets) >= 4
+    assert len(tab1.widgets) >= 4, "four KPI cards plus the revenue charts"
 
 
-def test_finance_dashboard_plugin() -> None:
+def test_finance_dashboard_plugin(make_profile) -> None:
     plugin = FinanceDashboardPlugin()
-    profile = DatasetProfile(dataset_name="ledger", total_rows=100, total_columns=5, detected_domain=DatasetDomain.FINANCE)
+    profile = make_profile(
+        "ledger.csv", DatasetDomain.FINANCE,
+        ("Revenue", F), ("Operating_Expenses", F), ("Ledger_Account", T), ("Department", T),
+    )
 
     report = plugin.recommend(profile)
     assert isinstance(report, DashboardRecommendationReport)
@@ -32,9 +49,12 @@ def test_finance_dashboard_plugin() -> None:
     assert "P&L" in report.dashboard_title or "Financial" in report.dashboard_title
 
 
-def test_hr_dashboard_plugin() -> None:
+def test_hr_dashboard_plugin(make_profile) -> None:
     plugin = HRDashboardPlugin()
-    profile = DatasetProfile(dataset_name="employees", total_rows=100, total_columns=5, detected_domain=DatasetDomain.HR)
+    profile = make_profile(
+        "employees.csv", DatasetDomain.HR,
+        ("Employee_ID", T, True), ("Salary", F), ("Department", T),
+    )
 
     report = plugin.recommend(profile)
     assert isinstance(report, DashboardRecommendationReport)

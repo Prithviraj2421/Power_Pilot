@@ -34,3 +34,11 @@ def dax_column(table: str, column: str) -> str:
 def m_string(value: str) -> str:
     """A Power Query text literal. Quotes are doubled; backslashes are literal in M."""
     return '"' + value.replace('"', '""') + '"'
+
+
+_DAX_REFERENCE = re.compile(r"'((?:[^']|'')+)'\[((?:[^\]]|\]\])+)\]")
+
+
+def dax_references(expression: str) -> list[tuple[str, str]]:
+    """Every (table, column) a DAX expression refers to, with escapes undone."""
+    return [(t.replace("''", "'"), c.replace("]]", "]")) for t, c in _DAX_REFERENCE.findall(expression)]
