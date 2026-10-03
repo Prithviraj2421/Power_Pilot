@@ -79,6 +79,13 @@ class Settings(BaseSettings):
     # both. Raise it for stricter labelling, lower it to see more guesses.
     min_domain_confidence: float = 0.50
 
+    # --- KPI verification ------------------------------------------------------
+    # Every KPI is always checked by computing it on the dataset with pandas. When this
+    # is on AND a DAX executor is registered with the KPI engine (a local Analysis
+    # Services instance or the Power BI Modeling MCP), the DAX is also executed and
+    # must agree with the pandas value to a relative tolerance of 1e-6.
+    dax_engine_check: bool = False
+
     # --- LLM copilot ----------------------------------------------------------
     # The language model is given ONLY the pipeline's computed analysis, never the
     # dataset, and every answer's figures are verified against that analysis before

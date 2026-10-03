@@ -14,7 +14,7 @@ _EXTENSION = re.compile(r"\.(csv|tsv|txt|xlsx|xlsm|xls)$", re.IGNORECASE)
 _UNSAFE = re.compile(r"[^A-Za-z0-9_]+")
 
 
-def table_name(dataset_name: str) -> str:
+def powerbi_table_name(dataset_name: str) -> str:
     """The Power BI table name for an uploaded file: no extension, no punctuation."""
     stem = _EXTENSION.sub("", dataset_name.strip())
     cleaned = _UNSAFE.sub("_", stem).strip("_")

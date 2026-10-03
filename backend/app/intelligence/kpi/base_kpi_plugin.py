@@ -8,7 +8,7 @@ from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import DataIntelligenceReport
 from app.models.dataset_profile import DatasetProfile
 from app.models.detected_entity import DetectedEntity
-from app.models.kpi_recommendation import KPIRecommendation
+from app.intelligence.kpi.candidate import KPICandidate
 from app.models.relationship_models import RelationshipReport
 
 
@@ -31,9 +31,13 @@ class BaseKPIPlugin(ABC):
         relationship_report: Optional[RelationshipReport] = None,
         entities: Optional[list[DetectedEntity]] = None,
         df: Optional[pd.DataFrame] = None,
-    ) -> tuple[KPIRecommendation, ...]:
+    ) -> tuple[KPICandidate, ...]:
         """
-        Generate KPI recommendations for a specific domain.
+        Propose KPIs for a specific domain as expressions over real columns.
+
+        Choose columns from ``entities`` / the dataset profile and skip any KPI whose
+        required column is missing; never fall back to a guessed column name. The engine
+        compiles each candidate, verifies it against the data and drops it if it fails.
 
         Parameters
         ----------
@@ -52,7 +56,7 @@ class BaseKPIPlugin(ABC):
 
         Returns
         -------
-        tuple[KPIRecommendation, ...]
-            Tuple of recommended KPI objects.
+        tuple[KPICandidate, ...]
+            Unverified KPI candidates.
         """
         pass

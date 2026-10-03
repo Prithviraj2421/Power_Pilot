@@ -257,3 +257,31 @@ def make_profile() -> Callable[..., DatasetProfile]:
         )
 
     return build
+
+
+@pytest.fixture
+def make_dataset(make_profile) -> Callable[..., tuple[DatasetProfile, pd.DataFrame]]:
+    """Like ``make_profile``, plus a matching DataFrame, so engines that verify against data can run.
+
+    Numeric columns hold positive values, identifier columns are unique, other text columns cycle
+    through three categories, and date columns span four months of ISO dates.
+    """
+
+    from app.common.enums import PhysicalType
+
+    def build(name: str, domain: DatasetDomain, *columns: tuple, rows: int = 120):
+        profile = make_profile(name, domain, *columns)
+        frame = {}
+        for column in profile.columns:
+            if column.physical_type in (PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.DECIMAL):
+                step = 1 if column.physical_type is PhysicalType.INTEGER else 0.5
+                frame[column.name] = [(i % 9 + 1) * step + 1 for i in range(rows)]
+            elif column.physical_type in (PhysicalType.DATE, PhysicalType.DATETIME):
+                frame[column.name] = pd.date_range("2024-01-01", periods=rows).strftime("%Y-%m-%d")
+            elif column.identifier:
+                frame[column.name] = [f"{column.name[:3].upper()}-{i:04d}" for i in range(rows)]
+            else:
+                frame[column.name] = [f"{column.name[:3].title()}{i % 3}" for i in range(rows)]
+        return profile, pd.DataFrame(frame)
+
+    return build

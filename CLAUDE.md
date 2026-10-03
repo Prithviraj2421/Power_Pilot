@@ -10,11 +10,12 @@ assembles the result (the docstring says "12 stages"; the 12th is the assembly).
 2. SchemaAnalyzer: physical type per column
 3. EntityDetector: semantic types (revenue, customer, date...) written onto each column profile
 4. DomainClassifier: retail/finance/hr/healthcare/marketing/logistics, else `unknown` below `min_domain_confidence`
-5. BusinessProfiler: measure/dimension taxonomy and executive briefing
-6. DataIntelligenceEngine: trends, correlations, outliers, business-rule anomalies
-7. InsightEngine: ranked insights and executive summary
-8. RelationshipEngine: keys, hierarchies, semantic links
-9. KPIEngine: recommended KPIs with DAX formulas
+5. KPIEngine: IR -> DAX + pandas, verified against the data; unverified KPIs go to `rejected_kpis` (runs before 6 so
+   everything downstream only ever sees verified KPIs)
+6. BusinessProfiler: measure/dimension taxonomy and briefing (its KPI lists are replaced by the verified ones)
+7. DataIntelligenceEngine: trends, correlations, outliers, business-rule anomalies
+8. InsightEngine: ranked insights and executive summary
+9. RelationshipEngine: keys, hierarchies, semantic links
 10. DashboardEngine: tabs and widgets
 11. DecisionEngine: recommended actions
 12. Assemble `MasterIntelligenceResult` (plus the cleaned DataFrame, used by exports)
@@ -27,6 +28,9 @@ assembles the result (the docstring says "12 stages"; the 12th is the assembly).
   back again when the domain plugin yields nothing. Entity, insight, data-intelligence and relationship engines run
   every registered plugin.
 - Column resolution is shared: `intelligence/kpi/column_resolver.py`, `intelligence/dashboard/builder.py`.
+- KPIs: plugins return `KPICandidate`s holding an IR expression (`kpi/ir.py`), never a formula string. `kpi_engine.py`
+  compiles it with `kpi/compilers/` (DAX and pandas, which must agree), `kpi/verification.py` gates it, and
+  `kpi/baseline.py` derives the benchmark from the data. Optional DAX-engine check: `POWERPILOT_DAX_ENGINE_CHECK`.
 
 ## Other layers
 - `datasets/`: SQLite + CSV store in `backend/data/` is the source of truth; the result cache is performance only.
@@ -46,9 +50,10 @@ CI (`.github/workflows/ci.yml`): backend on Python 3.12 and 3.13, frontend, and 
 
 ## Rules
 1. Never hardcode column names. Resolve roles through detected entities / `ColumnResolver`; if a role cannot be
-   resolved, omit the KPI or widget. Never invent a column.
+   resolved, omit the KPI or widget. Never invent a column. Build KPIs as IR, never as DAX/format strings.
 2. Every number shown to a user must trace to a computation on their data: no made-up benchmarks, placeholder chart
-   series, or LLM-written figures.
+   series, or LLM-written figures. A KPI is shown or exported only if `verified`; a target is data-derived or labelled
+   "Example target".
 3. Keep plugins small (one concern) and register them in their package `__init__` registry.
 4. Every bug fix ships a regression test, and you confirm it fails on the old code first.
 5. pandas 3: string columns have dtype `str`, not `object`. Use `pd.api.types.is_string_dtype`.

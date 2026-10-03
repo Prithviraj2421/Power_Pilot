@@ -4,9 +4,10 @@ from typing import Iterable, Optional
 
 from app.common.enums import PhysicalType, SemanticType
 from app.common.keyword_match import any_keyword_matches
-from app.common.powerbi_names import dax_column, table_name
+from app.common.powerbi_names import dax_column, powerbi_table_name
 from app.models.column_profile import ColumnProfile
 from app.models.dataset_profile import DatasetProfile
+from app.models.detected_entity import DetectedEntity
 
 _NUMERIC = {PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.DECIMAL}
 _ID_TOKENS = ("id", "key", "code", "number", "no")
@@ -27,9 +28,11 @@ class ColumnResolver:
     missing KPI is honest where a broken one is not.
     """
 
-    def __init__(self, profile: DatasetProfile) -> None:
-        self.table = table_name(profile.dataset_name)
+    def __init__(self, profile: DatasetProfile, entities: Optional[list[DetectedEntity]] = None) -> None:
+        self.table = powerbi_table_name(profile.dataset_name)
         self._columns = list(profile.columns)
+        # The detector's verdicts, which win over whatever is stamped on the column profile.
+        self._entity_of = {e.column_name: e.entity_type for e in entities or []}
 
     def ref(self, column: str) -> str:
         return dax_column(self.table, column)
@@ -77,9 +80,8 @@ class ColumnResolver:
         dated = [c for c in self._columns if c.physical_type in _DATES]
         return self._pick(dated, SemanticType.DATE, keywords) or (dated[0].name if dated else None)
 
-    @staticmethod
     def _pick(
-        candidates: list[ColumnProfile], semantic: Optional[SemanticType], keywords: Iterable[str]
+        self, candidates: list[ColumnProfile], semantic: Optional[SemanticType], keywords: Iterable[str]
     ) -> Optional[str]:
         # Earlier keywords are the more specific ones, so they win over column order.
         for keyword in keywords:
@@ -88,6 +90,6 @@ class ColumnResolver:
                     return column.name
         if semantic is not None:
             for column in candidates:
-                if column.semantic_type == semantic:
+                if self._entity_of.get(column.name, column.semantic_type) == semantic:
                     return column.name
         return None

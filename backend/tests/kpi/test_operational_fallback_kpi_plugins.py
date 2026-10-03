@@ -87,15 +87,14 @@ def test_fallback_does_not_double_the_total_prefix(make_profile) -> None:
     assert [k.name for k in FallbackKPIPlugin().recommend(profile)] == ["Total Sqft"]
 
 
-def test_engine_falls_back_when_the_domain_plugin_finds_none_of_its_columns(make_profile) -> None:
+def test_engine_falls_back_when_the_domain_plugin_finds_none_of_its_columns(make_dataset) -> None:
     from app.intelligence.kpi_engine import KPIEngine
 
     # Classified retail, but nothing in it looks like revenue, orders, quantity or customers.
-    profile = make_profile(
-        "odd.csv", DatasetDomain.RETAIL, ("temperature_c", PhysicalType.FLOAT),
-    )
+    profile, df = make_dataset("odd.csv", DatasetDomain.RETAIL, ("temperature_c", PhysicalType.FLOAT))
 
-    report = KPIEngine().recommend(profile)
+    report = KPIEngine().recommend(profile, df=df)
 
     assert report.total_kpis_recommended == 1
     assert report.all_kpis[0].formula == "SUM('odd'[temperature_c])"
+    assert report.all_kpis[0].verified is True

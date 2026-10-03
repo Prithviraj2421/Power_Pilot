@@ -1,6 +1,6 @@
 import pytest
 
-from app.common.powerbi_names import dax_column, dax_table, m_string, table_name
+from app.common.powerbi_names import dax_column, dax_table, m_string, powerbi_table_name
 
 
 @pytest.mark.parametrize(
@@ -15,7 +15,7 @@ from app.common.powerbi_names import dax_column, dax_table, m_string, table_name
     ],
 )
 def test_table_name_strips_extension_and_punctuation(dataset_name: str, expected: str) -> None:
-    assert table_name(dataset_name) == expected
+    assert powerbi_table_name(dataset_name) == expected
 
 
 def test_dax_references_are_quoted_and_escaped() -> None:

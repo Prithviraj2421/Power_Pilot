@@ -16,12 +16,12 @@ from pathlib import Path
 import pandas as pd
 import pytest
 
-from app.common.powerbi_names import dax_references, table_name
+from app.common.powerbi_names import dax_references, powerbi_table_name
 from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline
 from app.services.powerbi_export_service import PowerBIExportService
 
 DATASET_NAME = "Sample - Superstore.csv"
-TABLE = table_name(DATASET_NAME)
+TABLE = powerbi_table_name(DATASET_NAME)
 
 # The measures this dataset should produce. Pinned exactly: a change here is a
 # deliberate change to KPI selection and should be reviewed as one.
@@ -91,3 +91,44 @@ def test_superstore_gets_exactly_the_expected_measures(result) -> None:
 def test_postal_code_and_row_id_are_never_summed(result) -> None:
     for kpi in result.kpi_report.all_kpis:
         assert "Postal Code" not in kpi.formula and "Row ID" not in kpi.formula
+
+
+def test_every_reported_kpi_is_verified_and_none_were_rejected(result) -> None:
+    assert result.kpi_report.rejected_kpis == ()
+    for kpi in result.kpi_report.all_kpis:
+        assert kpi.verified, f"{kpi.name}: {kpi.verification_note}"
+        assert kpi.computed_value is not None
+
+
+def test_computed_values_match_an_independent_calculation_on_the_raw_file(result, dataset: pd.DataFrame) -> None:
+    # Computed straight from the fixture with plain pandas, not through the pipeline's compilers.
+    expected = {
+        "Total Sales Revenue": dataset["Sales"].sum(),
+        "Average Order Value (AOV)": dataset["Sales"].sum() / dataset["Order ID"].nunique(),
+        "Total Units Sold": dataset["Quantity"].sum(),
+        "Active Customer Count": dataset["Customer ID"].nunique(),
+    }
+    produced = {k.name: k.computed_value for k in result.kpi_report.all_kpis}
+
+    assert produced == pytest.approx(expected)
+
+
+def test_targets_are_derived_from_the_data_not_invented(result) -> None:
+    for kpi in result.kpi_report.all_kpis:
+        # The fixture's last order is mid-month, so the partial month must be left out.
+        assert kpi.target_threshold.startswith("Latest complete month "), f"{kpi.name}: {kpi.target_threshold!r}"
+        assert "2024-11 left out because its data ends 2024-11-22" in kpi.target_threshold
+
+
+def test_the_business_profile_and_insights_carry_only_verified_kpis(result) -> None:
+    profile = result.business_profile
+    assert profile.primary_kpis == result.kpi_report.primary_kpis
+    assert profile.secondary_kpis == result.kpi_report.secondary_kpis
+
+    allowed = {kpi.formula for kpi in result.kpi_report.all_kpis}
+    for insight in result.insight_report.insights:
+        for line in insight.supporting_evidence:
+            if line.startswith("Formula: "):
+                assert line.removeprefix("Formula: ") in allowed, f"unverified formula in insight: {line}"
+    text = " ".join(i.description for i in result.insight_report.insights)
+    assert "COUNTDISTINCT" not in text and "'Sales'[Revenue]" not in text

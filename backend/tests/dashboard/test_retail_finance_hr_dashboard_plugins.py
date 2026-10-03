@@ -13,20 +13,15 @@ I, F, T = PhysicalType.INTEGER, PhysicalType.FLOAT, PhysicalType.TEXT
 DT = PhysicalType.DATETIME
 
 
-@pytest.fixture
-def kpi_report_for():
-    return lambda profile: KPIEngine().recommend(profile)
-
-
-def test_retail_dashboard_plugin(make_profile, kpi_report_for) -> None:
+def test_retail_dashboard_plugin(make_dataset) -> None:
     plugin = RetailDashboardPlugin()
-    profile = make_profile(
+    profile, df = make_dataset(
         "transactions.csv", DatasetDomain.RETAIL,
         ("Order ID", T, True), ("Customer ID", T, True), ("Order Date", DT), ("Category", T),
         ("Region", T), ("Product Name", T), ("Quantity", I), ("Sales", F),
     )
 
-    report = plugin.recommend(profile, kpi_report=kpi_report_for(profile))
+    report = plugin.recommend(profile, kpi_report=KPIEngine().recommend(profile, df=df))
     assert isinstance(report, DashboardRecommendationReport)
     assert report.domain == DatasetDomain.RETAIL
     assert len(report.tabs) >= 2

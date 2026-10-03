@@ -1,7 +1,7 @@
 import re
 from typing import Any, Optional
 
-from app.common.powerbi_names import m_string, table_name
+from app.common.powerbi_names import m_string, powerbi_table_name
 from app.models.dataset_profile import DatasetProfile
 from app.models.kpi_report import KPIReport
 from app.models.relationship_models import RelationshipReport
@@ -14,6 +14,10 @@ _STEM = re.compile(r"\.(csv|tsv|txt|xlsx|xlsm|xls)$", re.IGNORECASE)
 def _ptype(column: Any) -> str:
     value = column.physical_type
     return (value.value if hasattr(value, "value") else str(value)).upper()
+
+
+def _number(value: float) -> str:
+    return f"{value:,.0f}" if abs(value) >= 1000 else f"{value:,.4g}"
 
 
 def _measure_name(kpi_name: str) -> str:
@@ -36,7 +40,7 @@ class PowerBIExportService:
             "// ===========================================================================",
             "// PowerPilot Generated DAX Measures Script",
             f"// Dataset: {dataset_name}",
-            f"// Table:   {table_name(dataset_name)}",
+            f"// Table:   {powerbi_table_name(dataset_name)}",
             f"// Domain: {kpi_report.domain.value.upper() if hasattr(kpi_report.domain, 'value') else str(kpi_report.domain).upper()}",
             f"// Total Recommended Measures: {kpi_report.total_kpis_recommended}",
             "// ===========================================================================",
@@ -48,8 +52,10 @@ class PowerBIExportService:
             lines.append(f"// Measure: {kpi.name}")
             lines.append(f"// Priority: {kpi.priority.value if hasattr(kpi.priority, 'value') else str(kpi.priority)}")
             lines.append(f"// Confidence: {(kpi.confidence * 100):.0f}%")
+            if kpi.computed_value is not None:
+                lines.append(f"// Verified value: {_number(kpi.computed_value)} (computed on the cleaned dataset)")
             if kpi.target_threshold:
-                lines.append(f"// Benchmark Target: {kpi.target_threshold}")
+                lines.append(f"// Baseline: {kpi.target_threshold}")
             if kpi.business_impact:
                 lines.append(f"// Impact: {kpi.business_impact}")
 
@@ -57,6 +63,13 @@ class PowerBIExportService:
                 lines.append(f"{_measure_name(kpi.name)} = {kpi.formula}")
             else:
                 lines.append("// (no formula could be derived from this dataset's columns)")
+            lines.append("")
+
+        if kpi_report.rejected_kpis:
+            lines.append("// ---------------------------------------------------------------------------")
+            lines.append("// Rejected KPIs: failed verification against this dataset, so NOT exported as measures")
+            for kpi in kpi_report.rejected_kpis:
+                lines.append(f"//   - {kpi.name}: {kpi.verification_note}")
             lines.append("")
 
         return "\n".join(lines)
@@ -71,7 +84,7 @@ class PowerBIExportService:
         Generate a Tabular Model .bim: one Import-mode table whose partition loads
         the CSV through Power Query, with the KPI measures attached.
         """
-        tbl_name = table_name(dataset_profile.dataset_name)
+        tbl_name = powerbi_table_name(dataset_profile.dataset_name)
 
         columns_bim = []
         key_assigned = False
@@ -122,6 +135,10 @@ class PowerBIExportService:
                 for rel in relationship_report.all_relationships
             )
             annotations.append({"name": "PowerPilot_DetectedRelationships", "value": found})
+
+        if kpi_report and kpi_report.rejected_kpis:
+            rejected = "; ".join(f"{k.name}: {k.verification_note}" for k in kpi_report.rejected_kpis)
+            annotations.append({"name": "PowerPilot_RejectedKPIs", "value": rejected})
 
         return {
             "name": f"PowerPilot_{tbl_name}_Model",
@@ -200,7 +217,7 @@ class PowerBIExportService:
             "// PowerPilot Generated Power Query (M) Script\n"
             "// 1. In PowerPilot's Export Center, download the Cleaned Dataset (CSV).\n"
             "// 2. Set FilePath below to where you saved it.\n"
-            f"// 3. Name this query {table_name(dataset_profile.dataset_name)} so the exported DAX measures resolve.\n"
+            f"// 3. Name this query {powerbi_table_name(dataset_profile.dataset_name)} so the exported DAX measures resolve.\n"
         )
         body = ",\n".join(f"    {step}" for step in steps)
         return f"{header}let\n{body}\nin\n    {last_step}\n"

@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 import pandas as pd
 
@@ -87,13 +87,23 @@ class PowerPilotIntelligencePipeline:
         # Stage 4: Domain Classifier
         self.domain_classifier.classify(dataset_profile)
 
-        # Stage 5: Business Profiler
-        business_profile = self.business_profiler.profile(dataset_profile, detected_entities)
+        # Stage 5: KPI Engine. It runs before the Business Profiler so that every KPI shown
+        # anywhere (insights, executive summary, dashboard cards, exports) is one that was
+        # compiled to DAX and verified against this cleaned data. Unverified ones are rejected.
+        kpi_report = self.kpi_engine.recommend(dataset_profile, entities=detected_entities, df=cleaned_df)
 
-        # Stage 6: Data Intelligence Engine
+        # Stage 6: Business Profiler. Its KPI lists are replaced with the verified ones.
+        business_profile = self.business_profiler.profile(dataset_profile, detected_entities)
+        business_profile = replace(
+            business_profile,
+            primary_kpis=kpi_report.primary_kpis,
+            secondary_kpis=kpi_report.secondary_kpis,
+        )
+
+        # Stage 7: Data Intelligence Engine
         data_intelligence_report = self.data_intelligence_engine.analyze(cleaned_df, dataset_profile)
 
-        # Stage 7: Insight Engine
+        # Stage 8: Insight Engine
         insight_report = self.insight_engine.generate(
             dataset_profile=dataset_profile,
             business_profile=business_profile,
@@ -101,11 +111,8 @@ class PowerPilotIntelligencePipeline:
             df=cleaned_df,
         )
 
-        # Stage 8: Relationship Engine
+        # Stage 9: Relationship Engine
         relationship_report = self.relationship_engine.analyze(dataset_profile, cleaned_df)
-
-        # Stage 9: KPI Engine
-        kpi_report = self.kpi_engine.recommend(dataset_profile, business_profile)
 
         # Stage 10: Dashboard Recommendation Engine
         dashboard_report = self.dashboard_engine.recommend(

@@ -4,18 +4,22 @@ import pandas as pd
 
 from app.common.enums import DatasetDomain, Priority, SemanticType
 from app.intelligence.kpi.base_kpi_plugin import BaseKPIPlugin
+from app.intelligence.kpi.candidate import KPICandidate
 from app.intelligence.kpi.column_resolver import ColumnResolver
+from app.intelligence.kpi.ir import Ratio, average, total
 from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import DataIntelligenceReport
 from app.models.dataset_profile import DatasetProfile
 from app.models.detected_entity import DetectedEntity
-from app.models.kpi_recommendation import KPIRecommendation
 from app.models.relationship_models import RelationshipReport
 
 
 class LogisticsKPIPlugin(BaseKPIPlugin):
     """
-    KPI recommendation plugin for the LOGISTICS domain.
+    KPI plugin for the LOGISTICS domain.
+
+    Columns come from the dataset (detected entities, then column names). A KPI whose
+    columns are absent is skipped, never guessed.
     """
 
     target_domain = DatasetDomain.LOGISTICS
@@ -28,47 +32,47 @@ class LogisticsKPIPlugin(BaseKPIPlugin):
         relationship_report: Optional[RelationshipReport] = None,
         entities: Optional[list[DetectedEntity]] = None,
         df: Optional[pd.DataFrame] = None,
-    ) -> tuple[KPIRecommendation, ...]:
-        r = ColumnResolver(dataset_profile)
+    ) -> tuple[KPICandidate, ...]:
+        r = ColumnResolver(dataset_profile, entities)
         freight = r.measure(SemanticType.COST, ("freight", "shipping_cost", "shipping", "cost"))
         delay = r.measure(None, ("delay", "late"))
         units = r.measure(SemanticType.QUANTITY, ("quantity", "qty", "units", "weight"))
 
-        kpis: list[KPIRecommendation] = []
+        kpis: list[KPICandidate] = []
         if freight:
             kpis.append(
-                KPIRecommendation(
+                KPICandidate(
                     name='Total Freight Expenditure',
                     priority=Priority.CRITICAL,
                     confidence=0.94,
                     reason=f"Sum of '{freight}'.",
-                    formula=f'SUM({r.ref(freight)})',
-                    target_threshold='Within logistics budget',
+                    expression=total(freight),
                     business_impact='Primary measure of freight spend.',
+                    example_target='Within logistics budget',
                 )
             )
         if delay:
             kpis.append(
-                KPIRecommendation(
+                KPICandidate(
                     name='Average Shipping Delay Days',
                     priority=Priority.HIGH,
                     confidence=0.9,
                     reason=f"Average of '{delay}'.",
-                    formula=f'AVERAGE({r.ref(delay)})',
-                    target_threshold='< 1.0 Day',
+                    expression=average(delay),
                     business_impact='Measures supply chain SLA compliance.',
+                    example_target='< 1.0 Day',
                 )
             )
         if freight and units and units != freight:
             kpis.append(
-                KPIRecommendation(
+                KPICandidate(
                     name='Cost Per Shipped Unit',
                     priority=Priority.HIGH,
                     confidence=0.88,
                     reason=f"'{freight}' per unit of '{units}'.",
-                    formula=f'DIVIDE(SUM({r.ref(freight)}), SUM({r.ref(units)}))',
-                    target_threshold='< $2.50 per unit',
+                    expression=Ratio(total(freight), total(units)),
                     business_impact='Measures shipping cost efficiency.',
+                    example_target='< $2.50 per unit',
                 )
             )
 

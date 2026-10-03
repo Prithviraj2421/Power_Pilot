@@ -16,7 +16,7 @@ import pandas as pd
 import pytest
 
 from app.common.enums import DatasetDomain, PhysicalType
-from app.common.powerbi_names import table_name
+from app.common.powerbi_names import powerbi_table_name
 from app.models.column_profile import ColumnProfile
 from app.models.dataset_profile import DatasetProfile
 from app.models.relationship_models import EntityRelationship, RelationshipReport
@@ -66,7 +66,7 @@ def test_every_kpi_formula_references_a_real_table_and_column(runs) -> None:
             refs = dax_references(kpi.formula)
             assert refs, f"{name}: '{kpi.formula}' references no column"
             for table, column in refs:
-                assert table == table_name(name), f"{name}: formula uses table '{table}'"
+                assert table == powerbi_table_name(name), f"{name}: formula uses table '{table}'"
                 assert column in df.columns, f"{name}: '{column}' is not a column ({kpi.formula})"
 
 
@@ -78,7 +78,7 @@ def test_bim_is_structurally_consistent_with_its_own_measures(runs) -> None:
         model = bim["model"]
         assert len(model["tables"]) == 1
         table = model["tables"][0]
-        assert table["name"] == table_name(name)
+        assert table["name"] == powerbi_table_name(name)
         assert [c["name"] for c in table["columns"]] == list(df.columns)
         assert {c["dataType"] for c in table["columns"]} <= _DATA_TYPES
         assert sum(1 for c in table["columns"] if c.get("isKey")) <= 1
@@ -101,7 +101,7 @@ def test_dax_script_measures_resolve_against_the_dataset(runs) -> None:
         assert len(defined) == len(result.kpi_report.all_kpis)
         for line in defined:
             for table, column in dax_references(line):
-                assert table == table_name(name)
+                assert table == powerbi_table_name(name)
                 assert column in df.columns
 
 
@@ -202,3 +202,25 @@ def test_m_script_for_an_all_text_dataset_has_no_error_step() -> None:
 
     assert "Replaced Errors" not in m
     assert m.rstrip().endswith('#"Changed Type"')
+
+
+def test_dax_script_shows_each_verified_value_readably_and_lists_rejections(runs) -> None:
+    from dataclasses import replace
+
+    name, df, result = next(r for r in runs if r[0] == "retail.csv")
+    revenue = next(k for k in result.kpi_report.all_kpis if k.name == "Total Sales Revenue")
+    rejected = replace(revenue, name="Average Basket", verified=False, computed_value=None,
+                       verification_note="column 'basket' is not in the dataset")
+    report = replace(result.kpi_report, rejected_kpis=(rejected,))
+
+    script = PowerBIExportService.generate_dax_script(report, name)
+
+    assert f"// Verified value: {revenue.computed_value:,.0f}" in script
+    assert "e+" not in script
+    assert "// Rejected KPIs" in script and "//   - Average Basket: column 'basket' is not in the dataset" in script
+    assert "Average_Basket =" not in script, "a rejected KPI must never be exported as a measure"
+
+    bim = PowerBIExportService.generate_tabular_model_bim(result.dataset_profile, report)
+    note = next(a for a in bim["model"]["annotations"] if a["name"] == "PowerPilot_RejectedKPIs")
+    assert "Average Basket" in note["value"]
+    assert all(m["name"] != "Average_Basket" for m in bim["model"]["tables"][0]["measures"])
