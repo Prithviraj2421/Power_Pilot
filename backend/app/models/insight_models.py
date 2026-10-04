@@ -64,3 +64,7 @@ class InsightReport:
     business_rule_insights: tuple[Insight, ...] = field(default_factory=tuple)
     opportunity_insights: tuple[Insight, ...] = field(default_factory=tuple)
     domain: DatasetDomain = DatasetDomain.UNKNOWN
+    tests_run: int = 0
+    rejected_as_noise: int = 0
+    below_effect_threshold: int = 0
+    noise_note: str = ""  # e.g. "Rejected as likely noise: 12 findings ..."

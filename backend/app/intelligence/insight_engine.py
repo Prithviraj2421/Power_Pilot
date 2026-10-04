@@ -19,6 +19,20 @@ from app.models.dataset_profile import DatasetProfile
 from app.models.insight_models import ExecutiveSummary, Insight, InsightReport
 
 
+
+def noise_note(report) -> str:
+    """The line the insights report carries about what was tested and thrown away as likely noise."""
+    if not report.tests_run:
+        return ""
+    note = (
+        f"Rejected as likely noise: {report.rejected_as_noise} finding{'s' if report.rejected_as_noise != 1 else ''} "
+        f"(of {report.tests_run} relationships tested, false discovery rate {report.fdr_q:.0%})"
+    )
+    if report.below_effect_threshold:
+        note += f"; {report.below_effect_threshold} more were statistically real but too weak to report"
+    return note + "."
+
+
 class InsightEngine:
     """
     Facade orchestrating business insight generation and executive narrative synthesis.
@@ -101,6 +115,10 @@ class InsightEngine:
             business_rule_insights=tuple(brule_insights) if isinstance(brule_insights, tuple) else (),
             opportunity_insights=tuple(opp_insights) if isinstance(opp_insights, tuple) else (),
             domain=domain,
+            tests_run=intelligence_report.tests_run,
+            rejected_as_noise=intelligence_report.rejected_as_noise,
+            below_effect_threshold=intelligence_report.below_effect_threshold,
+            noise_note=noise_note(intelligence_report),
         )
 
     def _run_generator(

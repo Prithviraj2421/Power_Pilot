@@ -72,3 +72,5 @@ CI (`.github/workflows/ci.yml`): backend on Python 3.12 and 3.13, frontend, and 
 9. Ask before pushing to GitHub.
 10. Anything that writes into a user's Power BI model must be add-only, token-guarded, and take KPI ids, never client DAX.
 11. A formula is only ever believed after `verify()` recomputes it; models and heuristics propose, hints explain, neither decides.
+12. A correlation or trend is only an insight if it survives Benjamini-Hochberg across ALL tests run for the dataset (`intelligence/stats/significance.py`)
+    and clears the effect-size floor (`insight_fdr_q`, `insight_min_effect_size` in config). Plugins return every test via `test_all`; the engine corrects once.

@@ -33,7 +33,7 @@ def test_correlation_link_plugin() -> None:
 
     profile = DatasetProfile(dataset_name="sales.csv", total_rows=100, total_columns=2)
     correlations = (
-        CorrelationResult(column_a="units", column_b="revenue", coefficient=0.92, correlation_type="strong_positive", confidence=0.9, reasoning="Strong correlation"),
+        CorrelationResult(column_a="units", column_b="revenue", coefficient=0.92, correlation_type="strong_positive", confidence=0.9, reasoning="Strong correlation", p_value=0.0001, q_value=0.0001, effect_size=abs(0.9), n=60, survived_fdr=True),
     )
     intel_report = DataIntelligenceReport(
         quality_report=QualityReport(overall_score=100.0, completeness_score=100.0, uniqueness_score=100.0, validity_score=100.0, total_issues=0),

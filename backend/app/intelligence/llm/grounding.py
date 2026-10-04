@@ -211,6 +211,18 @@ def build_facts(result: MasterIntelligenceResult, dataset_name: Optional[str] = 
             correlations.append(f"{c.column_a} vs {c.column_b}: {coefficient} ({c.correlation_type})")
         parts.append(_section("CORRELATIONS", correlations))
 
+        if intelligence.tests_run:
+            noise = f.ref(str(intelligence.rejected_as_noise), "statistics.rejected_as_noise", intelligence.rejected_as_noise, "count",
+                          "Findings rejected as likely noise after multiple-testing correction")
+            tested = f.ref(str(intelligence.tests_run), "statistics.tests_run", intelligence.tests_run, "count",
+                           "Number of correlation and trend tests run")
+            rate = f.ref(f"{intelligence.fdr_q:.0%}", "statistics.fdr_q", intelligence.fdr_q * 100, "percent",
+                         "False discovery rate used to correct for multiple testing")
+            parts.append(_section("STATISTICAL RIGOUR", [
+                f"Relationships tested: {tested}; rejected as likely noise: {noise} (false discovery rate {rate}). "
+                "Only the findings above survived."
+            ]))
+
         anomalies = []
         for a in intelligence.business_anomalies[:MAX_ITEMS_PER_SECTION]:
             slug = f"anomaly.{_slug(a.anomaly_title)}.{_slug(a.metric_name)}"

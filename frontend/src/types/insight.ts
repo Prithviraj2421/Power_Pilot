@@ -43,4 +43,10 @@ export interface InsightReport {
   insights: Insight[];
   critical_count: number;
   high_count: number;
+  /** How many correlations and trends were tested, and how many were thrown away as likely noise. */
+  tests_run?: number;
+  rejected_as_noise?: number;
+  below_effect_threshold?: number;
+  /** e.g. "Rejected as likely noise: 12 findings (of 435 relationships tested, false discovery rate 5%)." */
+  noise_note?: string;
 }

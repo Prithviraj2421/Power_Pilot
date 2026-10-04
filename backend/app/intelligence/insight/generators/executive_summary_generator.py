@@ -2,6 +2,8 @@ from typing import Optional
 
 import pandas as pd
 
+from app.core.config import get_settings
+from app.intelligence.stats.significance import reportable
 from app.intelligence.insight.base_insight_generator import BaseInsightGenerator
 from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import DataIntelligenceReport
@@ -41,11 +43,14 @@ class ExecutiveSummaryGenerator(BaseInsightGenerator):
         major_findings = []
         if business_profile.primary_kpis:
             major_findings.append(f"Recommended {len(business_profile.primary_kpis)} primary KPIs, led by '{business_profile.primary_kpis[0].name}'.")
-        if intelligence_report.correlations:
-            top_corr = intelligence_report.correlations[0]
+        floor = get_settings().insight_min_effect_size
+        correlations = [c for c in intelligence_report.correlations if reportable(c, floor)]
+        trends = [t for t in intelligence_report.trends if reportable(t, floor)]
+        if correlations:
+            top_corr = correlations[0]
             major_findings.append(f"Identified strong correlation (r={top_corr.coefficient:.2f}) between '{top_corr.column_a}' and '{top_corr.column_b}'.")
-        if intelligence_report.trends:
-            top_trend = intelligence_report.trends[0]
+        if trends:
+            top_trend = trends[0]
             major_findings.append(f"Detected {top_trend.direction} trend ({top_trend.growth_rate_pct:.1f}% growth) in metric '{top_trend.metric_column}'.")
         if not major_findings:
             major_findings.append("Structured profiling completed successfully with standard column distribution statistics.")

@@ -6,11 +6,16 @@ from app.pipeline.intelligence_pipeline import PowerPilotIntelligencePipeline
 
 
 def test_copilot_engine_why_decrease() -> None:
+    """A real, steady decline (with noise) is a finding the copilot can cite."""
+    import numpy as np
+
+    rng = np.random.default_rng(7)
+    days = pd.date_range("2024-01-01", periods=40)
     df = pd.DataFrame(
         {
-            "customer_id": [1, 2, 3, 4, 5],
-            "sales_amount": [100.0, 150.0, 200.0, 80.0, 50.0],
-            "order_date": ["2024-01-01", "2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"],
+            "customer_id": range(1, 41),
+            "sales_amount": 400.0 - 8.0 * np.arange(40) + rng.normal(0, 10, 40),
+            "order_date": days.strftime("%Y-%m-%d"),
         }
     )
     pipeline = PowerPilotIntelligencePipeline()
@@ -56,3 +61,18 @@ def test_copilot_engine_general_qa() -> None:
     assert isinstance(resp, CopilotResponse)
     assert resp.intent == "GENERAL_QA"
     assert "General.csv" in resp.answer
+
+
+def test_copilot_engine_does_not_cite_a_wiggle_as_a_trend() -> None:
+    """Five unrelated numbers going up and down are not a trend, so there is no trend evidence to cite."""
+    df = pd.DataFrame(
+        {
+            "customer_id": [1, 2, 3, 4, 5],
+            "sales_amount": [100.0, 150.0, 200.0, 80.0, 50.0],
+            "order_date": ["2024-01-01", "2024-01-02", "2024-01-03", "2024-01-04", "2024-01-05"],
+        }
+    )
+    result = PowerPilotIntelligencePipeline().run_pipeline(df, dataset_name="Test.csv")
+
+    assert result.data_intelligence_report.trends == ()
+    assert result.data_intelligence_report.tests_run >= 1

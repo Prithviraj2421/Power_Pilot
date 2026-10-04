@@ -3,6 +3,8 @@ from typing import Optional
 import pandas as pd
 
 from app.common.enums import Priority
+from app.core.config import get_settings
+from app.intelligence.stats.significance import reportable
 from app.intelligence.insight.base_insight_generator import BaseInsightGenerator
 from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import DataIntelligenceReport
@@ -23,10 +25,11 @@ class CorrelationInsightsGenerator(BaseInsightGenerator):
         df: Optional[pd.DataFrame] = None,
     ) -> tuple[Insight, ...]:
         insights = []
+        floor = get_settings().insight_min_effect_size
 
         for corr in intelligence_report.correlations:
-            if abs(corr.coefficient) < 0.5:
-                continue
+            if not reportable(corr, floor) or abs(corr.coefficient) < 0.5:
+                continue  # not corrected-significant, or too weak to be a driver
 
             abs_r = abs(corr.coefficient)
             severity = "HIGH" if abs_r >= 0.8 else "MEDIUM"

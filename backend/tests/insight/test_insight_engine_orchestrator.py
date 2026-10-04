@@ -33,8 +33,8 @@ def test_insight_engine_orchestrator() -> None:
     intel_report = DataIntelligenceReport(
         quality_report=QualityReport(overall_score=88.0, completeness_score=85.0, uniqueness_score=95.0, validity_score=84.0, total_issues=3),
         statistical_summary=StatisticalSummary(total_rows=1000, numeric_columns_count=5, categorical_columns_count=3, date_columns_count=0),
-        correlations=(CorrelationResult(column_a="units", column_b="revenue", coefficient=0.91, correlation_type="strong_positive", confidence=0.9, reasoning="r=0.91"),),
-        trends=(TrendResult(time_column="date", metric_column="revenue", direction="increasing", slope=50.0, growth_rate_pct=40.0, confidence=0.85, reasoning="40% growth"),),
+        correlations=(CorrelationResult(column_a="units", column_b="revenue", coefficient=0.91, correlation_type="strong_positive", confidence=0.9, reasoning="r=0.91", p_value=0.0001, q_value=0.0001, effect_size=abs(0.9), n=60, survived_fdr=True),),
+        trends=(TrendResult(time_column="date", metric_column="revenue", direction="increasing", slope=50.0, growth_rate_pct=40.0, confidence=0.85, reasoning="40% growth", p_value=0.0001, q_value=0.0001, effect_size=0.9, n=60, survived_fdr=True),),
         business_anomalies=(BusinessAnomaly(anomaly_title="Negative Revenue", severity="CRITICAL", affected_entity="Order", metric_name="revenue", observed_value=-100.0, expected_value=0.0, deviation_pct=100.0, confidence=0.95, reasoning="Negative order revenue"),),
         overall_health_score=83.0,
         domain=DatasetDomain.RETAIL,

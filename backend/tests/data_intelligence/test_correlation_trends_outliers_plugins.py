@@ -75,7 +75,7 @@ def test_trends_plugin_growth_rate_matches_slope_direction_despite_noisy_endpoin
     dataset_profile = DatasetProfile(dataset_name="sales.csv", total_rows=8, total_columns=2)
     results = plugin.analyze(df, dataset_profile)
 
-    trend = results[0]
+    trend = plugin.test_all(df, dataset_profile)[0]  # direction logic is independent of significance: 8 noisy points do not survive the correction
     assert trend.direction == "increasing"
     assert trend.slope > 0
     assert trend.growth_rate_pct > 0

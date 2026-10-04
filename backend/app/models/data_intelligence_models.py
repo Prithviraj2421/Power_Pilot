@@ -45,6 +45,12 @@ class CorrelationResult:
     correlation_type: str  # e.g., 'strong_positive', 'strong_negative', 'moderate'
     confidence: float
     reasoning: str
+    # How sure we are it is not noise. `survived_fdr` is False until the pipeline has corrected across ALL tests.
+    p_value: Optional[float] = None
+    q_value: Optional[float] = None  # Benjamini-Hochberg adjusted p-value
+    effect_size: Optional[float] = None  # |r| (correlation, regression) or |tau| (Mann-Kendall)
+    n: int = 0
+    survived_fdr: bool = False
 
 
 @dataclass(slots=True, frozen=True)
@@ -60,6 +66,13 @@ class TrendResult:
     growth_rate_pct: float
     confidence: float
     reasoning: str
+    # How sure we are it is not noise. `survived_fdr` is False until the pipeline has corrected across ALL tests.
+    p_value: Optional[float] = None
+    q_value: Optional[float] = None  # Benjamini-Hochberg adjusted p-value
+    effect_size: Optional[float] = None  # |r| (correlation, regression) or |tau| (Mann-Kendall)
+    n: int = 0
+    survived_fdr: bool = False
+    test_method: str = ""  # linregress | mann-kendall
 
 
 @dataclass(slots=True, frozen=True)
@@ -140,3 +153,8 @@ class DataIntelligenceReport:
     insights: tuple[InsightCandidate, ...] = field(default_factory=tuple)
     domain: DatasetDomain = DatasetDomain.UNKNOWN
     overall_health_score: float = 100.0
+    # Multiple-testing bookkeeping: every correlation pair and trend tested, corrected together.
+    tests_run: int = 0
+    rejected_as_noise: int = 0  # failed the false-discovery-rate correction
+    below_effect_threshold: int = 0  # survived it, but too weak to report
+    fdr_q: float = 0.05

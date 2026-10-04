@@ -33,8 +33,8 @@ def test_executive_summary_generator() -> None:
     intel_report = DataIntelligenceReport(
         quality_report=QualityReport(overall_score=92.0, completeness_score=90.0, uniqueness_score=100.0, validity_score=86.0, total_issues=2),
         statistical_summary=StatisticalSummary(total_rows=500, numeric_columns_count=4, categorical_columns_count=2, date_columns_count=0),
-        correlations=(CorrelationResult(column_a="units", column_b="sales", coefficient=0.95, correlation_type="strong_positive", confidence=0.9, reasoning="r=0.95"),),
-        trends=(TrendResult(time_column="date", metric_column="sales", direction="increasing", slope=10.0, growth_rate_pct=25.0, confidence=0.85, reasoning="25% growth"),),
+        correlations=(CorrelationResult(column_a="units", column_b="sales", coefficient=0.95, correlation_type="strong_positive", confidence=0.9, reasoning="r=0.95", p_value=0.0001, q_value=0.0001, effect_size=abs(0.9), n=60, survived_fdr=True),),
+        trends=(TrendResult(time_column="date", metric_column="sales", direction="increasing", slope=10.0, growth_rate_pct=25.0, confidence=0.85, reasoning="25% growth", p_value=0.0001, q_value=0.0001, effect_size=0.9, n=60, survived_fdr=True),),
         business_anomalies=(BusinessAnomaly(anomaly_title="Negative Pricing", severity="HIGH", affected_entity="Item", metric_name="price", observed_value=-5.0, expected_value=0.0, deviation_pct=100.0, confidence=0.95, reasoning="Negative price"),),
         overall_health_score=87.0,
         domain=DatasetDomain.RETAIL,

@@ -101,6 +101,12 @@ class Settings(BaseSettings):
     pbi_watch_interval_seconds: float = Field(5.0, gt=0)
     pbi_watch_failures: int = Field(3, ge=1)
 
+    # --- Statistical honesty of insights ----------------------------------------
+    # Every correlation pair and trend tested is pooled and corrected for multiple testing (Benjamini-Hochberg).
+    # A finding becomes an insight only if it survives at this false discovery rate AND |r| (or |tau|) reaches the floor.
+    insight_fdr_q: float = Field(0.05, gt=0, lt=1)
+    insight_min_effect_size: float = Field(0.3, ge=0, lt=1)
+
     # --- Report reverse-engineering ("Prove-It Migration") ----------------------
     reverse_time_budget_seconds: float = Field(90.0, gt=0)  # search time for one legacy report
     reverse_max_reports: int = Field(16, ge=1)  # finished analyses kept in memory

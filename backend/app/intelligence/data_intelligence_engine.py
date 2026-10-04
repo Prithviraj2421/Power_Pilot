@@ -11,6 +11,8 @@ from typing import Optional
 import pandas as pd
 
 from app.common.enums import DatasetDomain
+from app.core.config import get_settings
+from app.intelligence.stats.significance import apply_fdr, reportable
 from app.intelligence.data.base_data_intelligence_plugin import BaseDataIntelligencePlugin
 from app.intelligence.data.plugins import (
     BusinessAnomaliesPlugin,
@@ -108,17 +110,11 @@ class DataIntelligenceEngine:
                 date_columns_count=0,
             )
 
-        # 3. Correlations
-        correlations = self._run_plugin(
-            self._correlation_plugin, df, dataset_profile, business_profile, entities_list
-        )
-        correlations_tuple = tuple(correlations) if isinstance(correlations, (list, tuple)) else ()
-
-        # 4. Trends
-        trends = self._run_plugin(
-            self._trends_plugin, df, dataset_profile, business_profile, entities_list
-        )
-        trends_tuple = tuple(trends) if isinstance(trends, (list, tuple)) else ()
+        # 3 + 4. Correlations and trends. Every pair and every metric-over-time tested goes into ONE family and is
+        # corrected for the number of tests together; only findings that survive and are big enough become insights.
+        tested_correlations = self._run_tests(self._correlation_plugin, df, dataset_profile, business_profile, entities_list)
+        tested_trends = self._run_tests(self._trends_plugin, df, dataset_profile, business_profile, entities_list)
+        correlations_tuple, trends_tuple, noise = self._correct_for_multiple_testing(tested_correlations, tested_trends)
 
         # 5. Outliers
         outliers = self._run_plugin(
@@ -157,7 +153,34 @@ class DataIntelligenceEngine:
             insights=tuple(insights),
             domain=domain,
             overall_health_score=overall_health,
+            tests_run=noise["tests_run"],
+            rejected_as_noise=noise["rejected_as_noise"],
+            below_effect_threshold=noise["below_effect_threshold"],
+            fdr_q=noise["fdr_q"],
         )
+
+    def _run_tests(self, plugin, df, dataset_profile, business_profile, entities) -> tuple:
+        """Every relationship a plugin tested, uncorrected (an error in the plugin means none)."""
+        try:
+            return tuple(plugin.test_all(df, dataset_profile, business_profile, entities))
+        except Exception:
+            return ()
+
+    @staticmethod
+    def _correct_for_multiple_testing(correlations: tuple, trends: tuple) -> tuple[tuple, tuple, dict]:
+        settings = get_settings()
+        q, floor = settings.insight_fdr_q, settings.insight_min_effect_size
+        corrected = apply_fdr([*correlations, *trends], q)
+        corrected_correlations, corrected_trends = corrected[: len(correlations)], corrected[len(correlations) :]
+        survivors = [f for f in corrected if f.survived_fdr]
+        reportable_all = [f for f in survivors if reportable(f, floor)]
+        keep = lambda items: tuple(sorted((f for f in items if reportable(f, floor)), key=lambda f: -(f.effect_size or 0)))  # noqa: E731
+        return keep(corrected_correlations), keep(corrected_trends), {
+            "tests_run": len(corrected),
+            "rejected_as_noise": len(corrected) - len(survivors),
+            "below_effect_threshold": len(survivors) - len(reportable_all),
+            "fdr_q": q,
+        }
 
     def _run_plugin(
         self,

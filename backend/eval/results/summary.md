@@ -27,7 +27,7 @@ A claim is a CORRELATION or TREND insight. On a shuffled copy every such claim i
 
 | datasets | mean relationship claims, real data | mean claims, null data | share of datasets with any false claim |
 |---|---|---|---|
-| 25 | 88.280 | 4.360 | 52.0% |
+| 25 | 84.160 | 0.000 | 0.0% |
 
 ## Copilot grounding
 
@@ -54,8 +54,8 @@ Pooled over cells. A planted mistake is detected when its cell is reported NOT_R
 
 | system | runs | mean | median | max |
 |---|---|---|---|---|
-| pipeline:full | 25 | 1.31 | 0.43 | 10.77 |
-| pipeline:no_kpi_verifier | 25 | 1.26 | 0.39 | 10.70 |
-| reverse:full | 24 | 0.29 | 0.10 | 1.90 |
-| reverse:no_reverse_consistency | 24 | 0.28 | 0.11 | 1.88 |
-| reverse:no_reverse_gate | 24 | 0.25 | 0.08 | 1.79 |
+| pipeline:full | 25 | 1.43 | 0.66 | 11.40 |
+| pipeline:no_kpi_verifier | 25 | 1.30 | 0.40 | 10.96 |
+| reverse:full | 24 | 0.29 | 0.10 | 1.95 |
+| reverse:no_reverse_consistency | 24 | 0.30 | 0.12 | 2.18 |
+| reverse:no_reverse_gate | 24 | 0.26 | 0.08 | 1.84 |

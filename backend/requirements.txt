@@ -19,6 +19,7 @@ anthropic==1.8.0
 # --- Data processing ---
 pandas==3.0.3
 numpy==2.5.1
+scipy==1.18.1               # app/intelligence/stats/significance.py: p-values for correlations and trends
 
 # --- Export Center document builders ---
 openpyxl==3.1.5               # app/export_center/builders/excel_builder.py

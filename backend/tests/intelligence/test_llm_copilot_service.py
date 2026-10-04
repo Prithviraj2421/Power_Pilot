@@ -243,15 +243,17 @@ def test_fact_sheet_is_bounded(retail_result: MasterIntelligenceResult) -> None:
     assert len(sheet) < 12_000, "fact sheet should stay compact enough to cache cheaply"
 
 
-def test_fact_sheet_excludes_identifier_trends(
-    retail_result: MasterIntelligenceResult,
-) -> None:
+def test_fact_sheet_excludes_identifier_trends(pipeline, retail_df) -> None:
     """A trend through order_id is real arithmetic and meaningless as a fact.
 
     Stated in the fact sheet it invites the model to reason from it, which is how
     a grounded answer still ends up nonsense.
     """
-    sheet = build_fact_sheet(retail_result)
+    import numpy as np
+
+    df = retail_df.sort_values("order_date").reset_index(drop=True)
+    df["unit_price"] = 300.0 - 3.0 * np.arange(len(df)) + np.random.default_rng(3).normal(0, 5, len(df))  # a genuine decline
+    sheet = build_fact_sheet(pipeline.run_pipeline(df, dataset_name="retail.csv"))
 
     assert "order_id is " not in sheet
     assert "customer_id is " not in sheet

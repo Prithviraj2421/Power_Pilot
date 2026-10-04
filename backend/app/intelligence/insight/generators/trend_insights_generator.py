@@ -3,6 +3,8 @@ from typing import Optional
 import pandas as pd
 
 from app.common.enums import Priority
+from app.core.config import get_settings
+from app.intelligence.stats.significance import reportable
 from app.intelligence.insight.base_insight_generator import BaseInsightGenerator
 from app.models.business_profile import BusinessProfile
 from app.models.data_intelligence_models import DataIntelligenceReport
@@ -23,8 +25,11 @@ class TrendInsightsGenerator(BaseInsightGenerator):
         df: Optional[pd.DataFrame] = None,
     ) -> tuple[Insight, ...]:
         insights = []
+        floor = get_settings().insight_min_effect_size
 
         for trend in intelligence_report.trends:
+            if not reportable(trend, floor):
+                continue  # a trend that did not survive the multiple-testing correction is noise
             abs_growth = abs(trend.growth_rate_pct)
             severity = "HIGH" if abs_growth >= 25.0 else ("MEDIUM" if abs_growth >= 10.0 else "LOW")
             prio = Priority.HIGH if abs_growth >= 20.0 else Priority.MEDIUM
