@@ -1,0 +1,31 @@
+{
+  "id": "uci_power_tetouan",
+  "title": "Power Consumption of Tetouan City",
+  "domain": "unknown",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "DateTime": "date",
+    "Temperature": "unknown",
+    "Humidity": "unknown",
+    "Wind Speed": "unknown",
+    "general diffuse flows": "unknown",
+    "diffuse flows": "unknown",
+    "Zone 1 Power Consumption": "unknown",
+    "Zone 2  Power Consumption": "unknown",
+    "Zone 3  Power Consumption": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Total zone 1 consumption",
+      "value": 647099423.61241
+    },
+    {
+      "name": "Average zone 1 consumption",
+      "value": 32354.971180620498
+    },
+    {
+      "name": "Average temperature",
+      "value": 18.85566095
+    }
+  ]
+}

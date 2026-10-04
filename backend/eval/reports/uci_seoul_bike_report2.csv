@@ -1,0 +1,29 @@
+Hour by Seasons
+Seasons,Hour
+Autumn,"21,516.00"
+Spring,"25,392.00"
+Summer,"25,392.00"
+Winter,"24,840.00"
+All Seasons,"75,348.00"
+Total,"97,140.00"
+
+Average Rented Bike Count by Seasons
+Seasons,Average Rented Bike Count
+Autumn,819.60
+Spring,730.03
+Summer,"1,034.07"
+Winter,225.54
+
+Hour per Rented Bike Count by Seasons
+Seasons,Hour per Rented Bike Count
+Autumn,0.01
+Spring,0.02
+Summer,0.01
+Winter,0.05
+
+Rows by Seasons
+Seasons,Rows
+Autumn,"2,184.00"
+Spring,"2,208.00"
+Summer,"2,208.00"
+Winter,"2,160.00"

@@ -1,0 +1,80 @@
+{
+  "id": "uci_diabetes_hospitals",
+  "title": "Diabetes 130-US Hospitals",
+  "domain": "healthcare",
+  "domain_label_confidence": "high",
+  "columns": {
+    "encounter_id": "identifier",
+    "patient_nbr": "identifier",
+    "race": "unknown",
+    "gender": "unknown",
+    "age": "unknown",
+    "weight": "unknown",
+    "admission_type_id": "unknown",
+    "discharge_disposition_id": "unknown",
+    "admission_source_id": "unknown",
+    "time_in_hospital": "unknown",
+    "payer_code": "unknown",
+    "medical_specialty": "unknown",
+    "num_lab_procedures": "unknown",
+    "num_procedures": "unknown",
+    "num_medications": "unknown",
+    "number_outpatient": "unknown",
+    "number_emergency": "unknown",
+    "number_inpatient": "unknown",
+    "diag_1": "unknown",
+    "diag_2": "unknown",
+    "diag_3": "unknown",
+    "number_diagnoses": "unknown",
+    "max_glu_serum": "unknown",
+    "A1Cresult": "unknown",
+    "metformin": "unknown",
+    "repaglinide": "unknown",
+    "nateglinide": "unknown",
+    "chlorpropamide": "unknown",
+    "glimepiride": "unknown",
+    "acetohexamide": "unknown",
+    "glipizide": "unknown",
+    "glyburide": "unknown",
+    "tolbutamide": "unknown",
+    "pioglitazone": "unknown",
+    "rosiglitazone": "unknown",
+    "acarbose": "unknown",
+    "miglitol": "unknown",
+    "troglitazone": "unknown",
+    "tolazamide": "unknown",
+    "examide": "unknown",
+    "citoglipton": "unknown",
+    "insulin": "unknown",
+    "glyburide-metformin": "unknown",
+    "glipizide-metformin": "unknown",
+    "glimepiride-pioglitazone": "unknown",
+    "metformin-rosiglitazone": "unknown",
+    "metformin-pioglitazone": "unknown",
+    "change": "unknown",
+    "diabetesMed": "unknown",
+    "readmitted": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Average time in hospital",
+      "value": 4.40435
+    },
+    {
+      "name": "Total medications",
+      "value": 321571.0
+    },
+    {
+      "name": "Average lab procedures",
+      "value": 43.05725
+    },
+    {
+      "name": "Distinct patients",
+      "value": 17988.0
+    },
+    {
+      "name": "Readmission rate",
+      "value": 0.46505
+    }
+  ]
+}

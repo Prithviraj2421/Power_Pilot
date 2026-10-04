@@ -1,0 +1,37 @@
+over_time by day
+day,over_time
+Monday,"876,180.00"
+Saturday,"878,360.00"
+Sunday,"930,570.00"
+Thursday,"1,035,330.00"
+Tuesday,"892,320.00"
+Wednesday,"863,490.00"
+All day,"4,588,890.00"
+Total,"5,476,250.00"
+
+Average smv by day
+day,Average smv
+Monday,15.07
+Saturday,14.63
+Sunday,15.16
+Thursday,15.13
+Tuesday,15.29
+Wednesday,15.06
+
+over_time per smv by day
+day,over_time per smv
+Monday,289.17
+Saturday,320.95
+Sunday,302.39
+Thursday,343.80
+Tuesday,290.33
+Wednesday,275.74
+
+Rows by day
+day,Rows
+Monday,199.00
+Saturday,187.00
+Sunday,203.00
+Thursday,199.00
+Tuesday,201.00
+Wednesday,208.00

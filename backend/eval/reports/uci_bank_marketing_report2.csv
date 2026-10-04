@@ -1,0 +1,25 @@
+balance by marital
+marital,balance
+divorced,"2,709,230.00"
+married,"17,279,100.00"
+single,"7,412,530.00"
+All marital,"24,421,630.00"
+Total,"27,400,860.00"
+
+Average age by marital
+marital,Average age
+divorced,45.72
+married,43.39
+single,33.68
+
+balance per age by marital
+marital,balance per age
+divorced,25.21
+married,33.48
+single,36.85
+
+Rows by marital
+marital,Rows
+divorced,"2,350.00"
+married,"11,895.00"
+single,"5,755.00"

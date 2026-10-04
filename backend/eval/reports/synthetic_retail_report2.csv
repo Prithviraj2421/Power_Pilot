@@ -1,0 +1,37 @@
+sales_amount by category
+category,sales_amount
+Clothing,"23,200.21"
+Electronics,"18,343.38"
+Grocery,"519,974.54"
+Home,"31,124.57"
+Sports,"30,238.62"
+electronics,"1,505.15"
+All category,"605,616.93"
+Total,"624,386.47"
+
+Average unit_price by category
+category,Average unit_price
+Clothing,635.26
+Electronics,644.88
+Grocery,699.16
+Home,571.83
+Sports,666.90
+electronics,"1,318.94"
+
+sales_amount per unit_price by category
+category,sales_amount per unit_price
+Clothing,3.04
+Electronics,3.16
+Grocery,61.98
+Home,3.63
+Sports,3.78
+electronics,0.80
+
+Rows by category
+category,Rows
+Clothing,12.00
+Electronics,9.00
+Grocery,12.00
+Home,15.00
+Sports,12.00
+electronics,1.00

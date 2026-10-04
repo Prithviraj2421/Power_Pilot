@@ -1,0 +1,48 @@
+{
+  "id": "uci_online_shoppers",
+  "title": "Online Shoppers Purchasing Intention",
+  "domain": "marketing",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "Administrative": "unknown",
+    "Administrative_Duration": "unknown",
+    "Informational": "unknown",
+    "Informational_Duration": "unknown",
+    "ProductRelated": "unknown",
+    "ProductRelated_Duration": "unknown",
+    "BounceRates": "unknown",
+    "ExitRates": "unknown",
+    "PageValues": "unknown",
+    "SpecialDay": "unknown",
+    "Month": "unknown",
+    "OperatingSystems": "unknown",
+    "Browser": "unknown",
+    "Region": "region",
+    "TrafficType": "unknown",
+    "VisitorType": "unknown",
+    "Weekend": "unknown",
+    "Revenue": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Purchase rate",
+      "value": 0.15474452554744525
+    },
+    {
+      "name": "Average product-related duration",
+      "value": 1194.7462199688268
+    },
+    {
+      "name": "Total product-related pages",
+      "value": 391249.0
+    },
+    {
+      "name": "Average bounce rate",
+      "value": 0.02219138047072182
+    },
+    {
+      "name": "Weekend share of sessions",
+      "value": 0.23260340632603407
+    }
+  ]
+}

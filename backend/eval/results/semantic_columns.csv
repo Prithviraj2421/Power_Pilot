@@ -1,0 +1,497 @@
+system,dataset,column,truth,predicted,confidence
+full,golden_superstore,Row ID,identifier,identifier,1.0
+full,golden_superstore,Order ID,identifier,unknown,0.5
+full,golden_superstore,Order Date,date,date,1.0
+full,golden_superstore,Ship Date,date,date,1.0
+full,golden_superstore,Ship Mode,unknown,unknown,0.95
+full,golden_superstore,Customer ID,customer,customer,0.6
+full,golden_superstore,Customer Name,customer,customer,0.6
+full,golden_superstore,Segment,unknown,unknown,0.95
+full,golden_superstore,Country,region,region,0.7
+full,golden_superstore,City,region,region,0.7
+full,golden_superstore,State,region,region,0.7
+full,golden_superstore,Postal Code,region,revenue,0.5
+full,golden_superstore,Region,region,region,0.7
+full,golden_superstore,Product ID,product,product,0.7
+full,golden_superstore,Category,product,product,0.7
+full,golden_superstore,Sub-Category,product,product,0.7
+full,golden_superstore,Product Name,product,product,0.7
+full,golden_superstore,Sales,revenue,revenue,1.0
+full,golden_superstore,Quantity,quantity,quantity,1.0
+full,golden_superstore,Discount,unknown,revenue,0.5
+full,golden_superstore,Profit,profit,profit,0.9
+full,synthetic_finance,transaction_id,identifier,identifier,1.0
+full,synthetic_finance,transaction_date,date,date,1.0
+full,synthetic_finance,account_id,identifier,revenue,0.5
+full,synthetic_finance,department,unknown,unknown,0.9166666666666666
+full,synthetic_finance,cost_center,unknown,unknown,0.9333333333333333
+full,synthetic_finance,revenue,revenue,revenue,1.0
+full,synthetic_finance,expense,cost,cost,0.8
+full,synthetic_finance,profit,profit,profit,0.8
+full,synthetic_finance,budget_amount,unknown,revenue,1.0
+full,synthetic_finance,budget_variance,unknown,revenue,0.5
+full,synthetic_healthcare,patient_id,identifier,identifier,1.0
+full,synthetic_healthcare,admission_date,date,date,1.0
+full,synthetic_healthcare,department,unknown,unknown,0.9166666666666666
+full,synthetic_healthcare,diagnosis_code,unknown,identifier,0.5
+full,synthetic_healthcare,region,region,region,0.7
+full,synthetic_healthcare,age,unknown,revenue,0.5
+full,synthetic_healthcare,length_of_stay_days,unknown,revenue,0.5
+full,synthetic_healthcare,treatment_cost,cost,cost,0.8
+full,synthetic_healthcare,readmission_flag,unknown,unknown,1.0
+full,synthetic_healthcare,satisfaction_score,unknown,revenue,0.5
+full,synthetic_hr,employee_id,employee,identifier,1.0
+full,synthetic_hr,hire_date,date,date,1.0
+full,synthetic_hr,department,unknown,unknown,0.9166666666666666
+full,synthetic_hr,job_title,unknown,unknown,0.9166666666666666
+full,synthetic_hr,region,region,region,0.7
+full,synthetic_hr,tenure_years,unknown,revenue,0.5
+full,synthetic_hr,salary,cost,revenue,0.5
+full,synthetic_hr,bonus,cost,revenue,0.5
+full,synthetic_hr,performance_rating,unknown,revenue,0.5
+full,synthetic_hr,attrition_flag,unknown,unknown,1.0
+full,synthetic_retail,order_id,identifier,identifier,1.0
+full,synthetic_retail,order_date,date,date,1.0
+full,synthetic_retail,customer_id,customer,revenue,0.5
+full,synthetic_retail,product_name,product,product,0.7
+full,synthetic_retail,category,product,product,0.7
+full,synthetic_retail,region,region,region,0.7
+full,synthetic_retail,quantity,quantity,quantity,1.0
+full,synthetic_retail,unit_price,unknown,revenue,1.0
+full,synthetic_retail,discount,unknown,revenue,0.5
+full,synthetic_retail,sales_amount,revenue,revenue,1.0
+full,synthetic_retail,profit,profit,profit,0.8
+full,uci_absenteeism,ID,employee,revenue,0.5
+full,uci_absenteeism,Reason for absence,unknown,revenue,0.5
+full,uci_absenteeism,Month of absence,unknown,revenue,0.5
+full,uci_absenteeism,Day of the week,unknown,revenue,0.5
+full,uci_absenteeism,Seasons,unknown,revenue,0.5
+full,uci_absenteeism,Transportation expense,unknown,cost,0.8
+full,uci_absenteeism,Distance from Residence to Work,unknown,revenue,0.5
+full,uci_absenteeism,Service time,unknown,revenue,0.5
+full,uci_absenteeism,Age,unknown,revenue,0.5
+full,uci_absenteeism,Work load Average/day ,unknown,revenue,0.5
+full,uci_absenteeism,Hit target,unknown,revenue,0.5
+full,uci_absenteeism,Disciplinary failure,unknown,unknown,1.0
+full,uci_absenteeism,Education,unknown,revenue,0.5
+full,uci_absenteeism,Son,unknown,revenue,0.5
+full,uci_absenteeism,Social drinker,unknown,unknown,1.0
+full,uci_absenteeism,Social smoker,unknown,unknown,1.0
+full,uci_absenteeism,Pet,unknown,revenue,0.5
+full,uci_absenteeism,Weight,unknown,revenue,0.5
+full,uci_absenteeism,Height,unknown,revenue,0.5
+full,uci_absenteeism,Body mass index,unknown,revenue,0.5
+full,uci_absenteeism,Absenteeism time in hours,unknown,revenue,0.5
+full,uci_bank_marketing,age,unknown,revenue,0.5
+full,uci_bank_marketing,job,unknown,unknown,0.95
+full,uci_bank_marketing,marital,unknown,unknown,0.95
+full,uci_bank_marketing,education,unknown,unknown,0.95
+full,uci_bank_marketing,default,unknown,unknown,1.0
+full,uci_bank_marketing,balance,unknown,revenue,0.5
+full,uci_bank_marketing,housing,unknown,unknown,1.0
+full,uci_bank_marketing,loan,unknown,unknown,1.0
+full,uci_bank_marketing,contact,unknown,unknown,0.95
+full,uci_bank_marketing,day_of_week,unknown,revenue,0.5
+full,uci_bank_marketing,month,unknown,date,0.8
+full,uci_bank_marketing,duration,unknown,revenue,0.5
+full,uci_bank_marketing,campaign,unknown,revenue,0.5
+full,uci_bank_marketing,pdays,unknown,revenue,0.5
+full,uci_bank_marketing,previous,unknown,revenue,0.5
+full,uci_bank_marketing,poutcome,unknown,unknown,0.95
+full,uci_bank_marketing,y,unknown,unknown,1.0
+full,uci_bike_sharing,instant,identifier,identifier,1.0
+full,uci_bike_sharing,dteday,date,date,0.8
+full,uci_bike_sharing,season,unknown,revenue,0.5
+full,uci_bike_sharing,yr,unknown,unknown,1.0
+full,uci_bike_sharing,mnth,unknown,revenue,0.5
+full,uci_bike_sharing,hr,unknown,revenue,0.5
+full,uci_bike_sharing,holiday,unknown,unknown,1.0
+full,uci_bike_sharing,weekday,unknown,revenue,0.5
+full,uci_bike_sharing,workingday,unknown,unknown,1.0
+full,uci_bike_sharing,weathersit,unknown,revenue,0.5
+full,uci_bike_sharing,temp,unknown,revenue,0.5
+full,uci_bike_sharing,atemp,unknown,revenue,0.5
+full,uci_bike_sharing,hum,unknown,revenue,0.5
+full,uci_bike_sharing,windspeed,unknown,revenue,0.5
+full,uci_bike_sharing,casual,quantity,revenue,0.5
+full,uci_bike_sharing,registered,quantity,revenue,0.5
+full,uci_bike_sharing,cnt,quantity,revenue,0.5
+full,uci_breast_cancer,ID,identifier,identifier,1.0
+full,uci_breast_cancer,radius1,unknown,revenue,0.5
+full,uci_breast_cancer,texture1,unknown,revenue,0.5
+full,uci_breast_cancer,perimeter1,unknown,revenue,0.5
+full,uci_breast_cancer,area1,unknown,revenue,0.5
+full,uci_breast_cancer,smoothness1,unknown,revenue,0.5
+full,uci_breast_cancer,compactness1,unknown,revenue,0.5
+full,uci_breast_cancer,concavity1,unknown,revenue,0.5
+full,uci_breast_cancer,concave_points1,unknown,revenue,0.5
+full,uci_breast_cancer,symmetry1,unknown,revenue,0.5
+full,uci_breast_cancer,fractal_dimension1,unknown,revenue,0.5
+full,uci_breast_cancer,radius2,unknown,revenue,0.5
+full,uci_breast_cancer,texture2,unknown,revenue,0.5
+full,uci_breast_cancer,perimeter2,unknown,revenue,0.5
+full,uci_breast_cancer,area2,unknown,revenue,0.5
+full,uci_breast_cancer,smoothness2,unknown,revenue,0.5
+full,uci_breast_cancer,compactness2,unknown,revenue,0.5
+full,uci_breast_cancer,concavity2,unknown,revenue,0.5
+full,uci_breast_cancer,concave_points2,unknown,revenue,0.5
+full,uci_breast_cancer,symmetry2,unknown,revenue,0.5
+full,uci_breast_cancer,fractal_dimension2,unknown,revenue,0.5
+full,uci_breast_cancer,radius3,unknown,revenue,0.5
+full,uci_breast_cancer,texture3,unknown,revenue,0.5
+full,uci_breast_cancer,perimeter3,unknown,revenue,0.5
+full,uci_breast_cancer,area3,unknown,revenue,0.5
+full,uci_breast_cancer,smoothness3,unknown,revenue,0.5
+full,uci_breast_cancer,compactness3,unknown,revenue,0.5
+full,uci_breast_cancer,concavity3,unknown,revenue,0.5
+full,uci_breast_cancer,concave_points3,unknown,revenue,0.5
+full,uci_breast_cancer,symmetry3,unknown,revenue,0.5
+full,uci_breast_cancer,fractal_dimension3,unknown,revenue,0.5
+full,uci_breast_cancer,Diagnosis,unknown,unknown,0.95
+full,uci_credit_default,ID,customer,identifier,1.0
+full,uci_credit_default,X1,unknown,revenue,0.5
+full,uci_credit_default,X2,unknown,revenue,0.5
+full,uci_credit_default,X3,unknown,revenue,0.5
+full,uci_credit_default,X4,unknown,revenue,0.5
+full,uci_credit_default,X5,unknown,revenue,0.5
+full,uci_credit_default,X6,unknown,revenue,0.5
+full,uci_credit_default,X7,unknown,revenue,0.5
+full,uci_credit_default,X8,unknown,revenue,0.5
+full,uci_credit_default,X9,unknown,revenue,0.5
+full,uci_credit_default,X10,unknown,revenue,0.5
+full,uci_credit_default,X11,unknown,revenue,0.5
+full,uci_credit_default,X12,unknown,revenue,0.5
+full,uci_credit_default,X13,unknown,revenue,0.5
+full,uci_credit_default,X14,unknown,revenue,0.5
+full,uci_credit_default,X15,unknown,revenue,0.5
+full,uci_credit_default,X16,unknown,revenue,0.5
+full,uci_credit_default,X17,unknown,revenue,0.5
+full,uci_credit_default,X18,unknown,revenue,0.5
+full,uci_credit_default,X19,unknown,revenue,0.5
+full,uci_credit_default,X20,unknown,revenue,0.5
+full,uci_credit_default,X21,unknown,revenue,0.5
+full,uci_credit_default,X22,unknown,revenue,0.5
+full,uci_credit_default,X23,unknown,revenue,0.5
+full,uci_credit_default,Y,unknown,unknown,1.0
+full,uci_diabetes_hospitals,encounter_id,identifier,identifier,1.0
+full,uci_diabetes_hospitals,patient_nbr,identifier,revenue,0.5
+full,uci_diabetes_hospitals,race,unknown,unknown,0.95
+full,uci_diabetes_hospitals,gender,unknown,unknown,0.95
+full,uci_diabetes_hospitals,age,unknown,unknown,0.95
+full,uci_diabetes_hospitals,weight,unknown,unknown,0.95
+full,uci_diabetes_hospitals,admission_type_id,unknown,revenue,0.5
+full,uci_diabetes_hospitals,discharge_disposition_id,unknown,revenue,0.5
+full,uci_diabetes_hospitals,admission_source_id,unknown,revenue,0.5
+full,uci_diabetes_hospitals,time_in_hospital,unknown,revenue,0.5
+full,uci_diabetes_hospitals,payer_code,unknown,identifier,0.5
+full,uci_diabetes_hospitals,medical_specialty,unknown,unknown,0.5
+full,uci_diabetes_hospitals,num_lab_procedures,unknown,revenue,0.5
+full,uci_diabetes_hospitals,num_procedures,unknown,revenue,0.5
+full,uci_diabetes_hospitals,num_medications,unknown,revenue,0.5
+full,uci_diabetes_hospitals,number_outpatient,unknown,revenue,0.5
+full,uci_diabetes_hospitals,number_emergency,unknown,revenue,0.5
+full,uci_diabetes_hospitals,number_inpatient,unknown,revenue,0.5
+full,uci_diabetes_hospitals,diag_1,unknown,unknown,0.9844
+full,uci_diabetes_hospitals,diag_2,unknown,unknown,0.9757
+full,uci_diabetes_hospitals,diag_3,unknown,unknown,0.9528
+full,uci_diabetes_hospitals,number_diagnoses,unknown,revenue,0.5
+full,uci_diabetes_hospitals,max_glu_serum,unknown,unknown,0.95
+full,uci_diabetes_hospitals,A1Cresult,unknown,unknown,0.95
+full,uci_diabetes_hospitals,metformin,unknown,unknown,0.95
+full,uci_diabetes_hospitals,repaglinide,unknown,unknown,0.9856
+full,uci_diabetes_hospitals,nateglinide,unknown,unknown,0.99295
+full,uci_diabetes_hospitals,chlorpropamide,unknown,unknown,0.9992
+full,uci_diabetes_hospitals,glimepiride,unknown,unknown,0.95
+full,uci_diabetes_hospitals,acetohexamide,unknown,unknown,1.0
+full,uci_diabetes_hospitals,glipizide,unknown,unknown,0.95
+full,uci_diabetes_hospitals,glyburide,unknown,unknown,0.95
+full,uci_diabetes_hospitals,tolbutamide,unknown,unknown,0.99965
+full,uci_diabetes_hospitals,pioglitazone,unknown,unknown,0.95
+full,uci_diabetes_hospitals,rosiglitazone,unknown,unknown,0.95
+full,uci_diabetes_hospitals,acarbose,unknown,unknown,0.9965
+full,uci_diabetes_hospitals,miglitol,unknown,unknown,0.9997
+full,uci_diabetes_hospitals,troglitazone,unknown,unknown,1.0
+full,uci_diabetes_hospitals,tolazamide,unknown,unknown,0.9996
+full,uci_diabetes_hospitals,examide,unknown,unknown,1.0
+full,uci_diabetes_hospitals,citoglipton,unknown,unknown,1.0
+full,uci_diabetes_hospitals,insulin,unknown,unknown,0.95
+full,uci_diabetes_hospitals,glyburide-metformin,unknown,unknown,0.9928
+full,uci_diabetes_hospitals,glipizide-metformin,unknown,unknown,0.99985
+full,uci_diabetes_hospitals,glimepiride-pioglitazone,unknown,unknown,1.0
+full,uci_diabetes_hospitals,metformin-rosiglitazone,unknown,unknown,1.0
+full,uci_diabetes_hospitals,metformin-pioglitazone,unknown,unknown,1.0
+full,uci_diabetes_hospitals,change,unknown,unknown,0.95
+full,uci_diabetes_hospitals,diabetesMed,unknown,unknown,1.0
+full,uci_diabetes_hospitals,readmitted,unknown,unknown,0.95
+full,uci_garment_employees,date,date,date,1.0
+full,uci_garment_employees,quarter,unknown,unknown,0.95
+full,uci_garment_employees,department,unknown,unknown,0.95
+full,uci_garment_employees,day,unknown,unknown,0.95
+full,uci_garment_employees,team,unknown,revenue,0.5
+full,uci_garment_employees,targeted_productivity,unknown,revenue,0.5
+full,uci_garment_employees,smv,unknown,revenue,0.5
+full,uci_garment_employees,wip,unknown,revenue,0.5
+full,uci_garment_employees,over_time,unknown,revenue,0.5
+full,uci_garment_employees,incentive,cost,revenue,0.5
+full,uci_garment_employees,idle_time,unknown,revenue,0.5
+full,uci_garment_employees,idle_men,unknown,revenue,0.5
+full,uci_garment_employees,no_of_style_change,unknown,revenue,0.5
+full,uci_garment_employees,no_of_workers,unknown,revenue,0.5
+full,uci_garment_employees,actual_productivity,unknown,revenue,0.5
+full,uci_german_credit,Attribute1,unknown,unknown,0.95
+full,uci_german_credit,Attribute2,unknown,revenue,0.5
+full,uci_german_credit,Attribute3,unknown,unknown,0.95
+full,uci_german_credit,Attribute4,unknown,unknown,0.95
+full,uci_german_credit,Attribute5,unknown,revenue,0.5
+full,uci_german_credit,Attribute6,unknown,unknown,0.95
+full,uci_german_credit,Attribute7,unknown,unknown,0.95
+full,uci_german_credit,Attribute8,unknown,revenue,0.5
+full,uci_german_credit,Attribute9,unknown,unknown,0.95
+full,uci_german_credit,Attribute10,unknown,unknown,0.95
+full,uci_german_credit,Attribute11,unknown,revenue,0.5
+full,uci_german_credit,Attribute12,unknown,unknown,0.95
+full,uci_german_credit,Attribute13,unknown,revenue,0.5
+full,uci_german_credit,Attribute14,unknown,unknown,0.95
+full,uci_german_credit,Attribute15,unknown,unknown,0.95
+full,uci_german_credit,Attribute16,unknown,revenue,0.5
+full,uci_german_credit,Attribute17,unknown,unknown,0.95
+full,uci_german_credit,Attribute18,unknown,revenue,0.5
+full,uci_german_credit,Attribute19,unknown,unknown,0.95
+full,uci_german_credit,Attribute20,unknown,unknown,0.95
+full,uci_german_credit,class,unknown,revenue,0.5
+full,uci_hcv,ID,identifier,identifier,1.0
+full,uci_hcv,Age,unknown,revenue,0.5
+full,uci_hcv,Sex,unknown,unknown,0.95
+full,uci_hcv,ALB,unknown,revenue,0.5
+full,uci_hcv,ALP,unknown,revenue,0.5
+full,uci_hcv,ALT,unknown,revenue,0.5
+full,uci_hcv,AST,unknown,revenue,0.5
+full,uci_hcv,BIL,unknown,revenue,0.5
+full,uci_hcv,CHE,unknown,revenue,0.5
+full,uci_hcv,CHOL,unknown,revenue,0.5
+full,uci_hcv,CREA,unknown,revenue,0.5
+full,uci_hcv,CGT,unknown,revenue,0.5
+full,uci_hcv,PROT,unknown,revenue,0.5
+full,uci_hcv,Category,unknown,product,0.7
+full,uci_heart_disease,age,unknown,revenue,0.5
+full,uci_heart_disease,sex,unknown,unknown,1.0
+full,uci_heart_disease,cp,unknown,revenue,0.5
+full,uci_heart_disease,trestbps,unknown,revenue,0.5
+full,uci_heart_disease,chol,unknown,revenue,0.5
+full,uci_heart_disease,fbs,unknown,unknown,1.0
+full,uci_heart_disease,restecg,unknown,revenue,0.5
+full,uci_heart_disease,thalach,unknown,revenue,0.5
+full,uci_heart_disease,exang,unknown,unknown,1.0
+full,uci_heart_disease,oldpeak,unknown,revenue,0.5
+full,uci_heart_disease,slope,unknown,revenue,0.5
+full,uci_heart_disease,ca,unknown,revenue,0.5
+full,uci_heart_disease,thal,unknown,revenue,0.5
+full,uci_heart_disease,num,unknown,revenue,0.5
+full,uci_heart_failure,age,unknown,revenue,0.5
+full,uci_heart_failure,anaemia,unknown,unknown,1.0
+full,uci_heart_failure,creatinine_phosphokinase,unknown,revenue,0.5
+full,uci_heart_failure,diabetes,unknown,unknown,1.0
+full,uci_heart_failure,ejection_fraction,unknown,revenue,0.5
+full,uci_heart_failure,high_blood_pressure,unknown,unknown,1.0
+full,uci_heart_failure,platelets,unknown,revenue,0.5
+full,uci_heart_failure,serum_creatinine,unknown,revenue,0.5
+full,uci_heart_failure,serum_sodium,unknown,revenue,0.5
+full,uci_heart_failure,sex,unknown,unknown,1.0
+full,uci_heart_failure,smoking,unknown,unknown,1.0
+full,uci_heart_failure,time,unknown,revenue,0.5
+full,uci_heart_failure,death_event,unknown,unknown,1.0
+full,uci_metro_traffic,holiday,unknown,unknown,0.95
+full,uci_metro_traffic,temp,unknown,revenue,0.5
+full,uci_metro_traffic,rain_1h,unknown,revenue,0.5
+full,uci_metro_traffic,snow_1h,unknown,revenue,0.5
+full,uci_metro_traffic,clouds_all,unknown,revenue,0.5
+full,uci_metro_traffic,weather_main,unknown,unknown,0.95
+full,uci_metro_traffic,weather_description,unknown,unknown,0.5
+full,uci_metro_traffic,date_time,date,date,1.0
+full,uci_metro_traffic,traffic_volume,quantity,quantity,1.0
+full,uci_online_retail,InvoiceNo,identifier,unknown,0.9826439253738809
+full,uci_online_retail,StockCode,product,customer,0.4
+full,uci_online_retail,Description,product,unknown,0.5
+full,uci_online_retail,Quantity,quantity,quantity,1.0
+full,uci_online_retail,InvoiceDate,date,date,0.8
+full,uci_online_retail,UnitPrice,unknown,revenue,0.5
+full,uci_online_retail,CustomerID,customer,revenue,0.5
+full,uci_online_retail,Country,region,region,0.7
+full,uci_online_shoppers,Administrative,unknown,revenue,0.5
+full,uci_online_shoppers,Administrative_Duration,unknown,revenue,0.5
+full,uci_online_shoppers,Informational,unknown,revenue,0.5
+full,uci_online_shoppers,Informational_Duration,unknown,revenue,0.5
+full,uci_online_shoppers,ProductRelated,unknown,revenue,0.5
+full,uci_online_shoppers,ProductRelated_Duration,unknown,revenue,0.5
+full,uci_online_shoppers,BounceRates,unknown,revenue,0.5
+full,uci_online_shoppers,ExitRates,unknown,revenue,0.5
+full,uci_online_shoppers,PageValues,unknown,revenue,0.5
+full,uci_online_shoppers,SpecialDay,unknown,revenue,0.5
+full,uci_online_shoppers,Month,unknown,date,0.8
+full,uci_online_shoppers,OperatingSystems,unknown,revenue,0.5
+full,uci_online_shoppers,Browser,unknown,revenue,0.5
+full,uci_online_shoppers,Region,region,revenue,0.5
+full,uci_online_shoppers,TrafficType,unknown,revenue,0.5
+full,uci_online_shoppers,VisitorType,unknown,unknown,0.95
+full,uci_online_shoppers,Weekend,unknown,unknown,1.0
+full,uci_online_shoppers,Revenue,unknown,unknown,1.0
+full,uci_power_tetouan,DateTime,date,date,0.8
+full,uci_power_tetouan,Temperature,unknown,revenue,0.5
+full,uci_power_tetouan,Humidity,unknown,revenue,0.5
+full,uci_power_tetouan,Wind Speed,unknown,revenue,0.5
+full,uci_power_tetouan,general diffuse flows,unknown,revenue,0.5
+full,uci_power_tetouan,diffuse flows,unknown,revenue,0.5
+full,uci_power_tetouan,Zone 1 Power Consumption,unknown,revenue,0.5
+full,uci_power_tetouan,Zone 2  Power Consumption,unknown,revenue,0.5
+full,uci_power_tetouan,Zone 3  Power Consumption,unknown,revenue,0.5
+full,uci_predictive_maintenance,UID,identifier,identifier,1.0
+full,uci_predictive_maintenance,Product ID,product,product,0.7
+full,uci_predictive_maintenance,Type,unknown,unknown,0.95
+full,uci_predictive_maintenance,Air temperature,unknown,revenue,0.5
+full,uci_predictive_maintenance,Process temperature,unknown,revenue,0.5
+full,uci_predictive_maintenance,Rotational speed,unknown,revenue,0.5
+full,uci_predictive_maintenance,Torque,unknown,revenue,0.5
+full,uci_predictive_maintenance,Tool wear,unknown,revenue,0.5
+full,uci_predictive_maintenance,Machine failure,unknown,unknown,1.0
+full,uci_predictive_maintenance,TWF,unknown,unknown,1.0
+full,uci_predictive_maintenance,HDF,unknown,unknown,1.0
+full,uci_predictive_maintenance,PWF,unknown,unknown,1.0
+full,uci_predictive_maintenance,OSF,unknown,unknown,1.0
+full,uci_predictive_maintenance,RNF,unknown,unknown,1.0
+full,uci_real_estate,No,identifier,identifier,1.0
+full,uci_real_estate,X1 transaction date,date,revenue,0.5
+full,uci_real_estate,X2 house age,unknown,revenue,0.5
+full,uci_real_estate,X3 distance to the nearest MRT station,unknown,revenue,0.5
+full,uci_real_estate,X4 number of convenience stores,unknown,revenue,0.5
+full,uci_real_estate,X5 latitude,unknown,revenue,0.5
+full,uci_real_estate,X6 longitude,unknown,revenue,0.5
+full,uci_real_estate,Y house price of unit area,unknown,revenue,1.0
+full,uci_sales_weekly,Product_Code,product,identifier,1.0
+full,uci_sales_weekly,W0,quantity,revenue,0.5
+full,uci_sales_weekly,W1,quantity,revenue,0.5
+full,uci_sales_weekly,W2,quantity,revenue,0.5
+full,uci_sales_weekly,W3,quantity,revenue,0.5
+full,uci_sales_weekly,W4,quantity,revenue,0.5
+full,uci_sales_weekly,W5,quantity,revenue,0.5
+full,uci_sales_weekly,W6,quantity,revenue,0.5
+full,uci_sales_weekly,W7,quantity,revenue,0.5
+full,uci_sales_weekly,W8,quantity,revenue,0.5
+full,uci_sales_weekly,W9,quantity,revenue,0.5
+full,uci_sales_weekly,W10,quantity,revenue,0.5
+full,uci_sales_weekly,W11,quantity,revenue,0.5
+full,uci_sales_weekly,W12,quantity,revenue,0.5
+full,uci_sales_weekly,W13,quantity,revenue,0.5
+full,uci_sales_weekly,W14,quantity,revenue,0.5
+full,uci_sales_weekly,W15,quantity,revenue,0.5
+full,uci_sales_weekly,W16,quantity,revenue,0.5
+full,uci_sales_weekly,W17,quantity,revenue,0.5
+full,uci_sales_weekly,W18,quantity,revenue,0.5
+full,uci_sales_weekly,W19,quantity,revenue,0.5
+full,uci_sales_weekly,W20,quantity,revenue,0.5
+full,uci_sales_weekly,W21,quantity,revenue,0.5
+full,uci_sales_weekly,W22,quantity,revenue,0.5
+full,uci_sales_weekly,W23,quantity,revenue,0.5
+full,uci_sales_weekly,W24,quantity,revenue,0.5
+full,uci_sales_weekly,W25,quantity,revenue,0.5
+full,uci_sales_weekly,W26,quantity,revenue,0.5
+full,uci_sales_weekly,W27,quantity,revenue,0.5
+full,uci_sales_weekly,W28,quantity,revenue,0.5
+full,uci_sales_weekly,W29,quantity,revenue,0.5
+full,uci_sales_weekly,W30,quantity,revenue,0.5
+full,uci_sales_weekly,W31,quantity,revenue,0.5
+full,uci_sales_weekly,W32,quantity,revenue,0.5
+full,uci_sales_weekly,W33,quantity,revenue,0.5
+full,uci_sales_weekly,W34,quantity,revenue,0.5
+full,uci_sales_weekly,W35,quantity,revenue,0.5
+full,uci_sales_weekly,W36,quantity,revenue,0.5
+full,uci_sales_weekly,W37,quantity,revenue,0.5
+full,uci_sales_weekly,W38,quantity,revenue,0.5
+full,uci_sales_weekly,W39,quantity,revenue,0.5
+full,uci_sales_weekly,W40,quantity,revenue,0.5
+full,uci_sales_weekly,W41,quantity,revenue,0.5
+full,uci_sales_weekly,W42,quantity,revenue,0.5
+full,uci_sales_weekly,W43,quantity,revenue,0.5
+full,uci_sales_weekly,W44,quantity,revenue,0.5
+full,uci_sales_weekly,W45,quantity,revenue,0.5
+full,uci_sales_weekly,W46,quantity,revenue,0.5
+full,uci_sales_weekly,W47,quantity,revenue,0.5
+full,uci_sales_weekly,W48,quantity,revenue,0.5
+full,uci_sales_weekly,W49,quantity,revenue,0.5
+full,uci_sales_weekly,W50,quantity,revenue,0.5
+full,uci_sales_weekly,W51,quantity,revenue,0.5
+full,uci_sales_weekly,MIN,quantity,revenue,0.5
+full,uci_sales_weekly,MAX,quantity,revenue,0.5
+full,uci_sales_weekly,Normalized 0,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 1,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 2,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 3,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 4,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 5,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 6,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 7,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 8,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 9,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 10,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 11,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 12,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 13,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 14,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 15,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 16,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 17,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 18,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 19,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 20,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 21,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 22,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 23,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 24,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 25,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 26,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 27,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 28,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 29,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 30,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 31,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 32,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 33,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 34,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 35,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 36,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 37,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 38,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 39,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 40,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 41,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 42,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 43,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 44,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 45,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 46,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 47,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 48,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 49,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 50,unknown,revenue,0.5
+full,uci_sales_weekly,Normalized 51,unknown,revenue,0.5
+full,uci_seoul_bike,Date,date,date,1.0
+full,uci_seoul_bike,Rented Bike Count,quantity,quantity,1.0
+full,uci_seoul_bike,Hour,unknown,revenue,0.5
+full,uci_seoul_bike,Temperature,unknown,revenue,0.5
+full,uci_seoul_bike,Humidity,unknown,revenue,0.5
+full,uci_seoul_bike,Wind speed,unknown,revenue,0.5
+full,uci_seoul_bike,Visibility,unknown,revenue,0.5
+full,uci_seoul_bike,Dew point temperature,unknown,revenue,0.5
+full,uci_seoul_bike,Solar Radiation,unknown,revenue,0.5
+full,uci_seoul_bike,Rainfall,unknown,revenue,0.5
+full,uci_seoul_bike,Snowfall,unknown,revenue,0.5
+full,uci_seoul_bike,Seasons,unknown,unknown,0.95
+full,uci_seoul_bike,Holiday,unknown,unknown,0.95
+full,uci_seoul_bike,Functioning Day,unknown,unknown,1.0
+full,uci_wholesale,Channel,unknown,revenue,0.5
+full,uci_wholesale,Region,region,revenue,0.5
+full,uci_wholesale,Fresh,revenue,revenue,0.5
+full,uci_wholesale,Milk,revenue,revenue,0.5
+full,uci_wholesale,Grocery,revenue,revenue,0.5
+full,uci_wholesale,Frozen,revenue,revenue,0.5
+full,uci_wholesale,Detergents_Paper,revenue,revenue,0.5
+full,uci_wholesale,Delicassen,revenue,revenue,0.5

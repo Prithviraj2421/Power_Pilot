@@ -1,0 +1,33 @@
+AST by Category
+Category,AST
+0=Blood Donor,"11,450.70"
+0s=suspect Blood Donor,497.00
+1=Hepatitis,"1,800.90"
+2=Fibrosis,"1,704.60"
+3=Cirrhosis,"3,223.70"
+All Category,"19,689.00"
+Total,"18,676.90"
+
+Average Age by Category
+Category,Average Age
+0=Blood Donor,47.13
+0s=suspect Blood Donor,57.57
+1=Hepatitis,38.71
+2=Fibrosis,52.33
+3=Cirrhosis,53.47
+
+AST per Age by Category
+Category,AST per Age
+0=Blood Donor,0.56
+0s=suspect Blood Donor,1.23
+1=Hepatitis,1.96
+2=Fibrosis,1.55
+3=Cirrhosis,2.01
+
+Rows by Category
+Category,Rows
+0=Blood Donor,533.00
+0s=suspect Blood Donor,7.00
+1=Hepatitis,24.00
+2=Fibrosis,21.00
+3=Cirrhosis,30.00

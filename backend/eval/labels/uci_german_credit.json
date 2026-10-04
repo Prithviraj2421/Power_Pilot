@@ -1,0 +1,47 @@
+{
+  "id": "uci_german_credit",
+  "title": "Statlog (German Credit Data)",
+  "domain": "finance",
+  "domain_label_confidence": "high",
+  "columns": {
+    "Attribute1": "unknown",
+    "Attribute2": "unknown",
+    "Attribute3": "unknown",
+    "Attribute4": "unknown",
+    "Attribute5": "unknown",
+    "Attribute6": "unknown",
+    "Attribute7": "unknown",
+    "Attribute8": "unknown",
+    "Attribute9": "unknown",
+    "Attribute10": "unknown",
+    "Attribute11": "unknown",
+    "Attribute12": "unknown",
+    "Attribute13": "unknown",
+    "Attribute14": "unknown",
+    "Attribute15": "unknown",
+    "Attribute16": "unknown",
+    "Attribute17": "unknown",
+    "Attribute18": "unknown",
+    "Attribute19": "unknown",
+    "Attribute20": "unknown",
+    "class": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Average duration (months)",
+      "value": 20.903
+    },
+    {
+      "name": "Average credit amount",
+      "value": 3271.258
+    },
+    {
+      "name": "Total credit amount",
+      "value": 3271258.0
+    },
+    {
+      "name": "Bad-credit rate",
+      "value": 0.3
+    }
+  ]
+}

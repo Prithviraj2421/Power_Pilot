@@ -1,0 +1,40 @@
+{
+  "id": "uci_hcv",
+  "title": "HCV data",
+  "domain": "healthcare",
+  "domain_label_confidence": "high",
+  "columns": {
+    "ID": "identifier",
+    "Age": "unknown",
+    "Sex": "unknown",
+    "ALB": "unknown",
+    "ALP": "unknown",
+    "ALT": "unknown",
+    "AST": "unknown",
+    "BIL": "unknown",
+    "CHE": "unknown",
+    "CHOL": "unknown",
+    "CREA": "unknown",
+    "CGT": "unknown",
+    "PROT": "unknown",
+    "Category": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Average albumin",
+      "value": 41.62019543973941
+    },
+    {
+      "name": "Average ALT",
+      "value": 28.450814332247557
+    },
+    {
+      "name": "Average age",
+      "value": 47.40813008130081
+    },
+    {
+      "name": "Records",
+      "value": 615.0
+    }
+  ]
+}

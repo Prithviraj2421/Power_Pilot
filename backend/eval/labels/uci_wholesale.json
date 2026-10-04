@@ -1,0 +1,38 @@
+{
+  "id": "uci_wholesale",
+  "title": "Wholesale customers",
+  "domain": "retail",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "Channel": "unknown",
+    "Region": "region",
+    "Fresh": "revenue",
+    "Milk": "revenue",
+    "Grocery": "revenue",
+    "Frozen": "revenue",
+    "Detergents_Paper": "revenue",
+    "Delicassen": "revenue"
+  },
+  "kpis": [
+    {
+      "name": "Total fresh spend",
+      "value": 5280131.0
+    },
+    {
+      "name": "Total milk spend",
+      "value": 2550357.0
+    },
+    {
+      "name": "Total grocery spend",
+      "value": 3498562.0
+    },
+    {
+      "name": "Average fresh spend per customer",
+      "value": 12000.297727272728
+    },
+    {
+      "name": "Total spend, all categories",
+      "value": 14619500.0
+    }
+  ]
+}

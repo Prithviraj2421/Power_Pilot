@@ -1,0 +1,45 @@
+{
+  "id": "uci_garment_employees",
+  "title": "Productivity Prediction of Garment Employees",
+  "domain": "hr",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "date": "date",
+    "quarter": "unknown",
+    "department": "unknown",
+    "day": "unknown",
+    "team": "unknown",
+    "targeted_productivity": "unknown",
+    "smv": "unknown",
+    "wip": "unknown",
+    "over_time": "unknown",
+    "incentive": "cost",
+    "idle_time": "unknown",
+    "idle_men": "unknown",
+    "no_of_style_change": "unknown",
+    "no_of_workers": "unknown",
+    "actual_productivity": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Average actual productivity",
+      "value": 0.7350910969791145
+    },
+    {
+      "name": "Total incentive",
+      "value": 45738.0
+    },
+    {
+      "name": "Total overtime",
+      "value": 5467250.0
+    },
+    {
+      "name": "Average workers per team-day",
+      "value": 34.60985797827903
+    },
+    {
+      "name": "Records",
+      "value": 1197.0
+    }
+  ]
+}

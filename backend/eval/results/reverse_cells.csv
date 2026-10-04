@@ -1,0 +1,1303 @@
+system,dataset,report,table,row,col,kind,mistake,status,correct_formula,hint_ok
+full,golden_superstore,golden_superstore_report1,Sales by Category,Furniture,Sales,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,golden_superstore,golden_superstore_report1,Sales by Category,Office Supplies,Sales,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,golden_superstore,golden_superstore_report1,Sales by Category,Technology,Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Sales by Category,All Category,Sales,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,golden_superstore,golden_superstore_report1,Sales by Category,Total,Sales,derived,,DERIVED,False,False
+full,golden_superstore,golden_superstore_report1,Average Profit by Category,Furniture,Average Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Average Profit by Category,Office Supplies,Average Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Average Profit by Category,Technology,Average Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Furniture,Sales per Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Office Supplies,Sales per Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Technology,Sales per Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report1,Rows by Category,Furniture,Rows,correct,,REPRODUCED,False,False
+full,golden_superstore,golden_superstore_report1,Rows by Category,Office Supplies,Rows,correct,,REPRODUCED,False,False
+full,golden_superstore,golden_superstore_report1,Rows by Category,Technology,Rows,correct,,REPRODUCED,False,False
+full,golden_superstore,golden_superstore_report2,Profit by Segment,Consumer,Profit,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,golden_superstore,golden_superstore_report2,Profit by Segment,Corporate,Profit,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,golden_superstore,golden_superstore_report2,Profit by Segment,Home Office,Profit,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Profit by Segment,All Segment,Profit,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,golden_superstore,golden_superstore_report2,Profit by Segment,Total,Profit,derived,,DERIVED,False,False
+full,golden_superstore,golden_superstore_report2,Average Sales by Segment,Consumer,Average Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Average Sales by Segment,Corporate,Average Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Average Sales by Segment,Home Office,Average Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Consumer,Profit per Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Corporate,Profit per Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Home Office,Profit per Sales,correct,,REPRODUCED,True,False
+full,golden_superstore,golden_superstore_report2,Rows by Segment,Consumer,Rows,correct,,REPRODUCED,False,False
+full,golden_superstore,golden_superstore_report2,Rows by Segment,Corporate,Rows,correct,,REPRODUCED,False,False
+full,golden_superstore,golden_superstore_report2,Rows by Segment,Home Office,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales by Category,Furniture,Sales,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales by Category,Office Supplies,Sales,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales by Category,Technology,Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales by Category,All Category,Sales,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales by Category,Total,Sales,derived,,DERIVED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Average Profit by Category,Furniture,Average Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Average Profit by Category,Office Supplies,Average Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Average Profit by Category,Technology,Average Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Furniture,Sales per Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Office Supplies,Sales per Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Technology,Sales per Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Rows by Category,Furniture,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Rows by Category,Office Supplies,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report1,Rows by Category,Technology,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit by Segment,Consumer,Profit,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit by Segment,Corporate,Profit,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit by Segment,Home Office,Profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit by Segment,All Segment,Profit,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit by Segment,Total,Profit,derived,,DERIVED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Average Sales by Segment,Consumer,Average Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Average Sales by Segment,Corporate,Average Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Average Sales by Segment,Home Office,Average Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Consumer,Profit per Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Corporate,Profit per Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Home Office,Profit per Sales,correct,,REPRODUCED,True,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Rows by Segment,Consumer,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Rows by Segment,Corporate,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,golden_superstore,golden_superstore_report2,Rows by Segment,Home Office,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales by Category,Furniture,Sales,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales by Category,Office Supplies,Sales,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales by Category,Technology,Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales by Category,All Category,Sales,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales by Category,Total,Sales,derived,,DERIVED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Average Profit by Category,Furniture,Average Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Average Profit by Category,Office Supplies,Average Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Average Profit by Category,Technology,Average Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Furniture,Sales per Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Office Supplies,Sales per Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Sales per Profit by Category,Technology,Sales per Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Rows by Category,Furniture,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Rows by Category,Office Supplies,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report1,Rows by Category,Technology,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit by Segment,Consumer,Profit,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit by Segment,Corporate,Profit,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit by Segment,Home Office,Profit,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit by Segment,All Segment,Profit,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit by Segment,Total,Profit,derived,,DERIVED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Average Sales by Segment,Consumer,Average Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Average Sales by Segment,Corporate,Average Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Average Sales by Segment,Home Office,Average Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Consumer,Profit per Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Corporate,Profit per Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Profit per Sales by Segment,Home Office,Profit per Sales,correct,,REPRODUCED,True,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Rows by Segment,Consumer,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Rows by Segment,Corporate,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,golden_superstore,golden_superstore_report2,Rows by Segment,Home Office,Rows,correct,,REPRODUCED,False,False
+full,synthetic_finance,synthetic_finance_report1,revenue by department,Engineering,revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue by department,Marketing,revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue by department,Operations,revenue,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_finance,synthetic_finance_report1,revenue by department,Sales,revenue,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_finance,synthetic_finance_report1,revenue by department,Support,revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue by department,All department,revenue,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_finance,synthetic_finance_report1,revenue by department,Total,revenue,derived,,DERIVED,False,False
+full,synthetic_finance,synthetic_finance_report1,Average profit by department,Engineering,Average profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Average profit by department,Marketing,Average profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Average profit by department,Operations,Average profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Average profit by department,Sales,Average profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Average profit by department,Support,Average profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Engineering,revenue per profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Marketing,revenue per profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Operations,revenue per profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Sales,revenue per profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Support,revenue per profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Rows by department,Engineering,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Rows by department,Marketing,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Rows by department,Operations,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Rows by department,Sales,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report1,Rows by department,Support,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit by department,Engineering,profit,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_finance,synthetic_finance_report2,profit by department,Marketing,profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit by department,Operations,profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit by department,Sales,profit,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_finance,synthetic_finance_report2,profit by department,Support,profit,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit by department,All department,profit,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_finance,synthetic_finance_report2,profit by department,Total,profit,derived,,DERIVED,False,False
+full,synthetic_finance,synthetic_finance_report2,Average revenue by department,Engineering,Average revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Average revenue by department,Marketing,Average revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Average revenue by department,Operations,Average revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Average revenue by department,Sales,Average revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Average revenue by department,Support,Average revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Engineering,profit per revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Marketing,profit per revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Operations,profit per revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Sales,profit per revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Support,profit per revenue,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Rows by department,Engineering,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Rows by department,Marketing,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Rows by department,Operations,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Rows by department,Sales,Rows,correct,,REPRODUCED,True,False
+full,synthetic_finance,synthetic_finance_report2,Rows by department,Support,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,Engineering,revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,Marketing,revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,Operations,revenue,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,Sales,revenue,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,Support,revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,All department,revenue,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue by department,Total,revenue,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Average profit by department,Engineering,Average profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Average profit by department,Marketing,Average profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Average profit by department,Operations,Average profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Average profit by department,Sales,Average profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Average profit by department,Support,Average profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Engineering,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Marketing,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Operations,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Sales,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Support,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Rows by department,Engineering,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Rows by department,Marketing,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Rows by department,Operations,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Rows by department,Sales,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report1,Rows by department,Support,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,Engineering,profit,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,Marketing,profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,Operations,profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,Sales,profit,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,Support,profit,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,All department,profit,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit by department,Total,profit,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Average revenue by department,Engineering,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Average revenue by department,Marketing,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Average revenue by department,Operations,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Average revenue by department,Sales,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Average revenue by department,Support,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Engineering,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Marketing,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Operations,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Sales,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Support,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Rows by department,Engineering,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Rows by department,Marketing,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Rows by department,Operations,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Rows by department,Sales,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_finance,synthetic_finance_report2,Rows by department,Support,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,Engineering,revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,Marketing,revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,Operations,revenue,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,Sales,revenue,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,Support,revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,All department,revenue,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue by department,Total,revenue,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Average profit by department,Engineering,Average profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Average profit by department,Marketing,Average profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Average profit by department,Operations,Average profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Average profit by department,Sales,Average profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Average profit by department,Support,Average profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Engineering,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Marketing,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Operations,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Sales,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,revenue per profit by department,Support,revenue per profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Rows by department,Engineering,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Rows by department,Marketing,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Rows by department,Operations,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Rows by department,Sales,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report1,Rows by department,Support,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,Engineering,profit,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,Marketing,profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,Operations,profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,Sales,profit,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,Support,profit,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,All department,profit,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit by department,Total,profit,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Average revenue by department,Engineering,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Average revenue by department,Marketing,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Average revenue by department,Operations,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Average revenue by department,Sales,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Average revenue by department,Support,Average revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Engineering,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Marketing,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Operations,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Sales,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,profit per revenue by department,Support,profit per revenue,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Rows by department,Engineering,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Rows by department,Marketing,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Rows by department,Operations,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Rows by department,Sales,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_finance,synthetic_finance_report2,Rows by department,Support,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,Cardiology,age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,Neurology,age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,Oncology,age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,Orthopedics,age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,Pediatrics,age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,All department,age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_healthcare,synthetic_healthcare_report1,age by department,Total,age,derived,,DERIVED,False,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Cardiology,Average treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Neurology,Average treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Oncology,Average treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Orthopedics,Average treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Pediatrics,Average treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Cardiology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Neurology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Oncology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Orthopedics,age per treatment_cost,correct,,AMBIGUOUS,False,False
+full,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Pediatrics,age per treatment_cost,correct,,AMBIGUOUS,False,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Cardiology,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Neurology,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Oncology,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Orthopedics,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Pediatrics,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,E11,treatment_cost,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,I10,treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,J45,treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,K21,treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,M54,treatment_cost,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,N39,treatment_cost,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,All diagnosis_code,treatment_cost,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,Total,treatment_cost,derived,,DERIVED,False,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,E11,Average age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,I10,Average age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,J45,Average age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,K21,Average age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,M54,Average age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,N39,Average age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,E11,treatment_cost per age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,I10,treatment_cost per age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,J45,treatment_cost per age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,K21,treatment_cost per age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,M54,treatment_cost per age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,N39,treatment_cost per age,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,E11,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,I10,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,J45,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,K21,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,M54,Rows,correct,,REPRODUCED,True,False
+full,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,N39,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,Cardiology,age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,Neurology,age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,Oncology,age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,Orthopedics,age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,Pediatrics,age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,All department,age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age by department,Total,age,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Cardiology,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Neurology,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Oncology,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Orthopedics,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Pediatrics,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Cardiology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Neurology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Oncology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Orthopedics,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Pediatrics,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Cardiology,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Neurology,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Oncology,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Orthopedics,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Pediatrics,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,E11,treatment_cost,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,I10,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,J45,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,K21,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,M54,treatment_cost,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,N39,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,All diagnosis_code,treatment_cost,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,Total,treatment_cost,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,E11,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,I10,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,J45,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,K21,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,M54,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,N39,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,E11,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,I10,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,J45,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,K21,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,M54,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,N39,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,E11,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,I10,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,J45,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,K21,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,M54,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,N39,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,Cardiology,age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,Neurology,age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,Oncology,age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,Orthopedics,age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,Pediatrics,age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,All department,age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age by department,Total,age,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Cardiology,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Neurology,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Oncology,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Orthopedics,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Average treatment_cost by department,Pediatrics,Average treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Cardiology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Neurology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Oncology,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Orthopedics,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,age per treatment_cost by department,Pediatrics,age per treatment_cost,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Cardiology,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Neurology,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Oncology,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Orthopedics,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report1,Rows by department,Pediatrics,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,E11,treatment_cost,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,I10,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,J45,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,K21,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,M54,treatment_cost,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,N39,treatment_cost,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,All diagnosis_code,treatment_cost,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost by diagnosis_code,Total,treatment_cost,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,E11,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,I10,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,J45,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,K21,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,M54,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Average age by diagnosis_code,N39,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,E11,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,I10,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,J45,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,K21,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,M54,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,treatment_cost per age by diagnosis_code,N39,treatment_cost per age,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,E11,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,I10,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,J45,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,K21,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,M54,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_healthcare,synthetic_healthcare_report2,Rows by diagnosis_code,N39,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report1,salary by region,APAC,salary,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report1,salary by region,EMEA,salary,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report1,salary by region,LATAM,salary,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_hr,synthetic_hr_report1,salary by region,North America,salary,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_hr,synthetic_hr_report1,salary by region,All region,salary,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_hr,synthetic_hr_report1,salary by region,Total,salary,derived,,DERIVED,False,False
+full,synthetic_hr,synthetic_hr_report1,Rows by region,APAC,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report1,Rows by region,EMEA,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report1,Rows by region,LATAM,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report1,Rows by region,North America,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,Analyst,salary,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,Associate,salary,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,Director,salary,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,Manager,salary,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,Senior Analyst,salary,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,All job_title,salary,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_hr,synthetic_hr_report2,salary by job_title,Total,salary,derived,,DERIVED,False,False
+full,synthetic_hr,synthetic_hr_report2,Rows by job_title,Analyst,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,Rows by job_title,Associate,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,Rows by job_title,Director,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,Rows by job_title,Manager,Rows,correct,,REPRODUCED,True,False
+full,synthetic_hr,synthetic_hr_report2,Rows by job_title,Senior Analyst,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,salary by region,APAC,salary,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,salary by region,EMEA,salary,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,salary by region,LATAM,salary,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,salary by region,North America,salary,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,salary by region,All region,salary,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,salary by region,Total,salary,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,Rows by region,APAC,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,Rows by region,EMEA,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,Rows by region,LATAM,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report1,Rows by region,North America,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,Analyst,salary,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,Associate,salary,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,Director,salary,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,Manager,salary,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,Senior Analyst,salary,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,All job_title,salary,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,salary by job_title,Total,salary,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,Rows by job_title,Analyst,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,Rows by job_title,Associate,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,Rows by job_title,Director,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,Rows by job_title,Manager,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_hr,synthetic_hr_report2,Rows by job_title,Senior Analyst,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,salary by region,APAC,salary,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,salary by region,EMEA,salary,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,salary by region,LATAM,salary,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,salary by region,North America,salary,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,salary by region,All region,salary,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,salary by region,Total,salary,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,Rows by region,APAC,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,Rows by region,EMEA,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,Rows by region,LATAM,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report1,Rows by region,North America,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,Analyst,salary,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,Associate,salary,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,Director,salary,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,Manager,salary,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,Senior Analyst,salary,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,All job_title,salary,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,salary by job_title,Total,salary,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,Rows by job_title,Analyst,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,Rows by job_title,Associate,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,Rows by job_title,Director,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,Rows by job_title,Manager,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_hr,synthetic_hr_report2,Rows by job_title,Senior Analyst,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,Clothing,unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,Electronics,unit_price,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,Grocery,unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,Home,unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,Sports,unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,electronics,unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,All category,unit_price,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_retail,synthetic_retail_report1,unit_price by category,Total,unit_price,derived,,DERIVED,False,False
+full,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Clothing,Average sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Electronics,Average sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Grocery,Average sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Home,Average sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Sports,Average sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,electronics,Average sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Clothing,unit_price per sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Electronics,unit_price per sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Grocery,unit_price per sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Home,unit_price per sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Sports,unit_price per sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,electronics,unit_price per sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Rows by category,Clothing,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Rows by category,Electronics,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Rows by category,Grocery,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Rows by category,Home,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Rows by category,Sports,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report1,Rows by category,electronics,Rows,correct,,REPRODUCED,False,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,Clothing,sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,Electronics,sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,Grocery,sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,Home,sales_amount,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,Sports,sales_amount,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,electronics,sales_amount,mistake,swapped-digits,NOT_REPRODUCIBLE,False,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,All category,sales_amount,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,synthetic_retail,synthetic_retail_report2,sales_amount by category,Total,sales_amount,derived,,DERIVED,False,False
+full,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Clothing,Average unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Electronics,Average unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Grocery,Average unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Home,Average unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Sports,Average unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Average unit_price by category,electronics,Average unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Clothing,sales_amount per unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Electronics,sales_amount per unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Grocery,sales_amount per unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Home,sales_amount per unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Sports,sales_amount per unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,electronics,sales_amount per unit_price,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Rows by category,Clothing,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Rows by category,Electronics,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Rows by category,Grocery,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Rows by category,Home,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Rows by category,Sports,Rows,correct,,REPRODUCED,True,False
+full,synthetic_retail,synthetic_retail_report2,Rows by category,electronics,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,Clothing,unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,Electronics,unit_price,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,Grocery,unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,Home,unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,Sports,unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,electronics,unit_price,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,All category,unit_price,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price by category,Total,unit_price,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Clothing,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Electronics,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Grocery,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Home,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Sports,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,electronics,Average sales_amount,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Clothing,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Electronics,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Grocery,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Home,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Sports,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,electronics,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Rows by category,Clothing,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Rows by category,Electronics,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Rows by category,Grocery,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Rows by category,Home,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Rows by category,Sports,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report1,Rows by category,electronics,Rows,correct,,REPRODUCED,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,Clothing,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,Electronics,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,Grocery,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,Home,sales_amount,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,Sports,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,electronics,sales_amount,mistake,swapped-digits,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,All category,sales_amount,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount by category,Total,sales_amount,derived,,DERIVED,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Clothing,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Electronics,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Grocery,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Home,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Sports,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Average unit_price by category,electronics,Average unit_price,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Clothing,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Electronics,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Grocery,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Home,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Sports,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,electronics,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Rows by category,Clothing,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Rows by category,Electronics,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Rows by category,Grocery,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Rows by category,Home,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Rows by category,Sports,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,synthetic_retail,synthetic_retail_report2,Rows by category,electronics,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,Clothing,unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,Electronics,unit_price,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,Grocery,unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,Home,unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,Sports,unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,electronics,unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,All category,unit_price,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price by category,Total,unit_price,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Clothing,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Electronics,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Grocery,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Home,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,Sports,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Average sales_amount by category,electronics,Average sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Clothing,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Electronics,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Grocery,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Home,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,Sports,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,unit_price per sales_amount by category,electronics,unit_price per sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Rows by category,Clothing,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Rows by category,Electronics,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Rows by category,Grocery,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Rows by category,Home,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Rows by category,Sports,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report1,Rows by category,electronics,Rows,correct,,REPRODUCED,False,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,Clothing,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,Electronics,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,Grocery,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,Home,sales_amount,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,Sports,sales_amount,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,electronics,sales_amount,mistake,swapped-digits,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,All category,sales_amount,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount by category,Total,sales_amount,derived,,DERIVED,False,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Clothing,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Electronics,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Grocery,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Home,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Average unit_price by category,Sports,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Average unit_price by category,electronics,Average unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Clothing,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Electronics,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Grocery,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Home,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,Sports,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,sales_amount per unit_price by category,electronics,sales_amount per unit_price,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Rows by category,Clothing,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Rows by category,Electronics,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Rows by category,Grocery,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Rows by category,Home,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Rows by category,Sports,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,synthetic_retail,synthetic_retail_report2,Rows by category,electronics,Rows,correct,,REPRODUCED,False,False
+full,uci_bank_marketing,uci_bank_marketing_report1,age by marital,divorced,age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,uci_bank_marketing,uci_bank_marketing_report1,age by marital,married,age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_bank_marketing,uci_bank_marketing_report1,age by marital,single,age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,age by marital,All marital,age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_bank_marketing,uci_bank_marketing_report1,age by marital,Total,age,derived,,DERIVED,False,False
+full,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,divorced,Average balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,married,Average balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,single,Average balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,divorced,age per balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,married,age per balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,single,age per balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,divorced,Rows,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,married,Rows,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,single,Rows,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,divorced,balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,married,balance,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,single,balance,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,All marital,balance,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,Total,balance,derived,,DERIVED,False,False
+full,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,divorced,Average age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,married,Average age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,single,Average age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,divorced,balance per age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,married,balance per age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,single,balance per age,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,divorced,Rows,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,married,Rows,correct,,REPRODUCED,True,False
+full,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,single,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age by marital,divorced,age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age by marital,married,age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age by marital,single,age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age by marital,All marital,age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age by marital,Total,age,derived,,DERIVED,False,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,divorced,Average balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,married,Average balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,single,Average balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,divorced,age per balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,married,age per balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,single,age per balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,divorced,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,married,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,single,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,divorced,balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,married,balance,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,single,balance,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,All marital,balance,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,Total,balance,derived,,DERIVED,False,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,divorced,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,married,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,single,Average age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,divorced,balance per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,married,balance per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,single,balance per age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,divorced,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,married,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,single,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age by marital,divorced,age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age by marital,married,age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age by marital,single,age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age by marital,All marital,age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age by marital,Total,age,derived,,DERIVED,False,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,divorced,Average balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,married,Average balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,Average balance by marital,single,Average balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,divorced,age per balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,married,age per balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,age per balance by marital,single,age per balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,divorced,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,married,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report1,Rows by marital,single,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,divorced,balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,married,balance,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,single,balance,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,All marital,balance,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance by marital,Total,balance,derived,,DERIVED,False,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,divorced,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,married,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,Average age by marital,single,Average age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,divorced,balance per age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,married,balance per age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,balance per age by marital,single,balance per age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,divorced,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,married,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_bank_marketing,uci_bank_marketing_report2,Rows by marital,single,Rows,correct,,REPRODUCED,True,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,No,discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Steady,discharge_disposition_id,mistake,one-row,REPRODUCED,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Up,discharge_disposition_id,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,All acarbose,discharge_disposition_id,mistake,missing-category,NOT_REPRODUCIBLE,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Total,discharge_disposition_id,derived,,DERIVED,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,No,Average num_lab_procedures,correct,,REPRODUCED,True,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,Steady,Average num_lab_procedures,correct,,REPRODUCED,True,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,Up,Average num_lab_procedures,correct,,REPRODUCED,True,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,No,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,Steady,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,Up,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,No,Rows,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,Steady,Rows,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,Up,Rows,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,No,num_lab_procedures,mistake,one-row,NOT_REPRODUCIBLE,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Steady,num_lab_procedures,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Up,num_lab_procedures,correct,,REPRODUCED,True,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,All chlorpropamide,num_lab_procedures,correct,,REPRODUCED,True,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Total,num_lab_procedures,derived,,DERIVED,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,No,Average discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,Steady,Average discharge_disposition_id,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,Up,Average discharge_disposition_id,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,No,num_lab_procedures per discharge_disposition_id,correct,,REPRODUCED,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,Steady,num_lab_procedures per discharge_disposition_id,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,Up,num_lab_procedures per discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,No,Rows,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,Steady,Rows,correct,,AMBIGUOUS,False,False
+full,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,Up,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,No,discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Steady,discharge_disposition_id,mistake,one-row,REPRODUCED,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Up,discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,All acarbose,discharge_disposition_id,mistake,missing-category,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Total,discharge_disposition_id,derived,,DERIVED,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,No,Average num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,Steady,Average num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,Up,Average num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,No,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,Steady,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,Up,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,No,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,Steady,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,Up,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,No,num_lab_procedures,mistake,one-row,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Steady,num_lab_procedures,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Up,num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,All chlorpropamide,num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Total,num_lab_procedures,derived,,DERIVED,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,No,Average discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,Steady,Average discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,Up,Average discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,No,num_lab_procedures per discharge_disposition_id,correct,,REPRODUCED,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,Steady,num_lab_procedures per discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,Up,num_lab_procedures per discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,No,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,Steady,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,Up,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,No,discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Steady,discharge_disposition_id,mistake,one-row,REPRODUCED,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Up,discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,All acarbose,discharge_disposition_id,mistake,missing-category,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id by acarbose,Total,discharge_disposition_id,derived,,DERIVED,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,No,Average num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,Steady,Average num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Average num_lab_procedures by acarbose,Up,Average num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,No,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,Steady,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,discharge_disposition_id per num_lab_procedures by acarbose,Up,discharge_disposition_id per num_lab_procedures,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,No,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,Steady,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report1,Rows by acarbose,Up,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,No,num_lab_procedures,mistake,one-row,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Steady,num_lab_procedures,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Up,num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,All chlorpropamide,num_lab_procedures,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures by chlorpropamide,Total,num_lab_procedures,derived,,DERIVED,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,No,Average discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,Steady,Average discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Average discharge_disposition_id by chlorpropamide,Up,Average discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,No,num_lab_procedures per discharge_disposition_id,correct,,REPRODUCED,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,Steady,num_lab_procedures per discharge_disposition_id,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,num_lab_procedures per discharge_disposition_id by chlorpropamide,Up,num_lab_procedures per discharge_disposition_id,correct,,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,No,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,Steady,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_diabetes_hospitals,uci_diabetes_hospitals_report2,Rows by chlorpropamide,Up,Rows,correct,,AMBIGUOUS,False,False
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter1,smv,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter2,smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter3,smv,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter4,smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter5,smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,All quarter,smv,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Total,smv,derived,,DERIVED,False,False
+full,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter1,Average over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter2,Average over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter3,Average over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter4,Average over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter5,Average over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter1,smv per over_time,correct,,AMBIGUOUS,False,False
+full,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter2,smv per over_time,correct,,AMBIGUOUS,False,False
+full,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter3,smv per over_time,correct,,AMBIGUOUS,False,False
+full,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter4,smv per over_time,correct,,AMBIGUOUS,False,False
+full,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter5,smv per over_time,correct,,AMBIGUOUS,False,False
+full,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter1,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter2,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter3,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter4,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter5,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Monday,over_time,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Saturday,over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Sunday,over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Thursday,over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Tuesday,over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Wednesday,over_time,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,All day,over_time,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_garment_employees,uci_garment_employees_report2,over_time by day,Total,over_time,derived,,DERIVED,False,False
+full,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Monday,Average smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Saturday,Average smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Sunday,Average smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Thursday,Average smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Tuesday,Average smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Wednesday,Average smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Monday,over_time per smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Saturday,over_time per smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Sunday,over_time per smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Thursday,over_time per smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Tuesday,over_time per smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Wednesday,over_time per smv,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Rows by day,Monday,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Rows by day,Saturday,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Rows by day,Sunday,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Rows by day,Thursday,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Rows by day,Tuesday,Rows,correct,,REPRODUCED,True,False
+full,uci_garment_employees,uci_garment_employees_report2,Rows by day,Wednesday,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter1,smv,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter2,smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter3,smv,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter4,smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter5,smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,All quarter,smv,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Total,smv,derived,,DERIVED,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter1,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter2,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter3,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter4,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter5,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter1,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter2,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter3,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter4,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter5,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter1,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter2,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter3,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter4,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter5,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Monday,over_time,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Saturday,over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Sunday,over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Thursday,over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Tuesday,over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Wednesday,over_time,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,All day,over_time,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time by day,Total,over_time,derived,,DERIVED,False,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Monday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Saturday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Sunday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Thursday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Tuesday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Wednesday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Monday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Saturday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Sunday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Thursday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Tuesday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Wednesday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Rows by day,Monday,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Rows by day,Saturday,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Rows by day,Sunday,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Rows by day,Thursday,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Rows by day,Tuesday,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_garment_employees,uci_garment_employees_report2,Rows by day,Wednesday,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter1,smv,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter2,smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter3,smv,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter4,smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Quarter5,smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,All quarter,smv,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv by quarter,Total,smv,derived,,DERIVED,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter1,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter2,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter3,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter4,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Average over_time by quarter,Quarter5,Average over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter1,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter2,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter3,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter4,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,smv per over_time by quarter,Quarter5,smv per over_time,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter1,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter2,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter3,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter4,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report1,Rows by quarter,Quarter5,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Monday,over_time,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Saturday,over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Sunday,over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Thursday,over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Tuesday,over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Wednesday,over_time,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,All day,over_time,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time by day,Total,over_time,derived,,DERIVED,False,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Monday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Saturday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Sunday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Thursday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Tuesday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Average smv by day,Wednesday,Average smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Monday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Saturday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Sunday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Thursday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Tuesday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,over_time per smv by day,Wednesday,over_time per smv,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Rows by day,Monday,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Rows by day,Saturday,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Rows by day,Sunday,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Rows by day,Thursday,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Rows by day,Tuesday,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_garment_employees,uci_garment_employees_report2,Rows by day,Wednesday,Rows,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A101,Attribute2,mistake,one-row,NOT_REPRODUCIBLE,False,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A102,Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A103,Attribute2,mistake,swapped-digits,REPRODUCED,False,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,All Attribute10,Attribute2,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,Total,Attribute2,derived,,DERIVED,False,False
+full,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A101,Average Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A102,Average Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A103,Average Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A101,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A102,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A103,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A101,Rows,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A102,Rows,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A103,Rows,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A141,Attribute5,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A142,Attribute5,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A143,Attribute5,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,All Attribute14,Attribute5,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,Total,Attribute5,derived,,DERIVED,False,False
+full,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A141,Average Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A142,Average Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A143,Average Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A141,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A142,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A143,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A141,Rows,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A142,Rows,correct,,REPRODUCED,True,False
+full,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A143,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A101,Attribute2,mistake,one-row,NOT_REPRODUCIBLE,False,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A102,Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A103,Attribute2,mistake,swapped-digits,REPRODUCED,False,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,All Attribute10,Attribute2,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,Total,Attribute2,derived,,DERIVED,False,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A101,Average Attribute5,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A102,Average Attribute5,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A103,Average Attribute5,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A101,Attribute2 per Attribute5,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A102,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A103,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A101,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A102,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A103,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A141,Attribute5,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A142,Attribute5,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A143,Attribute5,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,All Attribute14,Attribute5,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,Total,Attribute5,derived,,DERIVED,False,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A141,Average Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A142,Average Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A143,Average Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A141,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A142,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A143,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A141,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A142,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A143,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A101,Attribute2,mistake,one-row,NOT_REPRODUCIBLE,False,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A102,Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,A103,Attribute2,mistake,swapped-digits,REPRODUCED,False,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,All Attribute10,Attribute2,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 by Attribute10,Total,Attribute2,derived,,DERIVED,False,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A101,Average Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A102,Average Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Average Attribute5 by Attribute10,A103,Average Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A101,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A102,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Attribute2 per Attribute5 by Attribute10,A103,Attribute2 per Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A101,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A102,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report1,Rows by Attribute10,A103,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A141,Attribute5,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A142,Attribute5,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,A143,Attribute5,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,All Attribute14,Attribute5,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 by Attribute14,Total,Attribute5,derived,,DERIVED,False,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A141,Average Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A142,Average Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Average Attribute2 by Attribute14,A143,Average Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A141,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A142,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Attribute5 per Attribute2 by Attribute14,A143,Attribute5 per Attribute2,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A141,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A142,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_german_credit,uci_german_credit_report2,Rows by Attribute14,A143,Rows,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age by Category,0=Blood Donor,Age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_hcv,uci_hcv_report1,Age by Category,0s=suspect Blood Donor,Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age by Category,1=Hepatitis,Age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,uci_hcv,uci_hcv_report1,Age by Category,2=Fibrosis,Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age by Category,3=Cirrhosis,Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age by Category,All Category,Age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_hcv,uci_hcv_report1,Age by Category,Total,Age,derived,,DERIVED,False,False
+full,uci_hcv,uci_hcv_report1,Average AST by Category,0=Blood Donor,Average AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Average AST by Category,0s=suspect Blood Donor,Average AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Average AST by Category,1=Hepatitis,Average AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Average AST by Category,2=Fibrosis,Average AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Average AST by Category,3=Cirrhosis,Average AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age per AST by Category,0=Blood Donor,Age per AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age per AST by Category,0s=suspect Blood Donor,Age per AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age per AST by Category,1=Hepatitis,Age per AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age per AST by Category,2=Fibrosis,Age per AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Age per AST by Category,3=Cirrhosis,Age per AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report1,Rows by Category,0=Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report1,Rows by Category,0s=suspect Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report1,Rows by Category,1=Hepatitis,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report1,Rows by Category,2=Fibrosis,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report1,Rows by Category,3=Cirrhosis,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report2,AST by Category,0=Blood Donor,AST,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_hcv,uci_hcv_report2,AST by Category,0s=suspect Blood Donor,AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST by Category,1=Hepatitis,AST,mistake,one-row,NOT_REPRODUCIBLE,False,True
+full,uci_hcv,uci_hcv_report2,AST by Category,2=Fibrosis,AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST by Category,3=Cirrhosis,AST,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST by Category,All Category,AST,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_hcv,uci_hcv_report2,AST by Category,Total,AST,derived,,DERIVED,False,False
+full,uci_hcv,uci_hcv_report2,Average Age by Category,0=Blood Donor,Average Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,Average Age by Category,0s=suspect Blood Donor,Average Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,Average Age by Category,1=Hepatitis,Average Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,Average Age by Category,2=Fibrosis,Average Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,Average Age by Category,3=Cirrhosis,Average Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST per Age by Category,0=Blood Donor,AST per Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST per Age by Category,0s=suspect Blood Donor,AST per Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST per Age by Category,1=Hepatitis,AST per Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST per Age by Category,2=Fibrosis,AST per Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,AST per Age by Category,3=Cirrhosis,AST per Age,correct,,REPRODUCED,True,False
+full,uci_hcv,uci_hcv_report2,Rows by Category,0=Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report2,Rows by Category,0s=suspect Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report2,Rows by Category,1=Hepatitis,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report2,Rows by Category,2=Fibrosis,Rows,correct,,AMBIGUOUS,False,False
+full,uci_hcv,uci_hcv_report2,Rows by Category,3=Cirrhosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,0=Blood Donor,Age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,0s=suspect Blood Donor,Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,1=Hepatitis,Age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,2=Fibrosis,Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,3=Cirrhosis,Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,All Category,Age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age by Category,Total,Age,derived,,DERIVED,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Average AST by Category,0=Blood Donor,Average AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Average AST by Category,0s=suspect Blood Donor,Average AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Average AST by Category,1=Hepatitis,Average AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Average AST by Category,2=Fibrosis,Average AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Average AST by Category,3=Cirrhosis,Average AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age per AST by Category,0=Blood Donor,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age per AST by Category,0s=suspect Blood Donor,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age per AST by Category,1=Hepatitis,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age per AST by Category,2=Fibrosis,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Age per AST by Category,3=Cirrhosis,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Rows by Category,0=Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Rows by Category,0s=suspect Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Rows by Category,1=Hepatitis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Rows by Category,2=Fibrosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report1,Rows by Category,3=Cirrhosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,0=Blood Donor,AST,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,0s=suspect Blood Donor,AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,1=Hepatitis,AST,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,2=Fibrosis,AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,3=Cirrhosis,AST,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,All Category,AST,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST by Category,Total,AST,derived,,DERIVED,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Average Age by Category,0=Blood Donor,Average Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Average Age by Category,0s=suspect Blood Donor,Average Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Average Age by Category,1=Hepatitis,Average Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Average Age by Category,2=Fibrosis,Average Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Average Age by Category,3=Cirrhosis,Average Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST per Age by Category,0=Blood Donor,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST per Age by Category,0s=suspect Blood Donor,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST per Age by Category,1=Hepatitis,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST per Age by Category,2=Fibrosis,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,AST per Age by Category,3=Cirrhosis,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Rows by Category,0=Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Rows by Category,0s=suspect Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Rows by Category,1=Hepatitis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Rows by Category,2=Fibrosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_hcv,uci_hcv_report2,Rows by Category,3=Cirrhosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,0=Blood Donor,Age,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,0s=suspect Blood Donor,Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,1=Hepatitis,Age,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,2=Fibrosis,Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,3=Cirrhosis,Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,All Category,Age,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age by Category,Total,Age,derived,,DERIVED,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Average AST by Category,0=Blood Donor,Average AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Average AST by Category,0s=suspect Blood Donor,Average AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Average AST by Category,1=Hepatitis,Average AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Average AST by Category,2=Fibrosis,Average AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Average AST by Category,3=Cirrhosis,Average AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age per AST by Category,0=Blood Donor,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age per AST by Category,0s=suspect Blood Donor,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age per AST by Category,1=Hepatitis,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age per AST by Category,2=Fibrosis,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Age per AST by Category,3=Cirrhosis,Age per AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Rows by Category,0=Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Rows by Category,0s=suspect Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Rows by Category,1=Hepatitis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Rows by Category,2=Fibrosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report1,Rows by Category,3=Cirrhosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,0=Blood Donor,AST,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,0s=suspect Blood Donor,AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,1=Hepatitis,AST,mistake,one-row,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,2=Fibrosis,AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,3=Cirrhosis,AST,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,All Category,AST,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST by Category,Total,AST,derived,,DERIVED,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Average Age by Category,0=Blood Donor,Average Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Average Age by Category,0s=suspect Blood Donor,Average Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Average Age by Category,1=Hepatitis,Average Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Average Age by Category,2=Fibrosis,Average Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Average Age by Category,3=Cirrhosis,Average Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST per Age by Category,0=Blood Donor,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST per Age by Category,0s=suspect Blood Donor,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST per Age by Category,1=Hepatitis,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST per Age by Category,2=Fibrosis,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,AST per Age by Category,3=Cirrhosis,AST per Age,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Rows by Category,0=Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Rows by Category,0s=suspect Blood Donor,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Rows by Category,1=Hepatitis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Rows by Category,2=Fibrosis,Rows,correct,,AMBIGUOUS,False,False
+no_reverse_gate,uci_hcv,uci_hcv_report2,Rows by Category,3=Cirrhosis,Rows,correct,,AMBIGUOUS,False,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,New_Visitor,Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Other,Administrative,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Returning_Visitor,Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,All VisitorType,Administrative,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Total,Administrative,derived,,DERIVED,False,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,New_Visitor,Average Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,Other,Average Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,Returning_Visitor,Average Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,New_Visitor,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,Other,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,Returning_Visitor,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,New_Visitor,Rows,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,Other,Rows,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,Returning_Visitor,Rows,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,New_Visitor,Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Other,Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Returning_Visitor,Administrative_Duration,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,All VisitorType,Administrative_Duration,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Total,Administrative_Duration,derived,,DERIVED,False,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,New_Visitor,Average Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,Other,Average Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,Returning_Visitor,Average Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,New_Visitor,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,Other,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,Returning_Visitor,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,New_Visitor,Rows,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,Other,Rows,correct,,REPRODUCED,True,False
+full,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,Returning_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,New_Visitor,Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Other,Administrative,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Returning_Visitor,Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,All VisitorType,Administrative,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Total,Administrative,derived,,DERIVED,False,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,New_Visitor,Average Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,Other,Average Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,Returning_Visitor,Average Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,New_Visitor,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,Other,Administrative per Administrative_Duration,correct,,AMBIGUOUS,False,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,Returning_Visitor,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,New_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,Other,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,Returning_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,New_Visitor,Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Other,Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Returning_Visitor,Administrative_Duration,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,All VisitorType,Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Total,Administrative_Duration,derived,,DERIVED,False,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,New_Visitor,Average Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,Other,Average Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,Returning_Visitor,Average Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,New_Visitor,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,Other,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,Returning_Visitor,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,New_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,Other,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,Returning_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,New_Visitor,Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Other,Administrative,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Returning_Visitor,Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,All VisitorType,Administrative,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative by VisitorType,Total,Administrative,derived,,DERIVED,False,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,New_Visitor,Average Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,Other,Average Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Average Administrative_Duration by VisitorType,Returning_Visitor,Average Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,New_Visitor,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,Other,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Administrative per Administrative_Duration by VisitorType,Returning_Visitor,Administrative per Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,New_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,Other,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report1,Rows by VisitorType,Returning_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,New_Visitor,Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Other,Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Returning_Visitor,Administrative_Duration,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,All VisitorType,Administrative_Duration,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration by VisitorType,Total,Administrative_Duration,derived,,DERIVED,False,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,New_Visitor,Average Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,Other,Average Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Average Administrative by VisitorType,Returning_Visitor,Average Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,New_Visitor,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,Other,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Administrative_Duration per Administrative by VisitorType,Returning_Visitor,Administrative_Duration per Administrative,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,New_Visitor,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,Other,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_online_shoppers,uci_online_shoppers_report2,Rows by VisitorType,Returning_Visitor,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Autumn,Rented Bike Count,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Spring,Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Summer,Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Winter,Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,All Seasons,Rented Bike Count,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Total,Rented Bike Count,derived,,DERIVED,False,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Autumn,Average Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Spring,Average Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Summer,Average Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Winter,Average Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Autumn,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Spring,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Summer,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Winter,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Autumn,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Spring,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Summer,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Winter,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Autumn,Hour,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Spring,Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Summer,Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Winter,Hour,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,All Seasons,Hour,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Total,Hour,derived,,DERIVED,False,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Autumn,Average Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Spring,Average Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Summer,Average Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Winter,Average Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Autumn,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Spring,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Summer,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Winter,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Autumn,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Spring,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Summer,Rows,correct,,REPRODUCED,True,False
+full,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Winter,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Autumn,Rented Bike Count,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Spring,Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Summer,Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Winter,Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,All Seasons,Rented Bike Count,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Total,Rented Bike Count,derived,,DERIVED,False,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Autumn,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Spring,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Summer,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Winter,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Autumn,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Spring,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Summer,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Winter,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Autumn,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Spring,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Summer,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Winter,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Autumn,Hour,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Spring,Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Summer,Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Winter,Hour,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,All Seasons,Hour,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Total,Hour,derived,,DERIVED,False,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Autumn,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Spring,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Summer,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Winter,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Autumn,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Spring,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Summer,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Winter,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Autumn,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Spring,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Summer,Rows,correct,,REPRODUCED,True,False
+no_reverse_consistency,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Winter,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Autumn,Rented Bike Count,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Spring,Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Summer,Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Winter,Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,All Seasons,Rented Bike Count,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count by Seasons,Total,Rented Bike Count,derived,,DERIVED,False,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Autumn,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Spring,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Summer,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Average Hour by Seasons,Winter,Average Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Autumn,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Spring,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Summer,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rented Bike Count per Hour by Seasons,Winter,Rented Bike Count per Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Autumn,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Spring,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Summer,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report1,Rows by Seasons,Winter,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Autumn,Hour,mistake,swapped-digits,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Spring,Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Summer,Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Winter,Hour,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,All Seasons,Hour,mistake,missing-category,NOT_REPRODUCIBLE,False,True
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour by Seasons,Total,Hour,derived,,DERIVED,False,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Autumn,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Spring,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Summer,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Average Rented Bike Count by Seasons,Winter,Average Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Autumn,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Spring,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Summer,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Hour per Rented Bike Count by Seasons,Winter,Hour per Rented Bike Count,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Autumn,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Spring,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Summer,Rows,correct,,REPRODUCED,True,False
+no_reverse_gate,uci_seoul_bike,uci_seoul_bike_report2,Rows by Seasons,Winter,Rows,correct,,REPRODUCED,True,False

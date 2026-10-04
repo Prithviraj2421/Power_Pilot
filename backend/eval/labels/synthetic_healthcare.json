@@ -1,0 +1,40 @@
+{
+  "id": "synthetic_healthcare",
+  "title": "PowerPilot sample: healthcare",
+  "domain": "healthcare",
+  "domain_label_confidence": "high",
+  "columns": {
+    "patient_id": "identifier",
+    "admission_date": "date",
+    "department": "unknown",
+    "diagnosis_code": "unknown",
+    "region": "region",
+    "age": "unknown",
+    "length_of_stay_days": "unknown",
+    "treatment_cost": "cost",
+    "readmission_flag": "unknown",
+    "satisfaction_score": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Total treatment cost",
+      "value": 1497142.9400000002
+    },
+    {
+      "name": "Average length of stay",
+      "value": 11.01639344262295
+    },
+    {
+      "name": "Readmission rate",
+      "value": 0.21311475409836064
+    },
+    {
+      "name": "Patients",
+      "value": 60.0
+    },
+    {
+      "name": "Average age",
+      "value": 51.0655737704918
+    }
+  ]
+}

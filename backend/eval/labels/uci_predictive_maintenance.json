@@ -1,0 +1,40 @@
+{
+  "id": "uci_predictive_maintenance",
+  "title": "AI4I 2020 Predictive Maintenance",
+  "domain": "logistics",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "UID": "identifier",
+    "Product ID": "product",
+    "Type": "unknown",
+    "Air temperature": "unknown",
+    "Process temperature": "unknown",
+    "Rotational speed": "unknown",
+    "Torque": "unknown",
+    "Tool wear": "unknown",
+    "Machine failure": "unknown",
+    "TWF": "unknown",
+    "HDF": "unknown",
+    "PWF": "unknown",
+    "OSF": "unknown",
+    "RNF": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Machine failure rate",
+      "value": 0.0339
+    },
+    {
+      "name": "Average torque",
+      "value": 39.986909999999995
+    },
+    {
+      "name": "Average air temperature",
+      "value": 300.00493
+    },
+    {
+      "name": "Average tool wear",
+      "value": 107.951
+    }
+  ]
+}

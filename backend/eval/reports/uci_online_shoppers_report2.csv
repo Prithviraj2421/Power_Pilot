@@ -1,0 +1,25 @@
+Administrative_Duration by VisitorType
+VisitorType,Administrative_Duration
+New_Visitor,"155,697.77"
+Other,"5,329.13"
+Returning_Visitor,"853,466.58"
+All VisitorType,"996,493.47"
+Total,"1,014,493.48"
+
+Average Administrative by VisitorType
+VisitorType,Average Administrative
+New_Visitor,2.55
+Other,1.47
+Returning_Visitor,2.28
+
+Administrative_Duration per Administrative by VisitorType
+VisitorType,Administrative_Duration per Administrative
+New_Visitor,36.02
+Other,42.63
+Returning_Visitor,34.67
+
+Rows by VisitorType
+VisitorType,Rows
+New_Visitor,"1,694.00"
+Other,85.00
+Returning_Visitor,"10,551.00"

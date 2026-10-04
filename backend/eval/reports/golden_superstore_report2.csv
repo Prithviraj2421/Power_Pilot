@@ -1,0 +1,25 @@
+Profit by Segment
+Segment,Profit
+Consumer,"12,012.20"
+Corporate,"5,302.03"
+Home Office,"9,369.18"
+All Segment,"17,045.63"
+Total,"26,683.41"
+
+Average Sales by Segment
+Segment,Average Sales
+Consumer,"1,910.63"
+Corporate,"1,313.12"
+Home Office,"1,863.24"
+
+Profit per Sales by Segment
+Segment,Profit per Sales
+Consumer,0.09
+Corporate,0.12
+Home Office,0.09
+
+Rows by Segment
+Segment,Rows
+Consumer,70.00
+Corporate,33.00
+Home Office,53.00

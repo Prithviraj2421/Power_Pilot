@@ -1,0 +1,661 @@
+system,status,source,question,answered,correct,unsupported_numbers,has_unsupported,answer,dataset
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_rules,ok,rules,What is the total of Sales?,True,False,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_rules,ok,rules,What is the average Sales?,True,False,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_rules,ok,rules,What is the total of Profit?,True,False,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_rules,ok,rules,What is the average Profit?,True,False,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_rules,ok,rules,What is the highest Sales?,True,False,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_rules,ok,rules,Which Ship Mode has the highest total Sales?,True,False,0.0,False,"Summary for 'golden_superstore.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 156 rows and 21 columns, classified as RETAIL at 95% confidence.",golden_superstore
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,golden_superstore
+powerpilot_llm,not_run,,What is the total of Sales?,,,,,,golden_superstore
+powerpilot_llm,not_run,,What is the average Sales?,,,,,,golden_superstore
+powerpilot_llm,not_run,,What is the total of Profit?,,,,,,golden_superstore
+powerpilot_llm,not_run,,What is the average Profit?,,,,,,golden_superstore
+powerpilot_llm,not_run,,What is the highest Sales?,,,,,,golden_superstore
+powerpilot_llm,not_run,,Which Ship Mode has the highest total Sales?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,What is the total of Sales?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,What is the average Sales?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,What is the total of Profit?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,What is the average Profit?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,What is the highest Sales?,,,,,,golden_superstore
+powerpilot_llm_no_verifier,not_run,,Which Ship Mode has the highest total Sales?,,,,,,golden_superstore
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,golden_superstore
+raw_llm,not_run,,What is the total of Sales?,,,,,,golden_superstore
+raw_llm,not_run,,What is the average Sales?,,,,,,golden_superstore
+raw_llm,not_run,,What is the total of Profit?,,,,,,golden_superstore
+raw_llm,not_run,,What is the average Profit?,,,,,,golden_superstore
+raw_llm,not_run,,What is the highest Sales?,,,,,,golden_superstore
+raw_llm,not_run,,Which Ship Mode has the highest total Sales?,,,,,,golden_superstore
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_rules,ok,rules,What is the total of revenue?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_rules,ok,rules,What is the average revenue?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_rules,ok,rules,What is the total of expense?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_rules,ok,rules,What is the average expense?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_rules,ok,rules,What is the highest revenue?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_rules,ok,rules,Which department has the highest total revenue?,True,False,0.0,False,"Summary for 'synthetic_finance.csv': Finance dataset with balance and ledger signals suitable for financial P&L reporting. The dataset holds 60 rows and 10 columns, classified as FINANCE at 80% confidence.",synthetic_finance
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_finance
+powerpilot_llm,not_run,,What is the total of revenue?,,,,,,synthetic_finance
+powerpilot_llm,not_run,,What is the average revenue?,,,,,,synthetic_finance
+powerpilot_llm,not_run,,What is the total of expense?,,,,,,synthetic_finance
+powerpilot_llm,not_run,,What is the average expense?,,,,,,synthetic_finance
+powerpilot_llm,not_run,,What is the highest revenue?,,,,,,synthetic_finance
+powerpilot_llm,not_run,,Which department has the highest total revenue?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,What is the total of revenue?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,What is the average revenue?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,What is the total of expense?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,What is the average expense?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,What is the highest revenue?,,,,,,synthetic_finance
+powerpilot_llm_no_verifier,not_run,,Which department has the highest total revenue?,,,,,,synthetic_finance
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_finance
+raw_llm,not_run,,What is the total of revenue?,,,,,,synthetic_finance
+raw_llm,not_run,,What is the average revenue?,,,,,,synthetic_finance
+raw_llm,not_run,,What is the total of expense?,,,,,,synthetic_finance
+raw_llm,not_run,,What is the average expense?,,,,,,synthetic_finance
+raw_llm,not_run,,What is the highest revenue?,,,,,,synthetic_finance
+raw_llm,not_run,,Which department has the highest total revenue?,,,,,,synthetic_finance
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_rules,ok,rules,What is the total of age?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_rules,ok,rules,What is the average age?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_rules,ok,rules,What is the total of length_of_stay_days?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_rules,ok,rules,What is the average length_of_stay_days?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_rules,ok,rules,What is the highest age?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_rules,ok,rules,Which department has the highest total age?,True,False,0.0,False,"Summary for 'synthetic_healthcare.csv': Healthcare dataset with patient clinical and cost signals suitable for hospital operations reporting. The dataset holds 60 rows and 10 columns, classified as HEALTHCARE at 77% confidence.",synthetic_healthcare
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_healthcare
+powerpilot_llm,not_run,,What is the total of age?,,,,,,synthetic_healthcare
+powerpilot_llm,not_run,,What is the average age?,,,,,,synthetic_healthcare
+powerpilot_llm,not_run,,What is the total of length_of_stay_days?,,,,,,synthetic_healthcare
+powerpilot_llm,not_run,,What is the average length_of_stay_days?,,,,,,synthetic_healthcare
+powerpilot_llm,not_run,,What is the highest age?,,,,,,synthetic_healthcare
+powerpilot_llm,not_run,,Which department has the highest total age?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,What is the total of age?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,What is the average age?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,What is the total of length_of_stay_days?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,What is the average length_of_stay_days?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,What is the highest age?,,,,,,synthetic_healthcare
+powerpilot_llm_no_verifier,not_run,,Which department has the highest total age?,,,,,,synthetic_healthcare
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_healthcare
+raw_llm,not_run,,What is the total of age?,,,,,,synthetic_healthcare
+raw_llm,not_run,,What is the average age?,,,,,,synthetic_healthcare
+raw_llm,not_run,,What is the total of length_of_stay_days?,,,,,,synthetic_healthcare
+raw_llm,not_run,,What is the average length_of_stay_days?,,,,,,synthetic_healthcare
+raw_llm,not_run,,What is the highest age?,,,,,,synthetic_healthcare
+raw_llm,not_run,,Which department has the highest total age?,,,,,,synthetic_healthcare
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_rules,ok,rules,What is the total of tenure_years?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_rules,ok,rules,What is the average tenure_years?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_rules,ok,rules,What is the total of salary?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_rules,ok,rules,What is the average salary?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_rules,ok,rules,What is the highest tenure_years?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_rules,ok,rules,Which department has the highest total tenure_years?,True,False,0.0,False,"Summary for 'synthetic_hr.csv': HR dataset with employee roster and compensation signals suitable for workforce analytics. The dataset holds 60 rows and 10 columns, classified as HR at 63% confidence.",synthetic_hr
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_hr
+powerpilot_llm,not_run,,What is the total of tenure_years?,,,,,,synthetic_hr
+powerpilot_llm,not_run,,What is the average tenure_years?,,,,,,synthetic_hr
+powerpilot_llm,not_run,,What is the total of salary?,,,,,,synthetic_hr
+powerpilot_llm,not_run,,What is the average salary?,,,,,,synthetic_hr
+powerpilot_llm,not_run,,What is the highest tenure_years?,,,,,,synthetic_hr
+powerpilot_llm,not_run,,Which department has the highest total tenure_years?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,What is the total of tenure_years?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,What is the average tenure_years?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,What is the total of salary?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,What is the average salary?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,What is the highest tenure_years?,,,,,,synthetic_hr
+powerpilot_llm_no_verifier,not_run,,Which department has the highest total tenure_years?,,,,,,synthetic_hr
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_hr
+raw_llm,not_run,,What is the total of tenure_years?,,,,,,synthetic_hr
+raw_llm,not_run,,What is the average tenure_years?,,,,,,synthetic_hr
+raw_llm,not_run,,What is the total of salary?,,,,,,synthetic_hr
+raw_llm,not_run,,What is the average salary?,,,,,,synthetic_hr
+raw_llm,not_run,,What is the highest tenure_years?,,,,,,synthetic_hr
+raw_llm,not_run,,Which department has the highest total tenure_years?,,,,,,synthetic_hr
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_rules,ok,rules,What is the total of customer_id?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_rules,ok,rules,What is the average customer_id?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_rules,ok,rules,What is the total of unit_price?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_rules,ok,rules,What is the average unit_price?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_rules,ok,rules,What is the highest customer_id?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_rules,ok,rules,Which product_name has the highest total customer_id?,True,False,0.0,False,"Summary for 'synthetic_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 60 rows and 11 columns, classified as RETAIL at 80% confidence.",synthetic_retail
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_retail
+powerpilot_llm,not_run,,What is the total of customer_id?,,,,,,synthetic_retail
+powerpilot_llm,not_run,,What is the average customer_id?,,,,,,synthetic_retail
+powerpilot_llm,not_run,,What is the total of unit_price?,,,,,,synthetic_retail
+powerpilot_llm,not_run,,What is the average unit_price?,,,,,,synthetic_retail
+powerpilot_llm,not_run,,What is the highest customer_id?,,,,,,synthetic_retail
+powerpilot_llm,not_run,,Which product_name has the highest total customer_id?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,What is the total of customer_id?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,What is the average customer_id?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,What is the total of unit_price?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,What is the average unit_price?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,What is the highest customer_id?,,,,,,synthetic_retail
+powerpilot_llm_no_verifier,not_run,,Which product_name has the highest total customer_id?,,,,,,synthetic_retail
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,synthetic_retail
+raw_llm,not_run,,What is the total of customer_id?,,,,,,synthetic_retail
+raw_llm,not_run,,What is the average customer_id?,,,,,,synthetic_retail
+raw_llm,not_run,,What is the total of unit_price?,,,,,,synthetic_retail
+raw_llm,not_run,,What is the average unit_price?,,,,,,synthetic_retail
+raw_llm,not_run,,What is the highest customer_id?,,,,,,synthetic_retail
+raw_llm,not_run,,Which product_name has the highest total customer_id?,,,,,,synthetic_retail
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'uci_absenteeism.csv': General dataset 'uci_absenteeism.csv' with 18 measures and 3 dimensions. The dataset holds 706 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_absenteeism
+powerpilot_rules,ok,rules,What is the total of ID?,True,False,0.0,False,"Summary for 'uci_absenteeism.csv': General dataset 'uci_absenteeism.csv' with 18 measures and 3 dimensions. The dataset holds 706 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_absenteeism
+powerpilot_rules,ok,rules,What is the average ID?,True,True,0.0,False,"Summary for 'uci_absenteeism.csv': General dataset 'uci_absenteeism.csv' with 18 measures and 3 dimensions. The dataset holds 706 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_absenteeism
+powerpilot_rules,ok,rules,What is the total of Reason for absence?,True,False,0.0,False,"Summary for 'uci_absenteeism.csv': General dataset 'uci_absenteeism.csv' with 18 measures and 3 dimensions. The dataset holds 706 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_absenteeism
+powerpilot_rules,ok,rules,What is the average Reason for absence?,True,False,0.0,False,"Summary for 'uci_absenteeism.csv': General dataset 'uci_absenteeism.csv' with 18 measures and 3 dimensions. The dataset holds 706 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_absenteeism
+powerpilot_rules,ok,rules,What is the highest ID?,True,False,0.0,False,"Summary for 'uci_absenteeism.csv': General dataset 'uci_absenteeism.csv' with 18 measures and 3 dimensions. The dataset holds 706 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_absenteeism
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_absenteeism
+powerpilot_llm,not_run,,What is the total of ID?,,,,,,uci_absenteeism
+powerpilot_llm,not_run,,What is the average ID?,,,,,,uci_absenteeism
+powerpilot_llm,not_run,,What is the total of Reason for absence?,,,,,,uci_absenteeism
+powerpilot_llm,not_run,,What is the average Reason for absence?,,,,,,uci_absenteeism
+powerpilot_llm,not_run,,What is the highest ID?,,,,,,uci_absenteeism
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_absenteeism
+powerpilot_llm_no_verifier,not_run,,What is the total of ID?,,,,,,uci_absenteeism
+powerpilot_llm_no_verifier,not_run,,What is the average ID?,,,,,,uci_absenteeism
+powerpilot_llm_no_verifier,not_run,,What is the total of Reason for absence?,,,,,,uci_absenteeism
+powerpilot_llm_no_verifier,not_run,,What is the average Reason for absence?,,,,,,uci_absenteeism
+powerpilot_llm_no_verifier,not_run,,What is the highest ID?,,,,,,uci_absenteeism
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_absenteeism
+raw_llm,not_run,,What is the total of ID?,,,,,,uci_absenteeism
+raw_llm,not_run,,What is the average ID?,,,,,,uci_absenteeism
+raw_llm,not_run,,What is the total of Reason for absence?,,,,,,uci_absenteeism
+raw_llm,not_run,,What is the average Reason for absence?,,,,,,uci_absenteeism
+raw_llm,not_run,,What is the highest ID?,,,,,,uci_absenteeism
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_rules,ok,rules,What is the total of age?,True,False,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_rules,ok,rules,What is the average age?,True,False,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_rules,ok,rules,What is the total of balance?,True,False,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_rules,ok,rules,What is the average balance?,True,False,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_rules,ok,rules,What is the highest age?,True,False,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_rules,ok,rules,Which job has the highest total age?,True,False,0.0,False,"Summary for 'uci_bank_marketing.csv': General dataset 'uci_bank_marketing.csv' with 7 measures and 10 dimensions. The dataset holds 20000 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bank_marketing
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_bank_marketing
+powerpilot_llm,not_run,,What is the total of age?,,,,,,uci_bank_marketing
+powerpilot_llm,not_run,,What is the average age?,,,,,,uci_bank_marketing
+powerpilot_llm,not_run,,What is the total of balance?,,,,,,uci_bank_marketing
+powerpilot_llm,not_run,,What is the average balance?,,,,,,uci_bank_marketing
+powerpilot_llm,not_run,,What is the highest age?,,,,,,uci_bank_marketing
+powerpilot_llm,not_run,,Which job has the highest total age?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,What is the total of age?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,What is the average age?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,What is the total of balance?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,What is the average balance?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,What is the highest age?,,,,,,uci_bank_marketing
+powerpilot_llm_no_verifier,not_run,,Which job has the highest total age?,,,,,,uci_bank_marketing
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_bank_marketing
+raw_llm,not_run,,What is the total of age?,,,,,,uci_bank_marketing
+raw_llm,not_run,,What is the average age?,,,,,,uci_bank_marketing
+raw_llm,not_run,,What is the total of balance?,,,,,,uci_bank_marketing
+raw_llm,not_run,,What is the average balance?,,,,,,uci_bank_marketing
+raw_llm,not_run,,What is the highest age?,,,,,,uci_bank_marketing
+raw_llm,not_run,,Which job has the highest total age?,,,,,,uci_bank_marketing
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_bike_sharing.csv': General dataset 'uci_bike_sharing.csv' with 13 measures and 4 dimensions. The dataset holds 17379 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bike_sharing
+powerpilot_rules,ok,rules,What is the total of mnth?,True,False,0.0,False,"Summary for 'uci_bike_sharing.csv': General dataset 'uci_bike_sharing.csv' with 13 measures and 4 dimensions. The dataset holds 17379 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bike_sharing
+powerpilot_rules,ok,rules,What is the average mnth?,True,False,0.0,False,"Summary for 'uci_bike_sharing.csv': General dataset 'uci_bike_sharing.csv' with 13 measures and 4 dimensions. The dataset holds 17379 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bike_sharing
+powerpilot_rules,ok,rules,What is the total of hr?,True,False,0.0,False,"Summary for 'uci_bike_sharing.csv': General dataset 'uci_bike_sharing.csv' with 13 measures and 4 dimensions. The dataset holds 17379 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bike_sharing
+powerpilot_rules,ok,rules,What is the average hr?,True,False,0.0,False,"Summary for 'uci_bike_sharing.csv': General dataset 'uci_bike_sharing.csv' with 13 measures and 4 dimensions. The dataset holds 17379 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bike_sharing
+powerpilot_rules,ok,rules,What is the highest mnth?,True,False,0.0,False,"Summary for 'uci_bike_sharing.csv': General dataset 'uci_bike_sharing.csv' with 13 measures and 4 dimensions. The dataset holds 17379 rows and 17 columns, classified as UNKNOWN at 0% confidence.",uci_bike_sharing
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_bike_sharing
+powerpilot_llm,not_run,,What is the total of mnth?,,,,,,uci_bike_sharing
+powerpilot_llm,not_run,,What is the average mnth?,,,,,,uci_bike_sharing
+powerpilot_llm,not_run,,What is the total of hr?,,,,,,uci_bike_sharing
+powerpilot_llm,not_run,,What is the average hr?,,,,,,uci_bike_sharing
+powerpilot_llm,not_run,,What is the highest mnth?,,,,,,uci_bike_sharing
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_bike_sharing
+powerpilot_llm_no_verifier,not_run,,What is the total of mnth?,,,,,,uci_bike_sharing
+powerpilot_llm_no_verifier,not_run,,What is the average mnth?,,,,,,uci_bike_sharing
+powerpilot_llm_no_verifier,not_run,,What is the total of hr?,,,,,,uci_bike_sharing
+powerpilot_llm_no_verifier,not_run,,What is the average hr?,,,,,,uci_bike_sharing
+powerpilot_llm_no_verifier,not_run,,What is the highest mnth?,,,,,,uci_bike_sharing
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_bike_sharing
+raw_llm,not_run,,What is the total of mnth?,,,,,,uci_bike_sharing
+raw_llm,not_run,,What is the average mnth?,,,,,,uci_bike_sharing
+raw_llm,not_run,,What is the total of hr?,,,,,,uci_bike_sharing
+raw_llm,not_run,,What is the average hr?,,,,,,uci_bike_sharing
+raw_llm,not_run,,What is the highest mnth?,,,,,,uci_bike_sharing
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_rules,ok,rules,What is the total of radius1?,True,False,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_rules,ok,rules,What is the average radius1?,True,False,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_rules,ok,rules,What is the total of texture1?,True,False,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_rules,ok,rules,What is the average texture1?,True,False,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_rules,ok,rules,What is the highest radius1?,True,False,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_rules,ok,rules,Which Diagnosis has the highest total radius1?,True,False,0.0,False,"Summary for 'uci_breast_cancer.csv': General dataset 'uci_breast_cancer.csv' with 31 measures and 1 dimensions. The dataset holds 569 rows and 32 columns, classified as UNKNOWN at 0% confidence.",uci_breast_cancer
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_breast_cancer
+powerpilot_llm,not_run,,What is the total of radius1?,,,,,,uci_breast_cancer
+powerpilot_llm,not_run,,What is the average radius1?,,,,,,uci_breast_cancer
+powerpilot_llm,not_run,,What is the total of texture1?,,,,,,uci_breast_cancer
+powerpilot_llm,not_run,,What is the average texture1?,,,,,,uci_breast_cancer
+powerpilot_llm,not_run,,What is the highest radius1?,,,,,,uci_breast_cancer
+powerpilot_llm,not_run,,Which Diagnosis has the highest total radius1?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,What is the total of radius1?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,What is the average radius1?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,What is the total of texture1?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,What is the average texture1?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,What is the highest radius1?,,,,,,uci_breast_cancer
+powerpilot_llm_no_verifier,not_run,,Which Diagnosis has the highest total radius1?,,,,,,uci_breast_cancer
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_breast_cancer
+raw_llm,not_run,,What is the total of radius1?,,,,,,uci_breast_cancer
+raw_llm,not_run,,What is the average radius1?,,,,,,uci_breast_cancer
+raw_llm,not_run,,What is the total of texture1?,,,,,,uci_breast_cancer
+raw_llm,not_run,,What is the average texture1?,,,,,,uci_breast_cancer
+raw_llm,not_run,,What is the highest radius1?,,,,,,uci_breast_cancer
+raw_llm,not_run,,Which Diagnosis has the highest total radius1?,,,,,,uci_breast_cancer
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_credit_default.csv': General dataset 'uci_credit_default.csv' with 24 measures and 1 dimensions. The dataset holds 20000 rows and 25 columns, classified as UNKNOWN at 0% confidence.",uci_credit_default
+powerpilot_rules,ok,rules,What is the total of ID?,True,False,0.0,False,"Summary for 'uci_credit_default.csv': General dataset 'uci_credit_default.csv' with 24 measures and 1 dimensions. The dataset holds 20000 rows and 25 columns, classified as UNKNOWN at 0% confidence.",uci_credit_default
+powerpilot_rules,ok,rules,What is the average ID?,True,False,0.0,False,"Summary for 'uci_credit_default.csv': General dataset 'uci_credit_default.csv' with 24 measures and 1 dimensions. The dataset holds 20000 rows and 25 columns, classified as UNKNOWN at 0% confidence.",uci_credit_default
+powerpilot_rules,ok,rules,What is the total of X1?,True,False,0.0,False,"Summary for 'uci_credit_default.csv': General dataset 'uci_credit_default.csv' with 24 measures and 1 dimensions. The dataset holds 20000 rows and 25 columns, classified as UNKNOWN at 0% confidence.",uci_credit_default
+powerpilot_rules,ok,rules,What is the average X1?,True,False,0.0,False,"Summary for 'uci_credit_default.csv': General dataset 'uci_credit_default.csv' with 24 measures and 1 dimensions. The dataset holds 20000 rows and 25 columns, classified as UNKNOWN at 0% confidence.",uci_credit_default
+powerpilot_rules,ok,rules,What is the highest ID?,True,False,0.0,False,"Summary for 'uci_credit_default.csv': General dataset 'uci_credit_default.csv' with 24 measures and 1 dimensions. The dataset holds 20000 rows and 25 columns, classified as UNKNOWN at 0% confidence.",uci_credit_default
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_credit_default
+powerpilot_llm,not_run,,What is the total of ID?,,,,,,uci_credit_default
+powerpilot_llm,not_run,,What is the average ID?,,,,,,uci_credit_default
+powerpilot_llm,not_run,,What is the total of X1?,,,,,,uci_credit_default
+powerpilot_llm,not_run,,What is the average X1?,,,,,,uci_credit_default
+powerpilot_llm,not_run,,What is the highest ID?,,,,,,uci_credit_default
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_credit_default
+powerpilot_llm_no_verifier,not_run,,What is the total of ID?,,,,,,uci_credit_default
+powerpilot_llm_no_verifier,not_run,,What is the average ID?,,,,,,uci_credit_default
+powerpilot_llm_no_verifier,not_run,,What is the total of X1?,,,,,,uci_credit_default
+powerpilot_llm_no_verifier,not_run,,What is the average X1?,,,,,,uci_credit_default
+powerpilot_llm_no_verifier,not_run,,What is the highest ID?,,,,,,uci_credit_default
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_credit_default
+raw_llm,not_run,,What is the total of ID?,,,,,,uci_credit_default
+raw_llm,not_run,,What is the average ID?,,,,,,uci_credit_default
+raw_llm,not_run,,What is the total of X1?,,,,,,uci_credit_default
+raw_llm,not_run,,What is the average X1?,,,,,,uci_credit_default
+raw_llm,not_run,,What is the highest ID?,,,,,,uci_credit_default
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_rules,ok,rules,What is the total of discharge_disposition_id?,True,False,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_rules,ok,rules,What is the average discharge_disposition_id?,True,False,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_rules,ok,rules,What is the total of admission_source_id?,True,False,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_rules,ok,rules,What is the average admission_source_id?,True,False,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_rules,ok,rules,What is the highest discharge_disposition_id?,True,False,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_rules,ok,rules,Which race has the highest total discharge_disposition_id?,True,False,0.0,False,"Summary for 'uci_diabetes_hospitals.csv': General dataset 'uci_diabetes_hospitals.csv' with 16 measures and 34 dimensions. The dataset holds 20000 rows and 50 columns, classified as UNKNOWN at 0% confidence.",uci_diabetes_hospitals
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_diabetes_hospitals
+powerpilot_llm,not_run,,What is the total of discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm,not_run,,What is the average discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm,not_run,,What is the total of admission_source_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm,not_run,,What is the average admission_source_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm,not_run,,What is the highest discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm,not_run,,Which race has the highest total discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,What is the total of discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,What is the average discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,What is the total of admission_source_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,What is the average admission_source_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,What is the highest discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_llm_no_verifier,not_run,,Which race has the highest total discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,What is the total of discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,What is the average discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,What is the total of admission_source_id?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,What is the average admission_source_id?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,What is the highest discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+raw_llm,not_run,,Which race has the highest total discharge_disposition_id?,,,,,,uci_diabetes_hospitals
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_rules,ok,rules,What is the total of team?,True,False,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_rules,ok,rules,What is the average team?,True,False,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_rules,ok,rules,What is the total of smv?,True,False,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_rules,ok,rules,What is the average smv?,True,True,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_rules,ok,rules,What is the highest team?,True,False,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_rules,ok,rules,Which quarter has the highest total team?,True,False,0.0,False,"Summary for 'uci_garment_employees.csv': General dataset 'uci_garment_employees.csv' with 11 measures and 4 dimensions. The dataset holds 1197 rows and 15 columns, classified as UNKNOWN at 0% confidence.",uci_garment_employees
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_garment_employees
+powerpilot_llm,not_run,,What is the total of team?,,,,,,uci_garment_employees
+powerpilot_llm,not_run,,What is the average team?,,,,,,uci_garment_employees
+powerpilot_llm,not_run,,What is the total of smv?,,,,,,uci_garment_employees
+powerpilot_llm,not_run,,What is the average smv?,,,,,,uci_garment_employees
+powerpilot_llm,not_run,,What is the highest team?,,,,,,uci_garment_employees
+powerpilot_llm,not_run,,Which quarter has the highest total team?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,What is the total of team?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,What is the average team?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,What is the total of smv?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,What is the average smv?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,What is the highest team?,,,,,,uci_garment_employees
+powerpilot_llm_no_verifier,not_run,,Which quarter has the highest total team?,,,,,,uci_garment_employees
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_garment_employees
+raw_llm,not_run,,What is the total of team?,,,,,,uci_garment_employees
+raw_llm,not_run,,What is the average team?,,,,,,uci_garment_employees
+raw_llm,not_run,,What is the total of smv?,,,,,,uci_garment_employees
+raw_llm,not_run,,What is the average smv?,,,,,,uci_garment_employees
+raw_llm,not_run,,What is the highest team?,,,,,,uci_garment_employees
+raw_llm,not_run,,Which quarter has the highest total team?,,,,,,uci_garment_employees
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_rules,ok,rules,What is the total of Attribute2?,True,False,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_rules,ok,rules,What is the average Attribute2?,True,True,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_rules,ok,rules,What is the total of Attribute5?,True,False,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_rules,ok,rules,What is the average Attribute5?,True,False,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_rules,ok,rules,What is the highest Attribute2?,True,False,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_rules,ok,rules,Which Attribute1 has the highest total Attribute2?,True,False,0.0,False,"Summary for 'uci_german_credit.csv': General dataset 'uci_german_credit.csv' with 8 measures and 13 dimensions. The dataset holds 1000 rows and 21 columns, classified as UNKNOWN at 0% confidence.",uci_german_credit
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_german_credit
+powerpilot_llm,not_run,,What is the total of Attribute2?,,,,,,uci_german_credit
+powerpilot_llm,not_run,,What is the average Attribute2?,,,,,,uci_german_credit
+powerpilot_llm,not_run,,What is the total of Attribute5?,,,,,,uci_german_credit
+powerpilot_llm,not_run,,What is the average Attribute5?,,,,,,uci_german_credit
+powerpilot_llm,not_run,,What is the highest Attribute2?,,,,,,uci_german_credit
+powerpilot_llm,not_run,,Which Attribute1 has the highest total Attribute2?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,What is the total of Attribute2?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,What is the average Attribute2?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,What is the total of Attribute5?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,What is the average Attribute5?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,What is the highest Attribute2?,,,,,,uci_german_credit
+powerpilot_llm_no_verifier,not_run,,Which Attribute1 has the highest total Attribute2?,,,,,,uci_german_credit
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_german_credit
+raw_llm,not_run,,What is the total of Attribute2?,,,,,,uci_german_credit
+raw_llm,not_run,,What is the average Attribute2?,,,,,,uci_german_credit
+raw_llm,not_run,,What is the total of Attribute5?,,,,,,uci_german_credit
+raw_llm,not_run,,What is the average Attribute5?,,,,,,uci_german_credit
+raw_llm,not_run,,What is the highest Attribute2?,,,,,,uci_german_credit
+raw_llm,not_run,,Which Attribute1 has the highest total Attribute2?,,,,,,uci_german_credit
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_rules,ok,rules,What is the total of Age?,True,False,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_rules,ok,rules,What is the average Age?,True,False,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_rules,ok,rules,What is the total of ALB?,True,False,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_rules,ok,rules,What is the average ALB?,True,False,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_rules,ok,rules,What is the highest Age?,True,False,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_rules,ok,rules,Which Sex has the highest total Age?,True,False,0.0,False,"Summary for 'uci_hcv.csv': General dataset 'uci_hcv.csv' with 12 measures and 2 dimensions. The dataset holds 615 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_hcv
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_hcv
+powerpilot_llm,not_run,,What is the total of Age?,,,,,,uci_hcv
+powerpilot_llm,not_run,,What is the average Age?,,,,,,uci_hcv
+powerpilot_llm,not_run,,What is the total of ALB?,,,,,,uci_hcv
+powerpilot_llm,not_run,,What is the average ALB?,,,,,,uci_hcv
+powerpilot_llm,not_run,,What is the highest Age?,,,,,,uci_hcv
+powerpilot_llm,not_run,,Which Sex has the highest total Age?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,What is the total of Age?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,What is the average Age?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,What is the total of ALB?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,What is the average ALB?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,What is the highest Age?,,,,,,uci_hcv
+powerpilot_llm_no_verifier,not_run,,Which Sex has the highest total Age?,,,,,,uci_hcv
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_hcv
+raw_llm,not_run,,What is the total of Age?,,,,,,uci_hcv
+raw_llm,not_run,,What is the average Age?,,,,,,uci_hcv
+raw_llm,not_run,,What is the total of ALB?,,,,,,uci_hcv
+raw_llm,not_run,,What is the average ALB?,,,,,,uci_hcv
+raw_llm,not_run,,What is the highest Age?,,,,,,uci_hcv
+raw_llm,not_run,,Which Sex has the highest total Age?,,,,,,uci_hcv
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_heart_disease.csv': General dataset 'uci_heart_disease.csv' with 11 measures and 3 dimensions. The dataset holds 303 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_heart_disease
+powerpilot_rules,ok,rules,What is the total of age?,True,False,0.0,False,"Summary for 'uci_heart_disease.csv': General dataset 'uci_heart_disease.csv' with 11 measures and 3 dimensions. The dataset holds 303 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_heart_disease
+powerpilot_rules,ok,rules,What is the average age?,True,False,0.0,False,"Summary for 'uci_heart_disease.csv': General dataset 'uci_heart_disease.csv' with 11 measures and 3 dimensions. The dataset holds 303 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_heart_disease
+powerpilot_rules,ok,rules,What is the total of trestbps?,True,False,0.0,False,"Summary for 'uci_heart_disease.csv': General dataset 'uci_heart_disease.csv' with 11 measures and 3 dimensions. The dataset holds 303 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_heart_disease
+powerpilot_rules,ok,rules,What is the average trestbps?,True,False,0.0,False,"Summary for 'uci_heart_disease.csv': General dataset 'uci_heart_disease.csv' with 11 measures and 3 dimensions. The dataset holds 303 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_heart_disease
+powerpilot_rules,ok,rules,What is the highest age?,True,False,0.0,False,"Summary for 'uci_heart_disease.csv': General dataset 'uci_heart_disease.csv' with 11 measures and 3 dimensions. The dataset holds 303 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_heart_disease
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_heart_disease
+powerpilot_llm,not_run,,What is the total of age?,,,,,,uci_heart_disease
+powerpilot_llm,not_run,,What is the average age?,,,,,,uci_heart_disease
+powerpilot_llm,not_run,,What is the total of trestbps?,,,,,,uci_heart_disease
+powerpilot_llm,not_run,,What is the average trestbps?,,,,,,uci_heart_disease
+powerpilot_llm,not_run,,What is the highest age?,,,,,,uci_heart_disease
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_heart_disease
+powerpilot_llm_no_verifier,not_run,,What is the total of age?,,,,,,uci_heart_disease
+powerpilot_llm_no_verifier,not_run,,What is the average age?,,,,,,uci_heart_disease
+powerpilot_llm_no_verifier,not_run,,What is the total of trestbps?,,,,,,uci_heart_disease
+powerpilot_llm_no_verifier,not_run,,What is the average trestbps?,,,,,,uci_heart_disease
+powerpilot_llm_no_verifier,not_run,,What is the highest age?,,,,,,uci_heart_disease
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_heart_disease
+raw_llm,not_run,,What is the total of age?,,,,,,uci_heart_disease
+raw_llm,not_run,,What is the average age?,,,,,,uci_heart_disease
+raw_llm,not_run,,What is the total of trestbps?,,,,,,uci_heart_disease
+raw_llm,not_run,,What is the average trestbps?,,,,,,uci_heart_disease
+raw_llm,not_run,,What is the highest age?,,,,,,uci_heart_disease
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_heart_failure.csv': General dataset 'uci_heart_failure.csv' with 7 measures and 6 dimensions. The dataset holds 299 rows and 13 columns, classified as UNKNOWN at 0% confidence.",uci_heart_failure
+powerpilot_rules,ok,rules,What is the total of age?,True,False,0.0,False,"Summary for 'uci_heart_failure.csv': General dataset 'uci_heart_failure.csv' with 7 measures and 6 dimensions. The dataset holds 299 rows and 13 columns, classified as UNKNOWN at 0% confidence.",uci_heart_failure
+powerpilot_rules,ok,rules,What is the average age?,True,False,0.0,False,"Summary for 'uci_heart_failure.csv': General dataset 'uci_heart_failure.csv' with 7 measures and 6 dimensions. The dataset holds 299 rows and 13 columns, classified as UNKNOWN at 0% confidence.",uci_heart_failure
+powerpilot_rules,ok,rules,What is the total of creatinine_phosphokinase?,True,False,0.0,False,"Summary for 'uci_heart_failure.csv': General dataset 'uci_heart_failure.csv' with 7 measures and 6 dimensions. The dataset holds 299 rows and 13 columns, classified as UNKNOWN at 0% confidence.",uci_heart_failure
+powerpilot_rules,ok,rules,What is the average creatinine_phosphokinase?,True,False,0.0,False,"Summary for 'uci_heart_failure.csv': General dataset 'uci_heart_failure.csv' with 7 measures and 6 dimensions. The dataset holds 299 rows and 13 columns, classified as UNKNOWN at 0% confidence.",uci_heart_failure
+powerpilot_rules,ok,rules,What is the highest age?,True,False,0.0,False,"Summary for 'uci_heart_failure.csv': General dataset 'uci_heart_failure.csv' with 7 measures and 6 dimensions. The dataset holds 299 rows and 13 columns, classified as UNKNOWN at 0% confidence.",uci_heart_failure
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_heart_failure
+powerpilot_llm,not_run,,What is the total of age?,,,,,,uci_heart_failure
+powerpilot_llm,not_run,,What is the average age?,,,,,,uci_heart_failure
+powerpilot_llm,not_run,,What is the total of creatinine_phosphokinase?,,,,,,uci_heart_failure
+powerpilot_llm,not_run,,What is the average creatinine_phosphokinase?,,,,,,uci_heart_failure
+powerpilot_llm,not_run,,What is the highest age?,,,,,,uci_heart_failure
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_heart_failure
+powerpilot_llm_no_verifier,not_run,,What is the total of age?,,,,,,uci_heart_failure
+powerpilot_llm_no_verifier,not_run,,What is the average age?,,,,,,uci_heart_failure
+powerpilot_llm_no_verifier,not_run,,What is the total of creatinine_phosphokinase?,,,,,,uci_heart_failure
+powerpilot_llm_no_verifier,not_run,,What is the average creatinine_phosphokinase?,,,,,,uci_heart_failure
+powerpilot_llm_no_verifier,not_run,,What is the highest age?,,,,,,uci_heart_failure
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_heart_failure
+raw_llm,not_run,,What is the total of age?,,,,,,uci_heart_failure
+raw_llm,not_run,,What is the average age?,,,,,,uci_heart_failure
+raw_llm,not_run,,What is the total of creatinine_phosphokinase?,,,,,,uci_heart_failure
+raw_llm,not_run,,What is the average creatinine_phosphokinase?,,,,,,uci_heart_failure
+raw_llm,not_run,,What is the highest age?,,,,,,uci_heart_failure
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_rules,ok,rules,What is the total of temp?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_rules,ok,rules,What is the average temp?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_rules,ok,rules,What is the total of rain_1h?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_rules,ok,rules,What is the average rain_1h?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_rules,ok,rules,What is the highest temp?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_rules,ok,rules,Which holiday has the highest total temp?,True,False,0.0,False,"Summary for 'uci_metro_traffic.csv': General dataset 'uci_metro_traffic.csv' with 5 measures and 4 dimensions. The dataset holds 19998 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_metro_traffic
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_metro_traffic
+powerpilot_llm,not_run,,What is the total of temp?,,,,,,uci_metro_traffic
+powerpilot_llm,not_run,,What is the average temp?,,,,,,uci_metro_traffic
+powerpilot_llm,not_run,,What is the total of rain_1h?,,,,,,uci_metro_traffic
+powerpilot_llm,not_run,,What is the average rain_1h?,,,,,,uci_metro_traffic
+powerpilot_llm,not_run,,What is the highest temp?,,,,,,uci_metro_traffic
+powerpilot_llm,not_run,,Which holiday has the highest total temp?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,What is the total of temp?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,What is the average temp?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,What is the total of rain_1h?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,What is the average rain_1h?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,What is the highest temp?,,,,,,uci_metro_traffic
+powerpilot_llm_no_verifier,not_run,,Which holiday has the highest total temp?,,,,,,uci_metro_traffic
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_metro_traffic
+raw_llm,not_run,,What is the total of temp?,,,,,,uci_metro_traffic
+raw_llm,not_run,,What is the average temp?,,,,,,uci_metro_traffic
+raw_llm,not_run,,What is the total of rain_1h?,,,,,,uci_metro_traffic
+raw_llm,not_run,,What is the average rain_1h?,,,,,,uci_metro_traffic
+raw_llm,not_run,,What is the highest temp?,,,,,,uci_metro_traffic
+raw_llm,not_run,,Which holiday has the highest total temp?,,,,,,uci_metro_traffic
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'uci_online_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 19993 rows and 8 columns, classified as RETAIL at 55% confidence.",uci_online_retail
+powerpilot_rules,ok,rules,What is the total of Quantity?,True,False,0.0,False,"Summary for 'uci_online_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 19993 rows and 8 columns, classified as RETAIL at 55% confidence.",uci_online_retail
+powerpilot_rules,ok,rules,What is the average Quantity?,True,False,0.0,False,"Summary for 'uci_online_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 19993 rows and 8 columns, classified as RETAIL at 55% confidence.",uci_online_retail
+powerpilot_rules,ok,rules,What is the total of UnitPrice?,True,False,0.0,False,"Summary for 'uci_online_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 19993 rows and 8 columns, classified as RETAIL at 55% confidence.",uci_online_retail
+powerpilot_rules,ok,rules,What is the average UnitPrice?,True,False,0.0,False,"Summary for 'uci_online_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 19993 rows and 8 columns, classified as RETAIL at 55% confidence.",uci_online_retail
+powerpilot_rules,ok,rules,What is the highest Quantity?,True,False,0.0,False,"Summary for 'uci_online_retail.csv': Retail dataset with strong revenue and product category signals suitable for executive sales reporting. The dataset holds 19993 rows and 8 columns, classified as RETAIL at 55% confidence.",uci_online_retail
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_online_retail
+powerpilot_llm,not_run,,What is the total of Quantity?,,,,,,uci_online_retail
+powerpilot_llm,not_run,,What is the average Quantity?,,,,,,uci_online_retail
+powerpilot_llm,not_run,,What is the total of UnitPrice?,,,,,,uci_online_retail
+powerpilot_llm,not_run,,What is the average UnitPrice?,,,,,,uci_online_retail
+powerpilot_llm,not_run,,What is the highest Quantity?,,,,,,uci_online_retail
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_online_retail
+powerpilot_llm_no_verifier,not_run,,What is the total of Quantity?,,,,,,uci_online_retail
+powerpilot_llm_no_verifier,not_run,,What is the average Quantity?,,,,,,uci_online_retail
+powerpilot_llm_no_verifier,not_run,,What is the total of UnitPrice?,,,,,,uci_online_retail
+powerpilot_llm_no_verifier,not_run,,What is the average UnitPrice?,,,,,,uci_online_retail
+powerpilot_llm_no_verifier,not_run,,What is the highest Quantity?,,,,,,uci_online_retail
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_online_retail
+raw_llm,not_run,,What is the total of Quantity?,,,,,,uci_online_retail
+raw_llm,not_run,,What is the average Quantity?,,,,,,uci_online_retail
+raw_llm,not_run,,What is the total of UnitPrice?,,,,,,uci_online_retail
+raw_llm,not_run,,What is the average UnitPrice?,,,,,,uci_online_retail
+raw_llm,not_run,,What is the highest Quantity?,,,,,,uci_online_retail
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_rules,ok,rules,What is the total of Administrative?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_rules,ok,rules,What is the average Administrative?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_rules,ok,rules,What is the total of Administrative_Duration?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_rules,ok,rules,What is the average Administrative_Duration?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_rules,ok,rules,What is the highest Administrative?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_rules,ok,rules,Which Month has the highest total Administrative?,True,False,0.0,False,"Summary for 'uci_online_shoppers.csv': General dataset 'uci_online_shoppers.csv' with 14 measures and 4 dimensions. The dataset holds 12205 rows and 18 columns, classified as UNKNOWN at 0% confidence.",uci_online_shoppers
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_online_shoppers
+powerpilot_llm,not_run,,What is the total of Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm,not_run,,What is the average Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm,not_run,,What is the total of Administrative_Duration?,,,,,,uci_online_shoppers
+powerpilot_llm,not_run,,What is the average Administrative_Duration?,,,,,,uci_online_shoppers
+powerpilot_llm,not_run,,What is the highest Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm,not_run,,Which Month has the highest total Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,What is the total of Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,What is the average Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,What is the total of Administrative_Duration?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,What is the average Administrative_Duration?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,What is the highest Administrative?,,,,,,uci_online_shoppers
+powerpilot_llm_no_verifier,not_run,,Which Month has the highest total Administrative?,,,,,,uci_online_shoppers
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_online_shoppers
+raw_llm,not_run,,What is the total of Administrative?,,,,,,uci_online_shoppers
+raw_llm,not_run,,What is the average Administrative?,,,,,,uci_online_shoppers
+raw_llm,not_run,,What is the total of Administrative_Duration?,,,,,,uci_online_shoppers
+raw_llm,not_run,,What is the average Administrative_Duration?,,,,,,uci_online_shoppers
+raw_llm,not_run,,What is the highest Administrative?,,,,,,uci_online_shoppers
+raw_llm,not_run,,Which Month has the highest total Administrative?,,,,,,uci_online_shoppers
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_power_tetouan.csv': General dataset 'uci_power_tetouan.csv' with 8 measures and 1 dimensions. The dataset holds 20000 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_power_tetouan
+powerpilot_rules,ok,rules,What is the total of Temperature?,True,False,0.0,False,"Summary for 'uci_power_tetouan.csv': General dataset 'uci_power_tetouan.csv' with 8 measures and 1 dimensions. The dataset holds 20000 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_power_tetouan
+powerpilot_rules,ok,rules,What is the average Temperature?,True,False,0.0,False,"Summary for 'uci_power_tetouan.csv': General dataset 'uci_power_tetouan.csv' with 8 measures and 1 dimensions. The dataset holds 20000 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_power_tetouan
+powerpilot_rules,ok,rules,What is the total of Humidity?,True,False,0.0,False,"Summary for 'uci_power_tetouan.csv': General dataset 'uci_power_tetouan.csv' with 8 measures and 1 dimensions. The dataset holds 20000 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_power_tetouan
+powerpilot_rules,ok,rules,What is the average Humidity?,True,False,0.0,False,"Summary for 'uci_power_tetouan.csv': General dataset 'uci_power_tetouan.csv' with 8 measures and 1 dimensions. The dataset holds 20000 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_power_tetouan
+powerpilot_rules,ok,rules,What is the highest Temperature?,True,False,0.0,False,"Summary for 'uci_power_tetouan.csv': General dataset 'uci_power_tetouan.csv' with 8 measures and 1 dimensions. The dataset holds 20000 rows and 9 columns, classified as UNKNOWN at 0% confidence.",uci_power_tetouan
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_power_tetouan
+powerpilot_llm,not_run,,What is the total of Temperature?,,,,,,uci_power_tetouan
+powerpilot_llm,not_run,,What is the average Temperature?,,,,,,uci_power_tetouan
+powerpilot_llm,not_run,,What is the total of Humidity?,,,,,,uci_power_tetouan
+powerpilot_llm,not_run,,What is the average Humidity?,,,,,,uci_power_tetouan
+powerpilot_llm,not_run,,What is the highest Temperature?,,,,,,uci_power_tetouan
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_power_tetouan
+powerpilot_llm_no_verifier,not_run,,What is the total of Temperature?,,,,,,uci_power_tetouan
+powerpilot_llm_no_verifier,not_run,,What is the average Temperature?,,,,,,uci_power_tetouan
+powerpilot_llm_no_verifier,not_run,,What is the total of Humidity?,,,,,,uci_power_tetouan
+powerpilot_llm_no_verifier,not_run,,What is the average Humidity?,,,,,,uci_power_tetouan
+powerpilot_llm_no_verifier,not_run,,What is the highest Temperature?,,,,,,uci_power_tetouan
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_power_tetouan
+raw_llm,not_run,,What is the total of Temperature?,,,,,,uci_power_tetouan
+raw_llm,not_run,,What is the average Temperature?,,,,,,uci_power_tetouan
+raw_llm,not_run,,What is the total of Humidity?,,,,,,uci_power_tetouan
+raw_llm,not_run,,What is the average Humidity?,,,,,,uci_power_tetouan
+raw_llm,not_run,,What is the highest Temperature?,,,,,,uci_power_tetouan
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_rules,ok,rules,What is the total of Air temperature?,True,False,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_rules,ok,rules,What is the average Air temperature?,True,False,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_rules,ok,rules,What is the total of Process temperature?,True,False,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_rules,ok,rules,What is the average Process temperature?,True,False,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_rules,ok,rules,What is the highest Air temperature?,True,False,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_rules,ok,rules,Which Type has the highest total Air temperature?,True,False,0.0,False,"Summary for 'uci_predictive_maintenance.csv': General dataset 'uci_predictive_maintenance.csv' with 6 measures and 8 dimensions. The dataset holds 10000 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_predictive_maintenance
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_predictive_maintenance
+powerpilot_llm,not_run,,What is the total of Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm,not_run,,What is the average Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm,not_run,,What is the total of Process temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm,not_run,,What is the average Process temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm,not_run,,What is the highest Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm,not_run,,Which Type has the highest total Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,What is the total of Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,What is the average Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,What is the total of Process temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,What is the average Process temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,What is the highest Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_llm_no_verifier,not_run,,Which Type has the highest total Air temperature?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,What is the total of Air temperature?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,What is the average Air temperature?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,What is the total of Process temperature?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,What is the average Process temperature?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,What is the highest Air temperature?,,,,,,uci_predictive_maintenance
+raw_llm,not_run,,Which Type has the highest total Air temperature?,,,,,,uci_predictive_maintenance
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_real_estate.csv': General dataset 'uci_real_estate.csv' with 8 measures and 0 dimensions. The dataset holds 414 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_real_estate
+powerpilot_rules,ok,rules,What is the total of X2 house age?,True,False,0.0,False,"Summary for 'uci_real_estate.csv': General dataset 'uci_real_estate.csv' with 8 measures and 0 dimensions. The dataset holds 414 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_real_estate
+powerpilot_rules,ok,rules,What is the average X2 house age?,True,False,0.0,False,"Summary for 'uci_real_estate.csv': General dataset 'uci_real_estate.csv' with 8 measures and 0 dimensions. The dataset holds 414 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_real_estate
+powerpilot_rules,ok,rules,What is the total of X3 distance to the nearest MRT station?,True,False,0.0,False,"Summary for 'uci_real_estate.csv': General dataset 'uci_real_estate.csv' with 8 measures and 0 dimensions. The dataset holds 414 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_real_estate
+powerpilot_rules,ok,rules,What is the average X3 distance to the nearest MRT station?,True,False,0.0,False,"Summary for 'uci_real_estate.csv': General dataset 'uci_real_estate.csv' with 8 measures and 0 dimensions. The dataset holds 414 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_real_estate
+powerpilot_rules,ok,rules,What is the highest X2 house age?,True,False,0.0,False,"Summary for 'uci_real_estate.csv': General dataset 'uci_real_estate.csv' with 8 measures and 0 dimensions. The dataset holds 414 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_real_estate
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_real_estate
+powerpilot_llm,not_run,,What is the total of X2 house age?,,,,,,uci_real_estate
+powerpilot_llm,not_run,,What is the average X2 house age?,,,,,,uci_real_estate
+powerpilot_llm,not_run,,What is the total of X3 distance to the nearest MRT station?,,,,,,uci_real_estate
+powerpilot_llm,not_run,,What is the average X3 distance to the nearest MRT station?,,,,,,uci_real_estate
+powerpilot_llm,not_run,,What is the highest X2 house age?,,,,,,uci_real_estate
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_real_estate
+powerpilot_llm_no_verifier,not_run,,What is the total of X2 house age?,,,,,,uci_real_estate
+powerpilot_llm_no_verifier,not_run,,What is the average X2 house age?,,,,,,uci_real_estate
+powerpilot_llm_no_verifier,not_run,,What is the total of X3 distance to the nearest MRT station?,,,,,,uci_real_estate
+powerpilot_llm_no_verifier,not_run,,What is the average X3 distance to the nearest MRT station?,,,,,,uci_real_estate
+powerpilot_llm_no_verifier,not_run,,What is the highest X2 house age?,,,,,,uci_real_estate
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_real_estate
+raw_llm,not_run,,What is the total of X2 house age?,,,,,,uci_real_estate
+raw_llm,not_run,,What is the average X2 house age?,,,,,,uci_real_estate
+raw_llm,not_run,,What is the total of X3 distance to the nearest MRT station?,,,,,,uci_real_estate
+raw_llm,not_run,,What is the average X3 distance to the nearest MRT station?,,,,,,uci_real_estate
+raw_llm,not_run,,What is the highest X2 house age?,,,,,,uci_real_estate
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_sales_weekly.csv': General dataset 'uci_sales_weekly.csv' with 106 measures and 1 dimensions. The dataset holds 811 rows and 107 columns, classified as UNKNOWN at 0% confidence.",uci_sales_weekly
+powerpilot_rules,ok,rules,What is the total of W0?,True,False,0.0,False,"Summary for 'uci_sales_weekly.csv': General dataset 'uci_sales_weekly.csv' with 106 measures and 1 dimensions. The dataset holds 811 rows and 107 columns, classified as UNKNOWN at 0% confidence.",uci_sales_weekly
+powerpilot_rules,ok,rules,What is the average W0?,True,False,0.0,False,"Summary for 'uci_sales_weekly.csv': General dataset 'uci_sales_weekly.csv' with 106 measures and 1 dimensions. The dataset holds 811 rows and 107 columns, classified as UNKNOWN at 0% confidence.",uci_sales_weekly
+powerpilot_rules,ok,rules,What is the total of W1?,True,False,0.0,False,"Summary for 'uci_sales_weekly.csv': General dataset 'uci_sales_weekly.csv' with 106 measures and 1 dimensions. The dataset holds 811 rows and 107 columns, classified as UNKNOWN at 0% confidence.",uci_sales_weekly
+powerpilot_rules,ok,rules,What is the average W1?,True,False,0.0,False,"Summary for 'uci_sales_weekly.csv': General dataset 'uci_sales_weekly.csv' with 106 measures and 1 dimensions. The dataset holds 811 rows and 107 columns, classified as UNKNOWN at 0% confidence.",uci_sales_weekly
+powerpilot_rules,ok,rules,What is the highest W0?,True,False,0.0,False,"Summary for 'uci_sales_weekly.csv': General dataset 'uci_sales_weekly.csv' with 106 measures and 1 dimensions. The dataset holds 811 rows and 107 columns, classified as UNKNOWN at 0% confidence.",uci_sales_weekly
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_sales_weekly
+powerpilot_llm,not_run,,What is the total of W0?,,,,,,uci_sales_weekly
+powerpilot_llm,not_run,,What is the average W0?,,,,,,uci_sales_weekly
+powerpilot_llm,not_run,,What is the total of W1?,,,,,,uci_sales_weekly
+powerpilot_llm,not_run,,What is the average W1?,,,,,,uci_sales_weekly
+powerpilot_llm,not_run,,What is the highest W0?,,,,,,uci_sales_weekly
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_sales_weekly
+powerpilot_llm_no_verifier,not_run,,What is the total of W0?,,,,,,uci_sales_weekly
+powerpilot_llm_no_verifier,not_run,,What is the average W0?,,,,,,uci_sales_weekly
+powerpilot_llm_no_verifier,not_run,,What is the total of W1?,,,,,,uci_sales_weekly
+powerpilot_llm_no_verifier,not_run,,What is the average W1?,,,,,,uci_sales_weekly
+powerpilot_llm_no_verifier,not_run,,What is the highest W0?,,,,,,uci_sales_weekly
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_sales_weekly
+raw_llm,not_run,,What is the total of W0?,,,,,,uci_sales_weekly
+raw_llm,not_run,,What is the average W0?,,,,,,uci_sales_weekly
+raw_llm,not_run,,What is the total of W1?,,,,,,uci_sales_weekly
+raw_llm,not_run,,What is the average W1?,,,,,,uci_sales_weekly
+raw_llm,not_run,,What is the highest W0?,,,,,,uci_sales_weekly
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_rules,ok,rules,What is the total of Rented Bike Count?,True,False,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_rules,ok,rules,What is the average Rented Bike Count?,True,False,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_rules,ok,rules,What is the total of Hour?,True,False,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_rules,ok,rules,What is the average Hour?,True,False,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_rules,ok,rules,What is the highest Rented Bike Count?,True,False,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_rules,ok,rules,Which Seasons has the highest total Rented Bike Count?,True,False,0.0,False,"Summary for 'uci_seoul_bike.csv': General dataset 'uci_seoul_bike.csv' with 10 measures and 4 dimensions. The dataset holds 8760 rows and 14 columns, classified as UNKNOWN at 0% confidence.",uci_seoul_bike
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_seoul_bike
+powerpilot_llm,not_run,,What is the total of Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm,not_run,,What is the average Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm,not_run,,What is the total of Hour?,,,,,,uci_seoul_bike
+powerpilot_llm,not_run,,What is the average Hour?,,,,,,uci_seoul_bike
+powerpilot_llm,not_run,,What is the highest Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm,not_run,,Which Seasons has the highest total Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,What is the total of Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,What is the average Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,What is the total of Hour?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,What is the average Hour?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,What is the highest Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_llm_no_verifier,not_run,,Which Seasons has the highest total Rented Bike Count?,,,,,,uci_seoul_bike
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_seoul_bike
+raw_llm,not_run,,What is the total of Rented Bike Count?,,,,,,uci_seoul_bike
+raw_llm,not_run,,What is the average Rented Bike Count?,,,,,,uci_seoul_bike
+raw_llm,not_run,,What is the total of Hour?,,,,,,uci_seoul_bike
+raw_llm,not_run,,What is the average Hour?,,,,,,uci_seoul_bike
+raw_llm,not_run,,What is the highest Rented Bike Count?,,,,,,uci_seoul_bike
+raw_llm,not_run,,Which Seasons has the highest total Rented Bike Count?,,,,,,uci_seoul_bike
+powerpilot_rules,ok,rules,How many rows are in the dataset?,True,True,0.0,False,"Summary for 'uci_wholesale.csv': General dataset 'uci_wholesale.csv' with 8 measures and 0 dimensions. The dataset holds 440 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_wholesale
+powerpilot_rules,ok,rules,What is the total of Fresh?,True,False,0.0,False,"Summary for 'uci_wholesale.csv': General dataset 'uci_wholesale.csv' with 8 measures and 0 dimensions. The dataset holds 440 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_wholesale
+powerpilot_rules,ok,rules,What is the average Fresh?,True,False,0.0,False,"Summary for 'uci_wholesale.csv': General dataset 'uci_wholesale.csv' with 8 measures and 0 dimensions. The dataset holds 440 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_wholesale
+powerpilot_rules,ok,rules,What is the total of Milk?,True,False,0.0,False,"Summary for 'uci_wholesale.csv': General dataset 'uci_wholesale.csv' with 8 measures and 0 dimensions. The dataset holds 440 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_wholesale
+powerpilot_rules,ok,rules,What is the average Milk?,True,False,0.0,False,"Summary for 'uci_wholesale.csv': General dataset 'uci_wholesale.csv' with 8 measures and 0 dimensions. The dataset holds 440 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_wholesale
+powerpilot_rules,ok,rules,What is the highest Fresh?,True,False,0.0,False,"Summary for 'uci_wholesale.csv': General dataset 'uci_wholesale.csv' with 8 measures and 0 dimensions. The dataset holds 440 rows and 8 columns, classified as UNKNOWN at 0% confidence.",uci_wholesale
+powerpilot_llm,not_run,,How many rows are in the dataset?,,,,,,uci_wholesale
+powerpilot_llm,not_run,,What is the total of Fresh?,,,,,,uci_wholesale
+powerpilot_llm,not_run,,What is the average Fresh?,,,,,,uci_wholesale
+powerpilot_llm,not_run,,What is the total of Milk?,,,,,,uci_wholesale
+powerpilot_llm,not_run,,What is the average Milk?,,,,,,uci_wholesale
+powerpilot_llm,not_run,,What is the highest Fresh?,,,,,,uci_wholesale
+powerpilot_llm_no_verifier,not_run,,How many rows are in the dataset?,,,,,,uci_wholesale
+powerpilot_llm_no_verifier,not_run,,What is the total of Fresh?,,,,,,uci_wholesale
+powerpilot_llm_no_verifier,not_run,,What is the average Fresh?,,,,,,uci_wholesale
+powerpilot_llm_no_verifier,not_run,,What is the total of Milk?,,,,,,uci_wholesale
+powerpilot_llm_no_verifier,not_run,,What is the average Milk?,,,,,,uci_wholesale
+powerpilot_llm_no_verifier,not_run,,What is the highest Fresh?,,,,,,uci_wholesale
+raw_llm,not_run,,How many rows are in the dataset?,,,,,,uci_wholesale
+raw_llm,not_run,,What is the total of Fresh?,,,,,,uci_wholesale
+raw_llm,not_run,,What is the average Fresh?,,,,,,uci_wholesale
+raw_llm,not_run,,What is the total of Milk?,,,,,,uci_wholesale
+raw_llm,not_run,,What is the average Milk?,,,,,,uci_wholesale
+raw_llm,not_run,,What is the highest Fresh?,,,,,,uci_wholesale

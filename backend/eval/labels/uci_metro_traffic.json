@@ -1,0 +1,31 @@
+{
+  "id": "uci_metro_traffic",
+  "title": "Metro Interstate Traffic Volume",
+  "domain": "logistics",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "holiday": "unknown",
+    "temp": "unknown",
+    "rain_1h": "unknown",
+    "snow_1h": "unknown",
+    "clouds_all": "unknown",
+    "weather_main": "unknown",
+    "weather_description": "unknown",
+    "date_time": "date",
+    "traffic_volume": "quantity"
+  },
+  "kpis": [
+    {
+      "name": "Average traffic volume",
+      "value": 3277.0338
+    },
+    {
+      "name": "Total traffic volume",
+      "value": 65540676.0
+    },
+    {
+      "name": "Peak traffic volume",
+      "value": 7260.0
+    }
+  ]
+}

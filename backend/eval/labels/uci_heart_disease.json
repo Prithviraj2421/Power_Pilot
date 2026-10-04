@@ -1,0 +1,36 @@
+{
+  "id": "uci_heart_disease",
+  "title": "Heart Disease",
+  "domain": "healthcare",
+  "domain_label_confidence": "high",
+  "columns": {
+    "age": "unknown",
+    "sex": "unknown",
+    "cp": "unknown",
+    "trestbps": "unknown",
+    "chol": "unknown",
+    "fbs": "unknown",
+    "restecg": "unknown",
+    "thalach": "unknown",
+    "exang": "unknown",
+    "oldpeak": "unknown",
+    "slope": "unknown",
+    "ca": "unknown",
+    "thal": "unknown",
+    "num": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Average age",
+      "value": 54.43894389438944
+    },
+    {
+      "name": "Average cholesterol",
+      "value": 246.69306930693068
+    },
+    {
+      "name": "Disease rate",
+      "value": 0.45874587458745875
+    }
+  ]
+}

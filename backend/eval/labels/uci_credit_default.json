@@ -1,0 +1,51 @@
+{
+  "id": "uci_credit_default",
+  "title": "Default of Credit Card Clients",
+  "domain": "finance",
+  "domain_label_confidence": "high",
+  "columns": {
+    "ID": "customer",
+    "X1": "unknown",
+    "X2": "unknown",
+    "X3": "unknown",
+    "X4": "unknown",
+    "X5": "unknown",
+    "X6": "unknown",
+    "X7": "unknown",
+    "X8": "unknown",
+    "X9": "unknown",
+    "X10": "unknown",
+    "X11": "unknown",
+    "X12": "unknown",
+    "X13": "unknown",
+    "X14": "unknown",
+    "X15": "unknown",
+    "X16": "unknown",
+    "X17": "unknown",
+    "X18": "unknown",
+    "X19": "unknown",
+    "X20": "unknown",
+    "X21": "unknown",
+    "X22": "unknown",
+    "X23": "unknown",
+    "Y": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Default rate",
+      "value": 0.219
+    },
+    {
+      "name": "Average credit limit",
+      "value": 167955.484
+    },
+    {
+      "name": "Total credit limit",
+      "value": 3359109680.0
+    },
+    {
+      "name": "Average age",
+      "value": 35.4578
+    }
+  ]
+}

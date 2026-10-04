@@ -1,0 +1,39 @@
+{
+  "id": "uci_heart_failure",
+  "title": "Heart Failure Clinical Records",
+  "domain": "healthcare",
+  "domain_label_confidence": "high",
+  "columns": {
+    "age": "unknown",
+    "anaemia": "unknown",
+    "creatinine_phosphokinase": "unknown",
+    "diabetes": "unknown",
+    "ejection_fraction": "unknown",
+    "high_blood_pressure": "unknown",
+    "platelets": "unknown",
+    "serum_creatinine": "unknown",
+    "serum_sodium": "unknown",
+    "sex": "unknown",
+    "smoking": "unknown",
+    "time": "unknown",
+    "death_event": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Death rate",
+      "value": 0.3210702341137124
+    },
+    {
+      "name": "Average age",
+      "value": 60.83389297658862
+    },
+    {
+      "name": "Average ejection fraction",
+      "value": 38.08361204013378
+    },
+    {
+      "name": "Average serum creatinine",
+      "value": 1.3938795986622072
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "id": "uci_online_retail",
+  "title": "Online Retail",
+  "domain": "retail",
+  "domain_label_confidence": "high",
+  "columns": {
+    "InvoiceNo": "identifier",
+    "StockCode": "product",
+    "Description": "product",
+    "Quantity": "quantity",
+    "InvoiceDate": "date",
+    "UnitPrice": "unknown",
+    "CustomerID": "customer",
+    "Country": "region"
+  },
+  "kpis": [
+    {
+      "name": "Total units sold",
+      "value": 106835.0
+    },
+    {
+      "name": "Line items",
+      "value": 20000.0
+    },
+    {
+      "name": "Distinct customers",
+      "value": 3066.0
+    },
+    {
+      "name": "Distinct invoices",
+      "value": 9369.0
+    },
+    {
+      "name": "Gross revenue (Quantity x UnitPrice)",
+      "value": 178596.92200000002
+    },
+    {
+      "name": "Average unit price",
+      "value": 4.545210099999999
+    }
+  ]
+}

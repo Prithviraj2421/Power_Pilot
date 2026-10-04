@@ -1,0 +1,47 @@
+{
+  "id": "uci_bike_sharing",
+  "title": "Bike Sharing",
+  "domain": "logistics",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "instant": "identifier",
+    "dteday": "date",
+    "season": "unknown",
+    "yr": "unknown",
+    "mnth": "unknown",
+    "hr": "unknown",
+    "holiday": "unknown",
+    "weekday": "unknown",
+    "workingday": "unknown",
+    "weathersit": "unknown",
+    "temp": "unknown",
+    "atemp": "unknown",
+    "hum": "unknown",
+    "windspeed": "unknown",
+    "casual": "quantity",
+    "registered": "quantity",
+    "cnt": "quantity"
+  },
+  "kpis": [
+    {
+      "name": "Total rentals",
+      "value": 3292679.0
+    },
+    {
+      "name": "Average rentals per hour",
+      "value": 189.46308763450142
+    },
+    {
+      "name": "Total casual rentals",
+      "value": 620017.0
+    },
+    {
+      "name": "Total registered rentals",
+      "value": 2672662.0
+    },
+    {
+      "name": "Registered share",
+      "value": 0.8116983161735475
+    }
+  ]
+}

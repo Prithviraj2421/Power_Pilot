@@ -1,0 +1,25 @@
+Attribute5 by Attribute14
+Attribute14,Attribute5
+A141,"493,233.00"
+A142,"186,236.00"
+A143,"2,609,513.00"
+All Attribute14,"2,778,025.00"
+Total,"3,288,982.00"
+
+Average Attribute2 by Attribute14
+Attribute14,Average Attribute2
+A141,21.98
+A142,24.47
+A143,20.51
+
+Attribute5 per Attribute2 by Attribute14
+Attribute14,Attribute5 per Attribute2
+A141,161.45
+A142,146.29
+A143,156.29
+
+Rows by Attribute14
+Attribute14,Rows
+A141,139.00
+A142,47.00
+A143,814.00

@@ -1,0 +1,40 @@
+{
+  "id": "synthetic_finance",
+  "title": "PowerPilot sample: finance",
+  "domain": "finance",
+  "domain_label_confidence": "high",
+  "columns": {
+    "transaction_id": "identifier",
+    "transaction_date": "date",
+    "account_id": "identifier",
+    "department": "unknown",
+    "cost_center": "unknown",
+    "revenue": "revenue",
+    "expense": "cost",
+    "profit": "profit",
+    "budget_amount": "unknown",
+    "budget_variance": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Total revenue",
+      "value": 9124729.279999997
+    },
+    {
+      "name": "Total expense",
+      "value": 4694741.949999999
+    },
+    {
+      "name": "Total profit",
+      "value": 1751101.75
+    },
+    {
+      "name": "Profit margin",
+      "value": 0.19190725513776563
+    },
+    {
+      "name": "Total budget",
+      "value": 6805911.41
+    }
+  ]
+}

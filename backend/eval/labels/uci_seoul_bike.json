@@ -1,0 +1,40 @@
+{
+  "id": "uci_seoul_bike",
+  "title": "Seoul Bike Sharing Demand",
+  "domain": "logistics",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "Date": "date",
+    "Rented Bike Count": "quantity",
+    "Hour": "unknown",
+    "Temperature": "unknown",
+    "Humidity": "unknown",
+    "Wind speed": "unknown",
+    "Visibility": "unknown",
+    "Dew point temperature": "unknown",
+    "Solar Radiation": "unknown",
+    "Rainfall": "unknown",
+    "Snowfall": "unknown",
+    "Seasons": "unknown",
+    "Holiday": "unknown",
+    "Functioning Day": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Total rented bikes",
+      "value": 6172314.0
+    },
+    {
+      "name": "Average rented bikes per hour",
+      "value": 704.6020547945205
+    },
+    {
+      "name": "Peak rented bikes",
+      "value": 3556.0
+    },
+    {
+      "name": "Average temperature",
+      "value": 12.882922374429223
+    }
+  ]
+}

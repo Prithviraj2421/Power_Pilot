@@ -1,0 +1,55 @@
+{
+  "id": "golden_superstore",
+  "title": "Superstore-shaped golden fixture",
+  "domain": "retail",
+  "domain_label_confidence": "high",
+  "columns": {
+    "Row ID": "identifier",
+    "Order ID": "identifier",
+    "Order Date": "date",
+    "Ship Date": "date",
+    "Ship Mode": "unknown",
+    "Customer ID": "customer",
+    "Customer Name": "customer",
+    "Segment": "unknown",
+    "Country": "region",
+    "City": "region",
+    "State": "region",
+    "Postal Code": "region",
+    "Region": "region",
+    "Product ID": "product",
+    "Category": "product",
+    "Sub-Category": "product",
+    "Product Name": "product",
+    "Sales": "revenue",
+    "Quantity": "quantity",
+    "Discount": "unknown",
+    "Profit": "profit"
+  },
+  "kpis": [
+    {
+      "name": "Total sales",
+      "value": 275829.0
+    },
+    {
+      "name": "Total profit",
+      "value": 26414.81
+    },
+    {
+      "name": "Profit margin",
+      "value": 0.09576516609928616
+    },
+    {
+      "name": "Average order value",
+      "value": 4597.15
+    },
+    {
+      "name": "Distinct customers",
+      "value": 27.0
+    },
+    {
+      "name": "Total units sold",
+      "value": 760.0
+    }
+  ]
+}

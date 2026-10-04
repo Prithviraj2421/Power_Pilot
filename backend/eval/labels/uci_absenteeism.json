@@ -1,0 +1,51 @@
+{
+  "id": "uci_absenteeism",
+  "title": "Absenteeism at work",
+  "domain": "hr",
+  "domain_label_confidence": "high",
+  "columns": {
+    "ID": "employee",
+    "Reason for absence": "unknown",
+    "Month of absence": "unknown",
+    "Day of the week": "unknown",
+    "Seasons": "unknown",
+    "Transportation expense": "unknown",
+    "Distance from Residence to Work": "unknown",
+    "Service time": "unknown",
+    "Age": "unknown",
+    "Work load Average/day ": "unknown",
+    "Hit target": "unknown",
+    "Disciplinary failure": "unknown",
+    "Education": "unknown",
+    "Son": "unknown",
+    "Social drinker": "unknown",
+    "Social smoker": "unknown",
+    "Pet": "unknown",
+    "Weight": "unknown",
+    "Height": "unknown",
+    "Body mass index": "unknown",
+    "Absenteeism time in hours": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Total absence hours",
+      "value": 5124.0
+    },
+    {
+      "name": "Average absence hours",
+      "value": 6.924324324324324
+    },
+    {
+      "name": "Employees",
+      "value": 36.0
+    },
+    {
+      "name": "Average age",
+      "value": 36.45
+    },
+    {
+      "name": "Average service time",
+      "value": 12.554054054054054
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+num_lab_procedures by chlorpropamide
+chlorpropamide,num_lab_procedures
+No,"860,360.00"
+Steady,638.00
+Up,101.00
+All chlorpropamide,"861,145.00"
+Total,"861,099.00"
+
+Average discharge_disposition_id by chlorpropamide
+chlorpropamide,Average discharge_disposition_id
+No,3.68
+Steady,5.00
+Up,10.50
+
+num_lab_procedures per discharge_disposition_id by chlorpropamide
+chlorpropamide,num_lab_procedures per discharge_disposition_id
+No,11.71
+Steady,9.76
+Up,4.81
+
+Rows by chlorpropamide
+chlorpropamide,Rows
+No,"19,984.00"
+Steady,14.00
+Up,2.00

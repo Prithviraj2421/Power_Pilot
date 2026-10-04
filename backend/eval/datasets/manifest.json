@@ -1,0 +1,32 @@
+{
+  "_comment": "Hand-authored. `domain` is the label used by the benchmark (one of the product's domains or 'unknown'); see eval/README.md for how labels were assigned. License and checksum are recorded in manifest.lock.json when download.py runs.",
+  "max_rows": 20000,
+  "seed": 20240601,
+  "datasets": [
+    {"id": "uci_online_retail", "title": "Online Retail", "domain": "retail", "uci_id": 352},
+    {"id": "uci_wholesale", "title": "Wholesale customers", "domain": "retail", "uci_id": 292},
+    {"id": "uci_online_shoppers", "title": "Online Shoppers Purchasing Intention", "domain": "marketing", "uci_id": 468},
+    {"id": "uci_sales_weekly", "title": "Sales Transactions Weekly", "domain": "retail", "uci_id": 396},
+    {"id": "uci_credit_default", "title": "Default of Credit Card Clients", "domain": "finance", "uci_id": 350},
+    {"id": "uci_german_credit", "title": "Statlog (German Credit Data)", "domain": "finance", "uci_id": 144},
+    {"id": "uci_real_estate", "title": "Real Estate Valuation", "domain": "finance", "uci_id": 477},
+    {"id": "uci_absenteeism", "title": "Absenteeism at work", "domain": "hr", "uci_id": 445},
+    {"id": "uci_garment_employees", "title": "Productivity Prediction of Garment Employees", "domain": "hr", "uci_id": 597},
+    {"id": "uci_heart_disease", "title": "Heart Disease", "domain": "healthcare", "uci_id": 45},
+    {"id": "uci_diabetes_hospitals", "title": "Diabetes 130-US Hospitals", "domain": "healthcare", "uci_id": 296},
+    {"id": "uci_heart_failure", "title": "Heart Failure Clinical Records", "domain": "healthcare", "uci_id": 519},
+    {"id": "uci_hcv", "title": "HCV data", "domain": "healthcare", "uci_id": 571},
+    {"id": "uci_breast_cancer", "title": "Breast Cancer Wisconsin (Diagnostic)", "domain": "healthcare", "uci_id": 17},
+    {"id": "uci_bank_marketing", "title": "Bank Marketing", "domain": "marketing", "uci_id": 222},
+    {"id": "uci_bike_sharing", "title": "Bike Sharing", "domain": "logistics", "uci_id": 275},
+    {"id": "uci_metro_traffic", "title": "Metro Interstate Traffic Volume", "domain": "logistics", "uci_id": 492},
+    {"id": "uci_seoul_bike", "title": "Seoul Bike Sharing Demand", "domain": "logistics", "uci_id": 560},
+    {"id": "uci_predictive_maintenance", "title": "AI4I 2020 Predictive Maintenance", "domain": "logistics", "uci_id": 601},
+    {"id": "uci_power_tetouan", "title": "Power Consumption of Tetouan City", "domain": "unknown", "uci_id": 849},
+    {"id": "synthetic_retail", "title": "PowerPilot sample: retail", "domain": "retail", "local": "tests/datasets/retail.csv"},
+    {"id": "synthetic_finance", "title": "PowerPilot sample: finance", "domain": "finance", "local": "tests/datasets/finance.csv"},
+    {"id": "synthetic_hr", "title": "PowerPilot sample: hr", "domain": "hr", "local": "tests/datasets/hr.csv"},
+    {"id": "synthetic_healthcare", "title": "PowerPilot sample: healthcare", "domain": "healthcare", "local": "tests/datasets/healthcare.csv"},
+    {"id": "golden_superstore", "title": "Superstore-shaped golden fixture", "domain": "retail", "local": "tests/golden/superstore.csv"}
+  ]
+}

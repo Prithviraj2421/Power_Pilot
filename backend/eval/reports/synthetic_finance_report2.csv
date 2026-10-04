@@ -1,0 +1,33 @@
+profit by department
+department,profit
+Engineering,"452,948.30"
+Marketing,"302,006.68"
+Operations,"444,294.40"
+Sales,"245,861.09"
+Support,"330,483.21"
+All department,"1,449,095.07"
+Total,"1,775,593.68"
+
+Average revenue by department
+department,Average revenue
+Engineering,"110,924.89"
+Marketing,"113,814.58"
+Operations,"308,606.43"
+Sales,"95,159.17"
+Support,"103,678.89"
+
+profit per revenue by department
+department,profit per revenue
+Engineering,0.27
+Marketing,0.24
+Operations,0.11
+Sales,0.29
+Support,0.23
+
+Rows by department
+department,Rows
+Engineering,14.00
+Marketing,11.00
+Operations,13.00
+Sales,9.00
+Support,14.00

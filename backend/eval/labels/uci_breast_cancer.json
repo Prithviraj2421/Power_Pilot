@@ -1,0 +1,54 @@
+{
+  "id": "uci_breast_cancer",
+  "title": "Breast Cancer Wisconsin (Diagnostic)",
+  "domain": "healthcare",
+  "domain_label_confidence": "high",
+  "columns": {
+    "ID": "identifier",
+    "radius1": "unknown",
+    "texture1": "unknown",
+    "perimeter1": "unknown",
+    "area1": "unknown",
+    "smoothness1": "unknown",
+    "compactness1": "unknown",
+    "concavity1": "unknown",
+    "concave_points1": "unknown",
+    "symmetry1": "unknown",
+    "fractal_dimension1": "unknown",
+    "radius2": "unknown",
+    "texture2": "unknown",
+    "perimeter2": "unknown",
+    "area2": "unknown",
+    "smoothness2": "unknown",
+    "compactness2": "unknown",
+    "concavity2": "unknown",
+    "concave_points2": "unknown",
+    "symmetry2": "unknown",
+    "fractal_dimension2": "unknown",
+    "radius3": "unknown",
+    "texture3": "unknown",
+    "perimeter3": "unknown",
+    "area3": "unknown",
+    "smoothness3": "unknown",
+    "compactness3": "unknown",
+    "concavity3": "unknown",
+    "concave_points3": "unknown",
+    "symmetry3": "unknown",
+    "fractal_dimension3": "unknown",
+    "Diagnosis": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Malignant share",
+      "value": 0.37258347978910367
+    },
+    {
+      "name": "Average radius",
+      "value": 14.127291739894552
+    },
+    {
+      "name": "Average area",
+      "value": 654.8891036906855
+    }
+  ]
+}

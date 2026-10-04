@@ -1,0 +1,45 @@
+{
+  "id": "synthetic_retail",
+  "title": "PowerPilot sample: retail",
+  "domain": "retail",
+  "domain_label_confidence": "high",
+  "columns": {
+    "order_id": "identifier",
+    "order_date": "date",
+    "customer_id": "customer",
+    "product_name": "product",
+    "category": "product",
+    "region": "region",
+    "quantity": "quantity",
+    "unit_price": "unknown",
+    "discount": "unknown",
+    "sales_amount": "revenue",
+    "profit": "profit"
+  },
+  "kpis": [
+    {
+      "name": "Total sales",
+      "value": 623960.3099999998
+    },
+    {
+      "name": "Total profit",
+      "value": 30748.84
+    },
+    {
+      "name": "Profit margin",
+      "value": 0.049280121679534404
+    },
+    {
+      "name": "Average order value",
+      "value": 10399.338499999996
+    },
+    {
+      "name": "Total units sold",
+      "value": 255.0
+    },
+    {
+      "name": "Distinct customers",
+      "value": 21.0
+    }
+  ]
+}

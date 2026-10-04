@@ -1,0 +1,17 @@
+salary by job_title
+job_title,salary
+Analyst,"805,378.59"
+Associate,"1,183,425.38"
+Director,"1,565,183.65"
+Manager,"481,911.82"
+Senior Analyst,"1,703,813.40"
+All job_title,"4,671,479.37"
+Total,"5,739,712.84"
+
+Rows by job_title
+job_title,Rows
+Analyst,12.00
+Associate,16.00
+Director,10.00
+Manager,8.00
+Senior Analyst,15.00

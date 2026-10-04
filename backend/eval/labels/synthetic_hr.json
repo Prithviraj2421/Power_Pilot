@@ -1,0 +1,40 @@
+{
+  "id": "synthetic_hr",
+  "title": "PowerPilot sample: hr",
+  "domain": "hr",
+  "domain_label_confidence": "high",
+  "columns": {
+    "employee_id": "employee",
+    "hire_date": "date",
+    "department": "unknown",
+    "job_title": "unknown",
+    "region": "region",
+    "tenure_years": "unknown",
+    "salary": "cost",
+    "bonus": "cost",
+    "performance_rating": "unknown",
+    "attrition_flag": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Headcount",
+      "value": 60.0
+    },
+    {
+      "name": "Average salary",
+      "value": 84481.82278688526
+    },
+    {
+      "name": "Total bonus",
+      "value": 613446.09
+    },
+    {
+      "name": "Attrition rate",
+      "value": 0.18032786885245902
+    },
+    {
+      "name": "Average tenure (years)",
+      "value": 8.180327868852459
+    }
+  ]
+}

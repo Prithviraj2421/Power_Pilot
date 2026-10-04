@@ -1,0 +1,37 @@
+treatment_cost by diagnosis_code
+diagnosis_code,treatment_cost
+E11,"101,303.25"
+I10,"413,352.91"
+J45,"594,120.63"
+K21,"168,973.47"
+M54,"110,923.53"
+N39,"107,967.72"
+All diagnosis_code,"1,389,175.22"
+Total,"1,496,641.51"
+
+Average age by diagnosis_code
+diagnosis_code,Average age
+E11,61.00
+I10,54.37
+J45,51.50
+K21,36.40
+M54,43.67
+N39,63.43
+
+treatment_cost per age by diagnosis_code
+diagnosis_code,treatment_cost per age
+E11,302.75
+I10,400.15
+J45,"1,153.63"
+K21,464.21
+M54,259.35
+N39,243.17
+
+Rows by diagnosis_code
+diagnosis_code,Rows
+E11,6.00
+I10,19.00
+J45,10.00
+K21,10.00
+M54,9.00
+N39,7.00

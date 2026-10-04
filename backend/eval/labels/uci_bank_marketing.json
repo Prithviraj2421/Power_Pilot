@@ -1,0 +1,47 @@
+{
+  "id": "uci_bank_marketing",
+  "title": "Bank Marketing",
+  "domain": "marketing",
+  "domain_label_confidence": "high",
+  "columns": {
+    "age": "unknown",
+    "job": "unknown",
+    "marital": "unknown",
+    "education": "unknown",
+    "default": "unknown",
+    "balance": "unknown",
+    "housing": "unknown",
+    "loan": "unknown",
+    "contact": "unknown",
+    "day_of_week": "unknown",
+    "month": "unknown",
+    "duration": "unknown",
+    "campaign": "unknown",
+    "pdays": "unknown",
+    "previous": "unknown",
+    "poutcome": "unknown",
+    "y": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Subscription rate",
+      "value": 0.11825
+    },
+    {
+      "name": "Average balance",
+      "value": 1356.543
+    },
+    {
+      "name": "Total balance",
+      "value": 27130860.0
+    },
+    {
+      "name": "Average call duration",
+      "value": 260.2844
+    },
+    {
+      "name": "Average contacts per client",
+      "value": 2.76005
+    }
+  ]
+}

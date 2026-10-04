@@ -1,0 +1,34 @@
+{
+  "id": "uci_real_estate",
+  "title": "Real Estate Valuation",
+  "domain": "finance",
+  "domain_label_confidence": "medium",
+  "columns": {
+    "No": "identifier",
+    "X1 transaction date": "date",
+    "X2 house age": "unknown",
+    "X3 distance to the nearest MRT station": "unknown",
+    "X4 number of convenience stores": "unknown",
+    "X5 latitude": "unknown",
+    "X6 longitude": "unknown",
+    "Y house price of unit area": "unknown"
+  },
+  "kpis": [
+    {
+      "name": "Average price per unit area",
+      "value": 37.980193236714975
+    },
+    {
+      "name": "Average house age",
+      "value": 17.71256038647343
+    },
+    {
+      "name": "Total convenience stores",
+      "value": 1695.0
+    },
+    {
+      "name": "Highest price per unit area",
+      "value": 117.5
+    }
+  ]
+}

@@ -76,3 +76,9 @@ logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+backend/eval/datasets/raw/
+backend/eval/results/*.tmp
+backend/eval/reports/*.xlsx
+backend/eval/reports/*.csv
+backend/eval/reports/*.truth.json
+backend/eval/results/_*

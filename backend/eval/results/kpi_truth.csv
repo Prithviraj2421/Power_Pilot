@@ -1,0 +1,225 @@
+system,dataset,truth_kpi,found,value
+full,golden_superstore,Total sales,True,275829.0
+full,golden_superstore,Total profit,False,26414.81
+full,golden_superstore,Profit margin,False,0.09576516609928616
+full,golden_superstore,Average order value,True,4597.15
+full,golden_superstore,Distinct customers,True,27.0
+full,golden_superstore,Total units sold,True,760.0
+no_kpi_verifier,golden_superstore,Total sales,True,275829.0
+no_kpi_verifier,golden_superstore,Total profit,False,26414.81
+no_kpi_verifier,golden_superstore,Profit margin,False,0.09576516609928616
+no_kpi_verifier,golden_superstore,Average order value,True,4597.15
+no_kpi_verifier,golden_superstore,Distinct customers,True,27.0
+no_kpi_verifier,golden_superstore,Total units sold,True,760.0
+full,synthetic_finance,Total revenue,False,9124729.279999997
+full,synthetic_finance,Total expense,False,4694741.949999999
+full,synthetic_finance,Total profit,False,1751101.75
+full,synthetic_finance,Profit margin,False,0.19190725513776563
+full,synthetic_finance,Total budget,False,6805911.41
+no_kpi_verifier,synthetic_finance,Total revenue,False,9124729.279999997
+no_kpi_verifier,synthetic_finance,Total expense,False,4694741.949999999
+no_kpi_verifier,synthetic_finance,Total profit,False,1751101.75
+no_kpi_verifier,synthetic_finance,Profit margin,False,0.19190725513776563
+no_kpi_verifier,synthetic_finance,Total budget,False,6805911.41
+full,synthetic_healthcare,Total treatment cost,False,1497142.9400000002
+full,synthetic_healthcare,Average length of stay,False,11.01639344262295
+full,synthetic_healthcare,Readmission rate,False,0.21311475409836064
+full,synthetic_healthcare,Patients,True,60.0
+full,synthetic_healthcare,Average age,False,51.0655737704918
+no_kpi_verifier,synthetic_healthcare,Total treatment cost,False,1497142.9400000002
+no_kpi_verifier,synthetic_healthcare,Average length of stay,False,11.01639344262295
+no_kpi_verifier,synthetic_healthcare,Readmission rate,False,0.21311475409836064
+no_kpi_verifier,synthetic_healthcare,Patients,True,60.0
+no_kpi_verifier,synthetic_healthcare,Average age,False,51.0655737704918
+full,synthetic_hr,Headcount,True,60.0
+full,synthetic_hr,Average salary,False,84481.82278688526
+full,synthetic_hr,Total bonus,False,613446.09
+full,synthetic_hr,Attrition rate,False,0.18032786885245902
+full,synthetic_hr,Average tenure (years),False,8.180327868852459
+no_kpi_verifier,synthetic_hr,Headcount,True,60.0
+no_kpi_verifier,synthetic_hr,Average salary,False,84481.82278688526
+no_kpi_verifier,synthetic_hr,Total bonus,False,613446.09
+no_kpi_verifier,synthetic_hr,Attrition rate,False,0.18032786885245902
+no_kpi_verifier,synthetic_hr,Average tenure (years),False,8.180327868852459
+full,synthetic_retail,Total sales,False,623960.3099999998
+full,synthetic_retail,Total profit,False,30748.84
+full,synthetic_retail,Profit margin,False,0.049280121679534404
+full,synthetic_retail,Average order value,False,10399.338499999996
+full,synthetic_retail,Total units sold,False,255.0
+full,synthetic_retail,Distinct customers,True,21.0
+no_kpi_verifier,synthetic_retail,Total sales,False,623960.3099999998
+no_kpi_verifier,synthetic_retail,Total profit,False,30748.84
+no_kpi_verifier,synthetic_retail,Profit margin,False,0.049280121679534404
+no_kpi_verifier,synthetic_retail,Average order value,False,10399.338499999996
+no_kpi_verifier,synthetic_retail,Total units sold,False,255.0
+no_kpi_verifier,synthetic_retail,Distinct customers,True,21.0
+full,uci_absenteeism,Total absence hours,False,5124.0
+full,uci_absenteeism,Average absence hours,False,6.924324324324324
+full,uci_absenteeism,Employees,False,36.0
+full,uci_absenteeism,Average age,False,36.45
+full,uci_absenteeism,Average service time,False,12.554054054054054
+no_kpi_verifier,uci_absenteeism,Total absence hours,False,5124.0
+no_kpi_verifier,uci_absenteeism,Average absence hours,False,6.924324324324324
+no_kpi_verifier,uci_absenteeism,Employees,False,36.0
+no_kpi_verifier,uci_absenteeism,Average age,False,36.45
+no_kpi_verifier,uci_absenteeism,Average service time,False,12.554054054054054
+full,uci_bank_marketing,Subscription rate,False,0.11825
+full,uci_bank_marketing,Average balance,False,1356.543
+full,uci_bank_marketing,Total balance,True,27130860.0
+full,uci_bank_marketing,Average call duration,False,260.2844
+full,uci_bank_marketing,Average contacts per client,False,2.76005
+no_kpi_verifier,uci_bank_marketing,Subscription rate,False,0.11825
+no_kpi_verifier,uci_bank_marketing,Average balance,False,1356.543
+no_kpi_verifier,uci_bank_marketing,Total balance,True,27130860.0
+no_kpi_verifier,uci_bank_marketing,Average call duration,False,260.2844
+no_kpi_verifier,uci_bank_marketing,Average contacts per client,False,2.76005
+full,uci_bike_sharing,Total rentals,True,3292679.0
+full,uci_bike_sharing,Average rentals per hour,False,189.46308763450142
+full,uci_bike_sharing,Total casual rentals,True,620017.0
+full,uci_bike_sharing,Total registered rentals,True,2672662.0
+full,uci_bike_sharing,Registered share,False,0.8116983161735475
+no_kpi_verifier,uci_bike_sharing,Total rentals,True,3292679.0
+no_kpi_verifier,uci_bike_sharing,Average rentals per hour,False,189.46308763450142
+no_kpi_verifier,uci_bike_sharing,Total casual rentals,True,620017.0
+no_kpi_verifier,uci_bike_sharing,Total registered rentals,True,2672662.0
+no_kpi_verifier,uci_bike_sharing,Registered share,False,0.8116983161735475
+full,uci_breast_cancer,Malignant share,False,0.37258347978910367
+full,uci_breast_cancer,Average radius,False,14.127291739894552
+full,uci_breast_cancer,Average area,False,654.8891036906855
+no_kpi_verifier,uci_breast_cancer,Malignant share,False,0.37258347978910367
+no_kpi_verifier,uci_breast_cancer,Average radius,False,14.127291739894552
+no_kpi_verifier,uci_breast_cancer,Average area,False,654.8891036906855
+full,uci_credit_default,Default rate,False,0.219
+full,uci_credit_default,Average credit limit,False,167955.484
+full,uci_credit_default,Total credit limit,True,3359109680.0
+full,uci_credit_default,Average age,False,35.4578
+no_kpi_verifier,uci_credit_default,Default rate,False,0.219
+no_kpi_verifier,uci_credit_default,Average credit limit,False,167955.484
+no_kpi_verifier,uci_credit_default,Total credit limit,True,3359109680.0
+no_kpi_verifier,uci_credit_default,Average age,False,35.4578
+full,uci_diabetes_hospitals,Average time in hospital,False,4.40435
+full,uci_diabetes_hospitals,Total medications,True,321571.0
+full,uci_diabetes_hospitals,Average lab procedures,False,43.05725
+full,uci_diabetes_hospitals,Distinct patients,False,17988.0
+full,uci_diabetes_hospitals,Readmission rate,False,0.46505
+no_kpi_verifier,uci_diabetes_hospitals,Average time in hospital,False,4.40435
+no_kpi_verifier,uci_diabetes_hospitals,Total medications,True,321571.0
+no_kpi_verifier,uci_diabetes_hospitals,Average lab procedures,False,43.05725
+no_kpi_verifier,uci_diabetes_hospitals,Distinct patients,False,17988.0
+no_kpi_verifier,uci_diabetes_hospitals,Readmission rate,False,0.46505
+full,uci_garment_employees,Average actual productivity,False,0.7350910969791145
+full,uci_garment_employees,Total incentive,True,45738.0
+full,uci_garment_employees,Total overtime,True,5467250.0
+full,uci_garment_employees,Average workers per team-day,False,34.60985797827903
+full,uci_garment_employees,Records,False,1197.0
+no_kpi_verifier,uci_garment_employees,Average actual productivity,False,0.7350910969791145
+no_kpi_verifier,uci_garment_employees,Total incentive,True,45738.0
+no_kpi_verifier,uci_garment_employees,Total overtime,True,5467250.0
+no_kpi_verifier,uci_garment_employees,Average workers per team-day,False,34.60985797827903
+no_kpi_verifier,uci_garment_employees,Records,False,1197.0
+full,uci_german_credit,Average duration (months),False,20.903
+full,uci_german_credit,Average credit amount,False,3271.258
+full,uci_german_credit,Total credit amount,True,3271258.0
+full,uci_german_credit,Bad-credit rate,False,0.3
+no_kpi_verifier,uci_german_credit,Average duration (months),False,20.903
+no_kpi_verifier,uci_german_credit,Average credit amount,False,3271.258
+no_kpi_verifier,uci_german_credit,Total credit amount,True,3271258.0
+no_kpi_verifier,uci_german_credit,Bad-credit rate,False,0.3
+full,uci_hcv,Average albumin,False,41.62019543973941
+full,uci_hcv,Average ALT,False,28.450814332247557
+full,uci_hcv,Average age,False,47.40813008130081
+full,uci_hcv,Records,False,615.0
+no_kpi_verifier,uci_hcv,Average albumin,False,41.62019543973941
+no_kpi_verifier,uci_hcv,Average ALT,False,28.450814332247557
+no_kpi_verifier,uci_hcv,Average age,False,47.40813008130081
+no_kpi_verifier,uci_hcv,Records,False,615.0
+full,uci_heart_disease,Average age,False,54.43894389438944
+full,uci_heart_disease,Average cholesterol,False,246.69306930693068
+full,uci_heart_disease,Disease rate,False,0.45874587458745875
+no_kpi_verifier,uci_heart_disease,Average age,False,54.43894389438944
+no_kpi_verifier,uci_heart_disease,Average cholesterol,False,246.69306930693068
+no_kpi_verifier,uci_heart_disease,Disease rate,False,0.45874587458745875
+full,uci_heart_failure,Death rate,False,0.3210702341137124
+full,uci_heart_failure,Average age,False,60.83389297658862
+full,uci_heart_failure,Average ejection fraction,False,38.08361204013378
+full,uci_heart_failure,Average serum creatinine,False,1.3938795986622072
+no_kpi_verifier,uci_heart_failure,Death rate,False,0.3210702341137124
+no_kpi_verifier,uci_heart_failure,Average age,False,60.83389297658862
+no_kpi_verifier,uci_heart_failure,Average ejection fraction,False,38.08361204013378
+no_kpi_verifier,uci_heart_failure,Average serum creatinine,False,1.3938795986622072
+full,uci_metro_traffic,Average traffic volume,False,3277.0338
+full,uci_metro_traffic,Total traffic volume,True,65540676.0
+full,uci_metro_traffic,Peak traffic volume,False,7260.0
+no_kpi_verifier,uci_metro_traffic,Average traffic volume,False,3277.0338
+no_kpi_verifier,uci_metro_traffic,Total traffic volume,True,65540676.0
+no_kpi_verifier,uci_metro_traffic,Peak traffic volume,False,7260.0
+full,uci_online_retail,Total units sold,True,106835.0
+full,uci_online_retail,Line items,False,20000.0
+full,uci_online_retail,Distinct customers,False,3066.0
+full,uci_online_retail,Distinct invoices,False,9369.0
+full,uci_online_retail,Gross revenue (Quantity x UnitPrice),False,178596.92200000002
+full,uci_online_retail,Average unit price,False,4.545210099999999
+no_kpi_verifier,uci_online_retail,Total units sold,True,106835.0
+no_kpi_verifier,uci_online_retail,Line items,False,20000.0
+no_kpi_verifier,uci_online_retail,Distinct customers,False,3066.0
+no_kpi_verifier,uci_online_retail,Distinct invoices,False,9369.0
+no_kpi_verifier,uci_online_retail,Gross revenue (Quantity x UnitPrice),False,178596.92200000002
+no_kpi_verifier,uci_online_retail,Average unit price,False,4.545210099999999
+full,uci_online_shoppers,Purchase rate,False,0.15474452554744525
+full,uci_online_shoppers,Average product-related duration,False,1194.7462199688268
+full,uci_online_shoppers,Total product-related pages,False,391249.0
+full,uci_online_shoppers,Average bounce rate,False,0.02219138047072182
+full,uci_online_shoppers,Weekend share of sessions,False,0.23260340632603407
+no_kpi_verifier,uci_online_shoppers,Purchase rate,False,0.15474452554744525
+no_kpi_verifier,uci_online_shoppers,Average product-related duration,False,1194.7462199688268
+no_kpi_verifier,uci_online_shoppers,Total product-related pages,False,391249.0
+no_kpi_verifier,uci_online_shoppers,Average bounce rate,False,0.02219138047072182
+no_kpi_verifier,uci_online_shoppers,Weekend share of sessions,False,0.23260340632603407
+full,uci_power_tetouan,Total zone 1 consumption,True,647099423.61241
+full,uci_power_tetouan,Average zone 1 consumption,False,32354.971180620498
+full,uci_power_tetouan,Average temperature,False,18.85566095
+no_kpi_verifier,uci_power_tetouan,Total zone 1 consumption,True,647099423.61241
+no_kpi_verifier,uci_power_tetouan,Average zone 1 consumption,False,32354.971180620498
+no_kpi_verifier,uci_power_tetouan,Average temperature,False,18.85566095
+full,uci_predictive_maintenance,Machine failure rate,False,0.0339
+full,uci_predictive_maintenance,Average torque,False,39.986909999999995
+full,uci_predictive_maintenance,Average air temperature,False,300.00493
+full,uci_predictive_maintenance,Average tool wear,False,107.951
+no_kpi_verifier,uci_predictive_maintenance,Machine failure rate,False,0.0339
+no_kpi_verifier,uci_predictive_maintenance,Average torque,False,39.986909999999995
+no_kpi_verifier,uci_predictive_maintenance,Average air temperature,False,300.00493
+no_kpi_verifier,uci_predictive_maintenance,Average tool wear,False,107.951
+full,uci_real_estate,Average price per unit area,False,37.980193236714975
+full,uci_real_estate,Average house age,False,17.71256038647343
+full,uci_real_estate,Total convenience stores,True,1695.0
+full,uci_real_estate,Highest price per unit area,False,117.5
+no_kpi_verifier,uci_real_estate,Average price per unit area,False,37.980193236714975
+no_kpi_verifier,uci_real_estate,Average house age,False,17.71256038647343
+no_kpi_verifier,uci_real_estate,Total convenience stores,True,1695.0
+no_kpi_verifier,uci_real_estate,Highest price per unit area,False,117.5
+full,uci_sales_weekly,Products,False,811.0
+full,uci_sales_weekly,Units sold in week 0,True,7220.0
+full,uci_sales_weekly,Units sold in week 51,True,7209.0
+full,uci_sales_weekly,Average weekly maximum,False,16.30826140567201
+no_kpi_verifier,uci_sales_weekly,Products,False,811.0
+no_kpi_verifier,uci_sales_weekly,Units sold in week 0,True,7220.0
+no_kpi_verifier,uci_sales_weekly,Units sold in week 51,True,7209.0
+no_kpi_verifier,uci_sales_weekly,Average weekly maximum,False,16.30826140567201
+full,uci_seoul_bike,Total rented bikes,True,6172314.0
+full,uci_seoul_bike,Average rented bikes per hour,False,704.6020547945205
+full,uci_seoul_bike,Peak rented bikes,False,3556.0
+full,uci_seoul_bike,Average temperature,False,12.882922374429223
+no_kpi_verifier,uci_seoul_bike,Total rented bikes,True,6172314.0
+no_kpi_verifier,uci_seoul_bike,Average rented bikes per hour,False,704.6020547945205
+no_kpi_verifier,uci_seoul_bike,Peak rented bikes,False,3556.0
+no_kpi_verifier,uci_seoul_bike,Average temperature,False,12.882922374429223
+full,uci_wholesale,Total fresh spend,True,5280131.0
+full,uci_wholesale,Total milk spend,True,2550357.0
+full,uci_wholesale,Total grocery spend,True,3498562.0
+full,uci_wholesale,Average fresh spend per customer,False,12000.297727272728
+full,uci_wholesale,"Total spend, all categories",False,14619500.0
+no_kpi_verifier,uci_wholesale,Total fresh spend,True,5280131.0
+no_kpi_verifier,uci_wholesale,Total milk spend,True,2550357.0
+no_kpi_verifier,uci_wholesale,Total grocery spend,True,3498562.0
+no_kpi_verifier,uci_wholesale,Average fresh spend per customer,False,12000.297727272728
+no_kpi_verifier,uci_wholesale,"Total spend, all categories",False,14619500.0
