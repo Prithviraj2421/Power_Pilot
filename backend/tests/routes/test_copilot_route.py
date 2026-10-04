@@ -137,3 +137,35 @@ def test_answers_declare_which_engine_produced_them(
     assert body["source"] in ("rules", "llm")
     assert body["verified"] is True
     assert body["verification_note"]
+
+
+def test_a_cited_llm_answer_comes_back_clean_with_its_citations(client: TestClient, registered_dataset_id: str) -> None:
+    """The model's [F12] tags never reach the page; the figures they pointed at are returned as citations."""
+    from types import SimpleNamespace
+
+    from app.core.config import Settings
+    from app.datasets.service import get_dataset_service
+    from app.intelligence.llm.grounding import build_facts
+    from app.intelligence.llm.llm_copilot import LlmCopilotService
+    from app.main import app
+    from app.routes.copilot_route import get_copilot_service
+
+    analysis = get_dataset_service().get_analysis(registered_dataset_id)
+    rows = next(f for f in build_facts(analysis.result).facts.values() if f.key == "dataset.rows")
+    reply = f"The dataset has {rows.value:,.0f} [{rows.id}] rows."
+    stub = SimpleNamespace(messages=SimpleNamespace(create=lambda **_: SimpleNamespace(
+        content=[SimpleNamespace(type="text", text=reply)], stop_reason="end_turn")))
+    app.dependency_overrides[get_copilot_service] = lambda: LlmCopilotService(settings=Settings(anthropic_api_key="k"), client=stub)
+    try:
+        body = _ask(client, registered_dataset_id, "How many rows?").json()
+    finally:
+        app.dependency_overrides.pop(get_copilot_service, None)
+
+    assert body["source"] == "llm" and body["answer"] == f"The dataset has {rows.value:,.0f} rows."
+    (citation,) = body["citations"]
+    assert citation["fact_id"] == rows.id and citation["label"] == "Number of rows in the dataset" and citation["value"] == rows.value
+    assert body["answer"][citation["start"] : citation["end"]] == f"{rows.value:,.0f}"
+
+
+def test_rules_answers_have_no_citations(client: TestClient, registered_dataset_id: str) -> None:
+    assert _ask(client, registered_dataset_id, "Summarize this dataset").json()["citations"] == []

@@ -31,8 +31,8 @@ from typing import Any, Optional
 from app.common.logger import get_logger
 from app.core.config import Settings, get_settings
 from app.intelligence.copilot_engine import CopilotEngine, CopilotResponse
-from app.intelligence.llm.grounding import SYSTEM_PROMPT, build_fact_sheet
-from app.intelligence.llm.verifier import VerificationResult, verify_numeric_claims
+from app.intelligence.llm.grounding import SYSTEM_PROMPT, build_facts
+from app.intelligence.llm.verifier import verify_citations
 from app.models.master_intelligence_result import MasterIntelligenceResult
 
 logger = get_logger("LlmCopilot")
@@ -51,6 +51,8 @@ class GroundedAnswer:
     verified: bool
     verification_note: str
     fallback_reason: Optional[str] = None
+    # Where each cited figure in ``answer`` came from: [{start, end, text, fact_id, label, value, unit}]
+    citations: tuple[dict, ...] = ()
 
     @classmethod
     def from_rules(
@@ -139,10 +141,10 @@ class LlmCopilotService:
                 rules_response, fallback_reason="The language model client is unavailable."
             )
 
-        fact_sheet = build_fact_sheet(result)
+        sheet = build_facts(result)
 
         try:
-            answer_text = self._complete(client, query, fact_sheet)
+            answer_text = self._complete(client, query, sheet.text)
         except Exception as exc:
             logger.error(f"LLM call failed, answering from the deterministic engine: {exc}")
             return GroundedAnswer.from_rules(
@@ -154,7 +156,7 @@ class LlmCopilotService:
                 rules_response, fallback_reason="The language model returned an empty answer."
             )
 
-        verification = verify_numeric_claims(answer_text, fact_sheet, query)
+        verification = verify_citations(answer_text, sheet.facts, query)
         if not verification.grounded:
             # An answer that states a figure absent from the analysis is exactly
             # what this feature exists to prevent, so it is discarded rather than
@@ -165,14 +167,14 @@ class LlmCopilotService:
             return GroundedAnswer.from_rules(
                 rules_response,
                 fallback_reason=(
-                    "The generated answer contained figures that do not appear in the "
+                    "The generated answer contained figures that could not be tied to the right fact in the "
                     f"analysis ({', '.join(verification.unsupported_values)}), so the "
                     "verified deterministic answer is shown instead."
                 ),
             )
 
         return GroundedAnswer(
-            answer=answer_text.strip(),
+            answer=verification.clean_text.strip(),
             intent=rules_response.intent,
             # Evidence stays from the deterministic engine: it is the actual
             # provenance, independent of how the answer was phrased.
@@ -182,7 +184,17 @@ class LlmCopilotService:
             source="llm",
             verified=True,
             verification_note=verification.summary,
+            citations=tuple(self._trimmed(c, verification.clean_text) for c in verification.citations),
         )
+
+    @staticmethod
+    def _trimmed(citation: Any, clean_text: str) -> dict:
+        """A citation as JSON, with offsets adjusted for the leading whitespace ``answer`` loses by being stripped."""
+        shift = len(clean_text) - len(clean_text.lstrip())
+        data = citation.to_dict()
+        data["start"] -= shift
+        data["end"] -= shift
+        return data
 
     def _complete(self, client: Any, query: str, fact_sheet: str) -> str:
         """One Claude call. Returns the concatenated text blocks."""

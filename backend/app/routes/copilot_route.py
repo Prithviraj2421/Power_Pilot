@@ -84,4 +84,6 @@ def ask_copilot(
         "verified": answer.verified,
         "verification_note": answer.verification_note,
         "fallback_reason": answer.fallback_reason,
+        # Each figure the model cited: its position in ``answer``, the fact id, what it means, and the fact's value.
+        "citations": list(answer.citations),
     }

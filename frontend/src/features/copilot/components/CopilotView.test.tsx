@@ -57,6 +57,7 @@ const answer = {
   verified: true,
   verification_note: 'All 1 numeric claim(s) trace to the analysis.',
   fallback_reason: null,
+  citations: [],
 };
 
 describe('CopilotView', () => {

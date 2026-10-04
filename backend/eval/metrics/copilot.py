@@ -123,6 +123,11 @@ def grade(ds: Dataset, question: Question, answer: str, universe: list[float]) -
 
 def pipeline_facts(result) -> list[float]:
     """Numbers the pipeline itself computed and handed to the copilot (its fact sheet). A pipeline system may cite these too."""
-    from app.intelligence.llm.grounding import build_fact_sheet
+    from app.intelligence.llm.grounding import build_facts
 
-    return [n.value for n in numbers_in(build_fact_sheet(result))]
+    values = []
+    for fact in build_facts(result).facts.values():
+        values.append(fact.value)
+        if fact.unit == "ratio":
+            values.append(fact.value * 100)  # an answer may write a ratio as a percent
+    return values

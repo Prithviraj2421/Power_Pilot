@@ -1,6 +1,20 @@
 import { apiClient } from '../api/apiClient';
 import { API_ENDPOINTS } from '../api/endpoints';
 
+/** A figure in the answer that the model tied to a fact in the analysis. Offsets index into `answer`. */
+export interface CopilotCitation {
+  start: number;
+  end: number;
+  /** The figure as written, e.g. "$2.30M". */
+  text: string;
+  fact_id: string;
+  /** What the fact means, e.g. "Total Sales Revenue (KPI value)". */
+  label: string;
+  /** The fact's stored value. */
+  value: number;
+  unit: 'count' | 'number' | 'percent' | 'ratio' | 'currency' | 'coefficient';
+}
+
 export interface CopilotApiResponse {
   status: 'success' | 'error';
   dataset_id: string;
@@ -18,6 +32,8 @@ export interface CopilotApiResponse {
   verification_note: string;
   /** Present when the LLM was skipped or its answer was rejected. */
   fallback_reason: string | null;
+  /** Where each cited figure in `answer` came from; empty for answers composed by the rules engine. */
+  citations: CopilotCitation[];
 }
 
 export interface CopilotStatus {

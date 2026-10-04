@@ -2,6 +2,8 @@ import React from 'react';
 import { Sparkles, User, CheckCircle2, AlertCircle, ShieldCheck } from 'lucide-react';
 import { Badge } from '../../../components/ui/Badge';
 import { cn } from '../../../utils/cn';
+import type { CopilotCitation } from '../../../services/copilotService';
+import { formatFactValue, segmentAnswer } from './citations';
 
 export interface ChatMessage {
   id: string;
@@ -15,6 +17,8 @@ export interface ChatMessage {
   source?: 'llm' | 'rules';
   /** Set when the language model was skipped or its answer was rejected. */
   fallbackReason?: string | null;
+  /** Cited figures in `content`, for hover provenance. */
+  citations?: CopilotCitation[];
 }
 
 export const CopilotChatMessage: React.FC<{
@@ -46,7 +50,31 @@ export const CopilotChatMessage: React.FC<{
           )}
         </div>
 
-        <p className="text-sm text-gray-100 leading-relaxed">{message.content}</p>
+        <p className="text-sm text-gray-100 leading-relaxed">
+          {segmentAnswer(message.content, isUser ? [] : message.citations).map((part, index) =>
+            'citation' in part ? (
+              <span
+                key={index}
+                tabIndex={0}
+                data-testid="citation"
+                data-fact-id={part.citation.fact_id}
+                aria-label={`${part.text}: ${part.citation.label} = ${formatFactValue(part.citation)}`}
+                className="group relative cursor-help underline decoration-dotted decoration-primary underline-offset-4 focus:outline-none focus:ring-1 focus:ring-primary rounded-sm"
+              >
+                {part.text}
+                <span
+                  role="tooltip"
+                  className="pointer-events-none absolute left-0 top-full z-20 mt-1 hidden w-max max-w-xs rounded-lg border border-white/15 bg-surface px-3 py-2 text-left text-[11px] leading-snug text-gray-200 shadow-glass group-hover:block group-focus:block"
+                >
+                  <span className="block font-semibold text-white">{part.citation.label}</span>
+                  <span className="block font-mono">{formatFactValue(part.citation)}</span>
+                </span>
+              </span>
+            ) : (
+              <React.Fragment key={index}>{part.text}</React.Fragment>
+            )
+          )}
+        </p>
 
         {/* Provenance. A reader should never have to guess whether an answer was
             generated or composed from the analysis directly. */}

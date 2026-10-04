@@ -44,8 +44,9 @@ assembles the result (the docstring says "12 stages"; the 12th is the assembly).
   Hints (`diagnostics.py`) never become matches. Proven cells become measures via `migration.py`, written by the same engine-checked
   `LiveModelService` writer as KPIs. The IR has date-part filters (`DatePart`) and `Measure.filters` (a tuple).
 - `export_center/` (xlsx/pdf/docx/html), `services/powerbi_export_service.py` with `common/powerbi_names.py`
-  (one table-name and DAX-escaping rule for measures, model and M script), `intelligence/llm/` (fact sheet + numeric
-  verifier; any failure falls back to the rules copilot).
+  (one table-name and DAX-escaping rule for measures, model and M script), `intelligence/llm/` (fact sheet with a
+  stable id and meaning per number + citation verifier: every number the model writes must carry its fact id and match that fact's
+  value, unit and meaning; the tags are stripped and returned as `citations`; any failure falls back to the rules copilot).
 
 ## Run
 ```

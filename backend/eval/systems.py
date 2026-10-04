@@ -48,12 +48,13 @@ def ablation(variant: str) -> Iterator[None]:
     if variant == "no_kpi_verifier":
         patches.append(mock.patch("app.intelligence.kpi_engine.verify", _permissive_verify))
     elif variant == "no_copilot_verifier":
-        from app.intelligence.llm.verifier import VerificationResult
+        from app.intelligence.llm.facts import strip_citations
+        from app.intelligence.llm.verifier import CitationResult
 
-        def accept_everything(*_args: Any, **_kwargs: Any) -> VerificationResult:
-            return VerificationResult(grounded=True, unsupported_values=(), checked_count=0)
+        def accept_everything(answer: str, *_args: Any, **_kwargs: Any) -> CitationResult:
+            return CitationResult(grounded=True, clean_text=strip_citations(answer))
 
-        patches.append(mock.patch("app.intelligence.llm.llm_copilot.verify_numeric_claims", accept_everything))
+        patches.append(mock.patch("app.intelligence.llm.llm_copilot.verify_citations", accept_everything))
     elif variant == "no_reverse_consistency":
         patches.append(mock.patch("app.reverse.consistency.resolve", _resolve_without_neighbours))
     elif variant == "no_reverse_gate":

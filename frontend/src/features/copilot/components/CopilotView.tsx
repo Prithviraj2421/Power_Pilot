@@ -109,6 +109,7 @@ export const CopilotView: React.FC = () => {
           intent: response.intent,
           source: response.source,
           fallbackReason: response.fallback_reason,
+          citations: response.citations ?? [],
           evidence: response.evidence,
           recommended_actions: response.recommended_actions,
           suggested_followups: response.suggested_followups,

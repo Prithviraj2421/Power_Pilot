@@ -14,7 +14,7 @@ from typing import Any
 import pytest
 
 from app.core.config import Settings
-from app.intelligence.llm.grounding import build_fact_sheet
+from app.intelligence.llm.grounding import build_fact_sheet, build_facts
 from app.intelligence.llm.llm_copilot import LlmCopilotService
 from app.models.master_intelligence_result import MasterIntelligenceResult
 
@@ -93,14 +93,18 @@ def test_rules_answers_are_marked_verified(retail_result: MasterIntelligenceResu
 
 def test_a_grounded_llm_answer_is_returned(retail_result: MasterIntelligenceResult) -> None:
     quality = retail_result.quality_report
-    generated = f"Data quality scored {quality.overall_score:.1f}% overall."
+    score = next(f for f in build_facts(retail_result).facts.values() if f.key == "quality.overall_score")
+    generated = f"Data quality scored {quality.overall_score:.1f}% [{score.id}] overall."
     service = _service(_StubClient(answer=generated))
 
     answer = service.ask("How is the data quality?", retail_result)
 
     assert answer.source == "llm"
     assert answer.verified is True
-    assert answer.answer == generated
+    assert answer.answer == f"Data quality scored {quality.overall_score:.1f}% overall."  # the tag is not shown
+    (citation,) = answer.citations
+    assert citation["fact_id"] == score.id and citation["label"] == "Overall data quality score"
+    assert answer.answer[citation["start"] : citation["end"]] == f"{quality.overall_score:.1f}%"
     assert answer.fallback_reason is None
 
 
@@ -157,8 +161,9 @@ def test_a_fabricated_figure_is_discarded(retail_result: MasterIntelligenceResul
     answer = service.ask("How did we do?", retail_result)
 
     assert answer.source == "rules"
-    assert "do not appear in the analysis" in (answer.fallback_reason or "")
+    assert "could not be tied to the right fact" in (answer.fallback_reason or "")
     assert "23.8%" in (answer.fallback_reason or "")
+    assert answer.citations == ()
     assert "23.8%" not in answer.answer, "the fabricated answer must not reach the user"
 
 
@@ -265,3 +270,23 @@ def test_fact_sheet_does_not_list_identifier_twice(
 def test_fact_sheet_is_ascii_safe(retail_result: MasterIntelligenceResult) -> None:
     """It crosses an HTTP boundary and is logged; non-ASCII separators invite mojibake."""
     assert build_fact_sheet(retail_result).isascii()
+
+
+def test_a_real_number_cited_with_the_wrong_fact_is_discarded(retail_result: MasterIntelligenceResult) -> None:
+    """The row count is a real figure in the analysis, but it is not the revenue."""
+    rows = next(f for f in build_facts(retail_result).facts.values() if f.key == "dataset.rows")
+    service = _service(_StubClient(answer=f"Revenue is {rows.value:,.0f} [{rows.id}]."))
+
+    answer = service.ask("What is revenue?", retail_result)
+
+    assert answer.source == "rules" and answer.citations == ()
+    assert str(int(rows.value)) in (answer.fallback_reason or "")
+
+
+def test_the_model_is_told_to_cite_and_is_shown_the_ids(retail_result: MasterIntelligenceResult) -> None:
+    stub = _StubClient(answer="The analysis does not cover that.")
+    _service(stub).ask("What is churn?", retail_result)
+
+    system = stub.calls[0]["system"]
+    assert "fact id" in system[0]["text"] and "[F12]" in system[0]["text"]
+    assert "[F1]" in system[1]["text"] and "Number of rows in the dataset" not in system[1]["text"]  # ids in the text, meanings via the key
